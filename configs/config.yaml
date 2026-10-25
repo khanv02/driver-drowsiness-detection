@@ -1,0 +1,20 @@
+# V0 uses EAR explicitly; V1 uses the trained checkpoint. All durations are seconds.
+face_model: models/pretrained/face_landmarker.task
+checkpoint: models/checkpoints/eye_cnn.pt
+ear_threshold: 0.21
+closed_seconds: 2.0
+cooldown_seconds: 5.0
+max_gap_seconds: 0.25
+window_seconds: 60.0
+min_valid_seconds: 30.0
+min_coverage: 0.8
+perclos_threshold: 0.20
+combined_perclos_threshold: 0.10
+cnn_threshold: 0.5
+yawn_threshold: 0.6
+yawn_seconds: 1.5
+yawn_count: 2
+head_down_degrees: 20.0
+head_down_seconds: 1.5
+width: 640
+height: 480

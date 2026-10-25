@@ -1,0 +1,47 @@
+[project]
+name = "drowsyalert"
+version = "0.2.0"
+description = "Layered webcam drowsiness demo with EAR, CNN and temporal features."
+readme = "README.md"
+requires-python = ">=3.12,<3.15"
+authors = [{ name = "khanv02", email = "189113800+khanv02@users.noreply.github.com" }]
+dependencies = ["numpy>=1.26", "opencv-python>=4.10", "mediapipe>=0.10.20", "PyYAML>=6"]
+
+[project.optional-dependencies]
+cnn = ["torch>=2.5,<3"]
+train = ["torch>=2.5,<3", "pillow>=10", "scikit-learn>=1.5", "matplotlib>=3.8"]
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.9"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/drowsyalert"]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'win32'" }]
+
+[project.scripts]
+drowsyalert = "drowsyalert.main:main"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
