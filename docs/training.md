@@ -75,3 +75,17 @@ records checkpoint/manifest hashes, counts, Accuracy, confusion matrix, per-clas
 Precision/Recall/F1, macro F1, and whether Accuracy >= 0.90. It refuses to overwrite an
 existing `metrics.json`. A successful synthetic smoke run proves wiring and checkpoint
 compatibility only; it is not evidence of model quality or real-world drowsiness performance.
+
+## Runtime confidence policy
+
+CNN inference is recorded as source `cnn_eye_classifier`; it never replaces the
+`landmark_ear` identity. Each valid eye produces an independent closed probability. With
+the default `cnn_threshold: 0.5` and `cnn_uncertainty_margin: 0.1`, probabilities at or
+below 0.4 are confidently open, probabilities at or above 0.6 are confidently closed, and
+values between those bounds are unknown. One confidently open eye establishes an open
+observation; closed requires two confidently closed eyes. Uncertain or unilateral-closed
+evidence remains unknown.
+
+Every runtime summary and CSV row records the source, threshold, uncertainty margin, and
+checkpoint SHA-256. Missing or incompatible checkpoints fail explicitly; the application
+does not fall back to EAR while claiming CNN evidence.

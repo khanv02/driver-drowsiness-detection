@@ -34,7 +34,7 @@ class FaceObservation:
 @dataclass(frozen=True)
 class EyeObservation:
     state: EyeState
-    probabilities: tuple[float, float] | None = None
+    probabilities: tuple[float | None, float | None] | None = None
     source: str = "unknown"
     reason: str = ""
 

@@ -26,6 +26,9 @@ LOG_FIELDS = [
     "input_kind",
     "method",
     "eye_source",
+    "eye_threshold",
+    "eye_uncertainty_margin",
+    "checkpoint_sha256",
     "valid",
     "observation_reason",
     "eye_state",
@@ -66,11 +69,21 @@ def run(
 ):
     predictor = EARBackend(config.ear_threshold)
     eye_source = "landmark_ear"
+    eye_threshold = config.ear_threshold
+    eye_uncertainty_margin = None
+    checkpoint_sha256 = None
     if backend == "cnn":
         from drowsyalert.models.eye_cnn import CNNBackend
 
-        predictor = CNNBackend(config.resource(config.checkpoint), config.cnn_threshold)
-        eye_source = "cnn"
+        predictor = CNNBackend(
+            config.resource(config.checkpoint),
+            config.cnn_threshold,
+            config.cnn_uncertainty_margin,
+        )
+        eye_source = predictor.source
+        eye_threshold = predictor.threshold
+        eye_uncertainty_margin = predictor.uncertainty_margin
+        checkpoint_sha256 = predictor.checkpoint_sha256
     tracker = TemporalTracker(
         config.window_seconds,
         config.min_valid_seconds,
@@ -113,6 +126,9 @@ def run(
                             input_kind=sample.source_kind,
                             method=method,
                             eye_source=eyes.source,
+                            eye_threshold=eye_threshold,
+                            eye_uncertainty_margin=eye_uncertainty_margin,
+                            checkpoint_sha256=checkpoint_sha256,
                             valid=face.valid,
                             observation_reason=face.reason,
                             eye_state=eyes.state,
@@ -166,6 +182,9 @@ def run(
         "fps": frame_count / seconds if seconds else 0,
         "input_kind": "video_media" if video is not None else "live_monotonic",
         "eye_source": eye_source,
+        "eye_threshold": eye_threshold,
+        "eye_uncertainty_margin": eye_uncertainty_margin,
+        "checkpoint_sha256": checkpoint_sha256,
         "method": method,
         "config": asdict(config),
     }

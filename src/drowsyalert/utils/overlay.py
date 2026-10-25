@@ -29,7 +29,11 @@ def draw_overlay(frame, face, eyes, temporal, extra, decision, fps):
         ear_text = [f"{value:.3f}" if value is not None else "unknown" for value in face.ears]
         lines.append(f"EAR: {ear_text[0]} / {ear_text[1]}")
     if eyes.probabilities:
-        lines.append(f"P(closed): {eyes.probabilities[0]:.2f} / {eyes.probabilities[1]:.2f}")
+        probability_text = [
+            f"{value:.2f}" if value is not None else "unknown"
+            for value in eyes.probabilities
+        ]
+        lines.append(f"P(closed): {probability_text[0]} / {probability_text[1]}")
     if extra.mar is not None:
         lines.append(f"MAR: {extra.mar:.2f} | yawns: {extra.yawns}")
     if extra.angles is not None:

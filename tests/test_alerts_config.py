@@ -33,6 +33,7 @@ def test_muted_audio_never_emits():
         "width: 1.5",
         "- not a mapping",
         "max_gap_seconds: .nan",
+        "cnn_threshold: 0.5\ncnn_uncertainty_margin: 0.6",
     ],
 )
 def test_config_rejects_invalid_values(tmp_path, text):

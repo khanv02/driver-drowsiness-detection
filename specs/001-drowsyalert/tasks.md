@@ -310,9 +310,9 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 
 ### T-014 leaf tasks — Distinct runtime CNN evidence
 
-- [ ] T-087 [Parent: T-014] Add tests for per-eye probabilities, configurable uncertainty, bilateral policy, invalid crops, missing/incompatible checkpoints, and source identity in `tests/test_cnn_inference.py` (depends on T-081).
-- [ ] T-088 [Parent: T-014] Implement explicit CNN uncertainty and bilateral eye-state behavior in `src/drowsyalert/models/eye_cnn.py` (depends on T-087).
-- [ ] T-089 [Parent: T-014] Integrate CNN checkpoint/source/threshold identity into runtime results and CSV logging without changing the landmark baseline (depends on T-088).
+- [X] T-087 [Parent: T-014] Add tests for per-eye probabilities, configurable uncertainty, bilateral policy, invalid crops, missing/incompatible checkpoints, and source identity in `tests/test_cnn_inference.py` (depends on T-081).
+- [X] T-088 [Parent: T-014] Implement explicit CNN uncertainty and bilateral eye-state behavior in `src/drowsyalert/models/eye_cnn.py` (depends on T-087).
+- [X] T-089 [Parent: T-014] Integrate CNN checkpoint/source/threshold identity into runtime results and CSV logging without changing the landmark baseline (depends on T-088).
 - [ ] T-090 [Parent: Phase 3] Run the full Phase 3 suite and Ruff checks; record completed code paths, dataset blockers, and G3 status without fabricating results (depends on T-075–T-089).
 
 ### Phase 3 acceptance gate
