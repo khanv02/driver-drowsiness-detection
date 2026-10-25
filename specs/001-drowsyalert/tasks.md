@@ -189,7 +189,7 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 - [X] T-064 [Parent: T-008] Complete temporal source/window metadata and interval behavior in `src/drowsyalert/features/temporal.py` and `src/drowsyalert/types.py` (depends on T-063).
 - [X] T-065 [Parent: T-008] Run focused temporal tests and Ruff, then record T-008 completion in `specs/001-drowsyalert/tasks.md` (depends on T-064).
 
-- [ ] T-009 — Establish landmark/PERCLOS baseline integration gate
+- [X] T-009 — Establish landmark/PERCLOS baseline integration gate
 
 - **Phase:** 2 — Landmark and PERCLOS Baseline.
 - **Priority:** P0.
@@ -203,14 +203,16 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 
 ### T-009 leaf tasks — Baseline integration gate
 
-- [ ] T-066 [Parent: T-009] Add a deterministic fake-source/fake-detector integration test covering valid, unknown, and timestamped replay records in `tests/test_pipeline.py`.
-- [ ] T-067 [Parent: T-009] Complete landmark-source/timebase/window/coverage metadata in `src/drowsyalert/pipeline/realtime.py` and keep offline replay silent (depends on T-066).
-- [ ] T-068 [Parent: T-009] Record automated replay evidence and any unavailable webcam/model/manual checks in `docs/verification.md` without claiming skipped hardware checks passed (depends on T-067).
-- [ ] T-069 [Parent: T-009] Run the Phase 2 test/lint suite, update requirement evidence and G2 status, and mark T-009 complete in `specs/001-drowsyalert/tasks.md` (depends on T-068).
+- [X] T-066 [Parent: T-009] Add a deterministic fake-source/fake-detector integration test covering valid, unknown, and timestamped replay records in `tests/test_pipeline.py`.
+- [X] T-067 [Parent: T-009] Complete landmark-source/timebase/window/coverage metadata in `src/drowsyalert/pipeline/realtime.py` and keep offline replay silent (depends on T-066).
+- [X] T-068 [Parent: T-009] Record automated replay evidence and any unavailable webcam/model/manual checks in `docs/verification.md` without claiming skipped hardware checks passed (depends on T-067).
+- [X] T-069 [Parent: T-009] Run the Phase 2 test/lint suite, update requirement evidence and G2 status, and mark T-009 complete in `specs/001-drowsyalert/tasks.md` (depends on T-068).
 
 ### Phase 2 acceptance gate
 
 G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmark-derived eye state and PERCLOS are separately traceable; gaps and invalid input remain unknown; unit and integration tests pass. No CNN accuracy claim is made at this gate.
+
+**G2 status (2026-10-26): Passed for automated code progression.** The full suite reports 41 passed and 1 optional-CNN skip; Ruff passes. Physical webcam, real Face Landmarker asset, real video codec, and audio checks remain explicitly unverified in `docs/verification.md` and are not claimed as passed.
 
 ## Phase 3 — CNN Eye Classification
 
