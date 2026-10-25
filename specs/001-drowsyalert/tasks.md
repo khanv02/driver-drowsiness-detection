@@ -254,10 +254,10 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 
 ### T-011 leaf tasks — Validated preparation pipeline
 
-- [ ] T-076 [Parent: T-011] Add synthetic tests for label mapping, rejected samples, manifest schema, duplicate handling, group-disjoint splits, and deterministic output in `tests/test_cnn_dataset.py` (depends on T-074).
-- [ ] T-077 [Parent: T-011] Implement strict label/group/manifest validation and leakage-safe deterministic preparation in `src/drowsyalert/models/dataset.py` (depends on T-076).
-- [ ] T-078 [Parent: T-011] Update the preparation CLI and generated provenance report with source identity, transformations, hashes, split counts, and warnings (depends on T-077).
-- [ ] T-079 [Parent: T-011] Run the synthetic preparation suite and Ruff checks, then document which real-data assertions remain pending T-075 (depends on T-078).
+- [X] T-076 [Parent: T-011] Add synthetic tests for label mapping, rejected samples, manifest schema, duplicate handling, group-disjoint splits, and deterministic output in `tests/test_cnn_dataset.py` (depends on T-074).
+- [X] T-077 [Parent: T-011] Implement strict label/group/manifest validation and leakage-safe deterministic preparation in `src/drowsyalert/models/dataset.py` (depends on T-076).
+- [X] T-078 [Parent: T-011] Update the preparation CLI and generated provenance report with source identity, transformations, hashes, split counts, and warnings (depends on T-077).
+- [X] T-079 [Parent: T-011] Run the synthetic preparation suite and Ruff checks, then document which real-data assertions remain pending T-075 (depends on T-078).
 
 - [ ] T-012 — Train and validate the eye-state CNN
 
