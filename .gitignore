@@ -1,0 +1,106 @@
+﻿# Python bytecode and build output
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+wheels/
+
+# Local Python environments
+.venv/
+venv/
+env/
+.tox/
+.nox/
+.hypothesis/
+.uv-cache/
+
+# Tool caches and coverage
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyright/
+.cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.ipynb_checkpoints/
+
+# Local credentials; keep example templates
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Credential stores and private keys
+.aws/
+.azure/
+.gcloud/
+.ssh/
+.kaggle/
+.codex/
+kaggle.json
+credentials.json
+service-account*.json
+openaiapirc
+.netrc
+.pypirc
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Editor, OS and temporary files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+~$*
+*.tmp
+*.temp
+*.swp
+*.swo
+*.log
+*.log.*
+*.bak
+*.old
+*.stackdump
+
+# Keep raw, processed, and consented participant data out of Git.
+# Only documentation and empty placeholders may be tracked under data/.
+/data/**
+!/data/**/
+!/data/**/.gitkeep
+!/data/**/README.md
+
+# Common standalone dataset staging directory
+/dataset/**
+!/dataset/**/
+!/dataset/**/.gitkeep
+!/dataset/**/README.md
+
+# Downloaded model assets and trained checkpoints stay local; source code is under src/.
+/models/**
+!/models/**/
+!/models/**/.gitkeep
+!/models/**/README.md
+
+# Generated experiment results, figures, and logs stay local.
+/outputs/**
+!/outputs/**/
+!/outputs/**/.gitkeep
+!/outputs/**/README.md
+
+# Local experiment trackers and training runs
+/runs/
+/mlruns/
+/wandb/
+
+# Archived metadata from the former nested application repository
+/.legacy-my-project-git/
