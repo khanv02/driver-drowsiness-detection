@@ -292,8 +292,8 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 
 ### T-013 leaf tasks — Frozen held-out evaluation
 
-- [ ] T-084 [Parent: T-013] Add known-confusion-matrix tests for counts, Accuracy, per-class Precision/Recall/F1, macro F1, and empty/invalid inputs in `tests/test_cnn_metrics.py` (depends on T-081).
-- [ ] T-085 [Parent: T-013] Implement a one-way held-out evaluator with checkpoint/manifest identity, threshold policy, and machine-readable results (depends on T-084).
+- [X] T-084 [Parent: T-013] Add known-confusion-matrix tests for counts, Accuracy, per-class Precision/Recall/F1, macro F1, and empty/invalid inputs in `tests/test_cnn_metrics.py` (depends on T-081).
+- [X] T-085 [Parent: T-013] Implement a one-way held-out evaluator with checkpoint/manifest identity, threshold policy, and machine-readable results (depends on T-084).
 - [ ] T-086 [Parent: T-013] Evaluate the frozen checkpoint once on the owner-approved real CEW test split and record whether Accuracy ≥0.90 was met (depends on T-075, T-083, T-085; blocked until dataset/model exist).
 
 - [ ] T-014 — Integrate CNN inference as a distinct eye-state source

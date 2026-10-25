@@ -59,6 +59,19 @@ improvement. Training never constructs or measures the test split.
   seed, selected epoch, validation scores, and training settings.
 
 The test split remains sealed until the checkpoint and inference threshold are frozen.
-Held-out evaluation is a separate one-way command implemented under T-013. A successful
-synthetic smoke run proves wiring and checkpoint compatibility only; it is not evidence of
-model quality or real-world drowsiness performance.
+After that freeze, run the held-out evaluation once into a new result directory:
+
+```powershell
+uv run python scripts/evaluate_model.py `
+  --manifest data/processed/manifest.csv `
+  --checkpoint models/checkpoints/eye_cnn.pt `
+  --output outputs/results/eye_cnn-heldout `
+  --threshold 0.5 `
+  --device auto
+```
+
+The evaluator verifies that the checkpoint was validation-selected from the exact manifest,
+records checkpoint/manifest hashes, counts, Accuracy, confusion matrix, per-class
+Precision/Recall/F1, macro F1, and whether Accuracy >= 0.90. It refuses to overwrite an
+existing `metrics.json`. A successful synthetic smoke run proves wiring and checkpoint
+compatibility only; it is not evidence of model quality or real-world drowsiness performance.
