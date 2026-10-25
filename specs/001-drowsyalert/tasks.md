@@ -313,11 +313,13 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - [X] T-087 [Parent: T-014] Add tests for per-eye probabilities, configurable uncertainty, bilateral policy, invalid crops, missing/incompatible checkpoints, and source identity in `tests/test_cnn_inference.py` (depends on T-081).
 - [X] T-088 [Parent: T-014] Implement explicit CNN uncertainty and bilateral eye-state behavior in `src/drowsyalert/models/eye_cnn.py` (depends on T-087).
 - [X] T-089 [Parent: T-014] Integrate CNN checkpoint/source/threshold identity into runtime results and CSV logging without changing the landmark baseline (depends on T-088).
-- [ ] T-090 [Parent: Phase 3] Run the full Phase 3 suite and Ruff checks; record completed code paths, dataset blockers, and G3 status without fabricating results (depends on T-075–T-089).
+- [X] T-090 [Parent: Phase 3] Run the full Phase 3 suite and Ruff checks; record completed code paths, dataset blockers, and G3 status without fabricating results (code verification depends on T-085 and T-089; final G3 pass depends on T-075 and T-086).
 
 ### Phase 3 acceptance gate
 
 G3 passes when a licensed dataset/split is documented, data-loading and training paths are tested, a compatible trained model exists, held-out classification metrics are recorded, and CNN inference is integrated as distinct evidence. If dataset access/rights block the work, G3 is blocked and no accuracy result is claimed.
+
+**G3 status (2026-10-26): Blocked on real-data evidence.** The Phase 3 software path passes 78 automated tests and Ruff. Eighteen of twenty Phase 3 leaf tasks are complete. T-075 requires the owner-provided CEW eye-patch archive under `data/raw/cew/`; T-086 then requires one frozen held-out evaluation. No CEW checkpoint or accuracy result is claimed.
 
 ## Phase 4 — Real-Time Drowsiness Alert
 
@@ -607,7 +609,7 @@ Parallel work is allowed only after listed dependencies are complete and when se
 - **Verification**: Automated tests are scheduled alongside each behavior, beginning in Phase 2; regression is repeated in Phase 7.
 - **Data/research separation**: Dataset review, volunteer consent, labeling, protocol approval, and comparative evaluation are explicitly research/data tasks, separate from coding.
 - **No fabricated evidence**: Dataset availability, target attainment, and experimental outcomes remain unknown until measured; blocked paths are recorded as blocked.
-- **Current readiness**: Phase 1 parent tasks T-001–T-004 are complete, G1 passed, checkpoint `3f717de` preserves the root-layout baseline, and `feature/001-drowsyalert` is ready for Phase 2 leaf-task development. Research/data decisions remain owned blockers for their dependent tasks; no dataset/model download, dependency installation, or volunteer capture has been authorized by completing G1.
+- **Current readiness**: G1 and G2 passed. The Phase 3 software path is complete and verified on `phase/3-cnn-eye-classification`; G3 remains blocked only on owner-provided CEW files (T-075), real training, and the frozen held-out evaluation (T-086). No dataset, trained CEW checkpoint, or performance result is committed or claimed.
 
 ## Format and traceability summary
 
@@ -616,4 +618,4 @@ Parallel work is allowed only after listed dependencies are complete and when se
 - Research/data tasks: T-001, T-010, T-023, T-024, T-027; implementation/environment tasks are otherwise separated as labelled.
 - T-001–T-031 are parent work packages, not the intended smallest execution units. Add focused leaf tasks with stable IDs before starting each parent; avoid speculative leaf tasks where dataset/protocol approvals may change the work.
 - Every leaf task must identify its parent, phase, dependencies, affected paths, verification, and recovery branch. Keep a leaf to one behavior or artifact whenever practical.
-- All task items use unchecked checklist syntax and stable IDs. Parallel opportunities are explicitly bounded above; the default AI-assisted workflow is one leaf task at a time.
+- All task items use stable IDs and checklist syntax; completed work is checked only after its recorded verification. Parallel opportunities are explicitly bounded above; the default AI-assisted workflow is one leaf task at a time.

@@ -56,3 +56,63 @@ Observed result:
 ### G2 conclusion
 
 The deterministic landmark/PERCLOS baseline passes its automated normal, boundary, invalid, and integration checks. G2 is accepted for code progression with the asset-dependent checks above explicitly pending. This gate establishes implementation behavior only; it does not demonstrate real-world accuracy, model quality, alert effectiveness, or achievement of the `>=0.90` research targets.
+
+## Phase 3 — CNN eye classification
+
+**Date:** 2026-10-26
+
+**Branch:** `phase/3-cnn-eye-classification`
+
+**Scope:** T-010–T-014 / G3
+
+### Automated evidence
+
+| Area | Evidence | Result |
+|---|---|---|
+| Dataset authority | CEW research/non-commercial acquisition and no-redistribution procedure documented; unknown-license Kaggle source rejected | Code/documentation complete; local CEW files pending |
+| Dataset preparation | Synthetic tests cover labels, ambiguity, unreadable input, exact duplicates, group leakage, deterministic splits, manifest schema, hashes, and provenance | Passed |
+| Training | Tests cover deterministic seeds, strict manifest loading, validation-only selection, early checkpoint metadata, and a tiny synthetic training/checkpoint smoke path | Passed |
+| Held-out metrics | Known confusion matrices cover counts, Accuracy, per-class Precision/Recall/F1, macro F1, invalid inputs, frozen checkpoint/manifest identity, and overwrite prevention | Passed |
+| CNN inference | Tests cover per-eye probabilities, uncertainty band, bilateral policy, partial/invalid crops, checkpoint failures, explicit source identity, and runtime CSV provenance | Passed |
+
+Commands executed from the repository root:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -p no:cacheprovider -q
+.\.venv\Scripts\python.exe -m ruff check src scripts demo tests
+```
+
+Observed result:
+
+- `78 passed` in the full automated suite.
+- Ruff reported `All checks passed!`.
+- `data/raw/cew/` was not present.
+- Git ignore checks confirmed raw data, checkpoints, and generated results remain excluded.
+
+### Completed code paths
+
+- A manually acquired CEW archive can be hashed without any automatic download or extraction.
+- Preparation emits deterministic group-disjoint train/validation/test manifests, source and
+  processed hashes, split/class counts, transformations, and explicit identity-separation
+  warnings.
+- Training uses train/validation only and selects checkpoints strictly by validation macro F1.
+- Held-out evaluation verifies the exact checkpoint/manifest identity, records the frozen
+  probability threshold, refuses result overwrite, and reports the required aggregate metrics.
+- Runtime CNN evidence is named `cnn_eye_classifier`, keeps nullable per-eye probabilities,
+  withholds uncertain/unilateral-closed evidence, and records threshold, uncertainty margin,
+  and checkpoint SHA-256. Landmark evidence remains separately named `landmark_ear`.
+
+### Dataset-dependent checks
+
+| Task | Status | Required follow-up |
+|---|---|---|
+| T-075 | Blocked | Owner downloads the CEW eye-patch archive from the official page and extracts it under `data/raw/cew/`; then record archive identity, actual layout, counts, duplicate/group statistics, and manifest hashes. |
+| Real-data T-012 | Blocked | Prepare verified CEW, train with the documented fixed protocol, and retain the ignored checkpoint/run artifacts. |
+| T-086 | Blocked | Freeze the checkpoint and threshold, evaluate the real held-out split once, and report actual metrics and whether Accuracy >=0.90. |
+
+### G3 conclusion
+
+The Phase 3 software path passes all automated checks, but G3 is **blocked on real-data
+evidence**. Eighteen of twenty Phase 3 leaf tasks are complete; T-075 and T-086 require the
+owner-provided CEW archive. No trained CEW checkpoint, held-out CEW metric, accuracy claim,
+or real-world drowsiness-performance claim exists yet.
