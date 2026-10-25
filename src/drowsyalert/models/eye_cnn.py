@@ -83,7 +83,11 @@ class CNNBackend:
     def predict(self, observation):
         from drowsyalert.types import EyeObservation, EyeState
 
-        if not observation.valid or observation.eye_crops is None:
+        if (
+            not observation.valid
+            or observation.eye_crops is None
+            or any(eye is None for eye in observation.eye_crops)
+        ):
             return EyeObservation(EyeState.UNKNOWN)
         inputs = torch.stack([preprocess_eye(eye) for eye in observation.eye_crops])
         with torch.inference_mode():

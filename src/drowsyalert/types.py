@@ -23,9 +23,12 @@ class FaceObservation:
     valid: bool
     reason: str = ""
     landmarks: np.ndarray | None = None
-    eye_crops: tuple[np.ndarray, np.ndarray] | None = None
-    eye_boxes: tuple[tuple[int, int, int, int], tuple[int, int, int, int]] | None = None
-    ears: tuple[float, float] | None = None
+    eye_crops: tuple[np.ndarray | None, np.ndarray | None] | None = None
+    eye_boxes: tuple[
+        tuple[int, int, int, int] | None, tuple[int, int, int, int] | None
+    ] | None = None
+    ears: tuple[float | None, float | None] | None = None
+    eye_valid: tuple[bool, bool] | None = None
 
 
 @dataclass(frozen=True)

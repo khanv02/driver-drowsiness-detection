@@ -134,7 +134,7 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 - [X] T-054 [Parent: T-005] Implement explicit source kind/timebase and verified monotonic live/media timestamp behavior in `src/drowsyalert/pipeline/source.py` (depends on T-053).
 - [X] T-055 [Parent: T-005] Run focused source tests and Ruff, then record T-005 completion in `specs/001-drowsyalert/tasks.md` (depends on T-054).
 
-- [ ] T-006 — Verify face/landmark and eye-region validity
+- [X] T-006 — Verify face/landmark and eye-region validity
 
 - **Phase:** 2 — Landmark and PERCLOS Baseline.
 - **Priority:** P0.
@@ -148,10 +148,10 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 
 ### T-006 leaf tasks — Face and per-eye validity
 
-- [ ] T-056 [Parent: T-006] Add tests for no face, multiple-face ambiguity, malformed landmarks, out-of-frame/degenerate eyes, and independent per-eye validity in `tests/test_detection.py`.
-- [ ] T-057 [Parent: T-006] Extend `FaceObservation` with explicit per-eye validity and nullable per-eye crops/boxes/EAR values in `src/drowsyalert/types.py` (depends on T-056).
-- [ ] T-058 [Parent: T-006] Implement no-face/multiple-face selection and independent eye validation in `src/drowsyalert/detection/face.py`; adapt presentation/log consumers as needed (depends on T-057).
-- [ ] T-059 [Parent: T-006] Run focused detection tests and Ruff, then record T-006 completion in `specs/001-drowsyalert/tasks.md` (depends on T-058).
+- [X] T-056 [Parent: T-006] Add tests for no face, multiple-face ambiguity, malformed landmarks, out-of-frame/degenerate eyes, and independent per-eye validity in `tests/test_detection.py`.
+- [X] T-057 [Parent: T-006] Extend `FaceObservation` with explicit per-eye validity and nullable per-eye crops/boxes/EAR values in `src/drowsyalert/types.py` (depends on T-056).
+- [X] T-058 [Parent: T-006] Implement no-face/multiple-face selection and independent eye validation in `src/drowsyalert/detection/face.py`; adapt presentation/log consumers as needed (depends on T-057).
+- [X] T-059 [Parent: T-006] Run focused detection tests and Ruff, then record T-006 completion in `specs/001-drowsyalert/tasks.md` (depends on T-058).
 
 - [ ] T-007 — Define and test landmark-derived eye-state estimation
 
