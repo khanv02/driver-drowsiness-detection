@@ -11,6 +11,7 @@ class FrameSample:
     index: int
     timestamp: float
     image: np.ndarray
+    source_kind: str
 
 
 class VideoSource:
@@ -20,6 +21,7 @@ class VideoSource:
         if video is not None and not video.is_file():
             raise FileNotFoundError(f"Video not found: {video}")
         self.video = video
+        self.source_kind = "video_media" if video is not None else "live_monotonic"
         self.capture = cv2.VideoCapture(str(video) if video is not None else camera)
         if not self.capture.isOpened():
             self.capture.release()
@@ -41,15 +43,19 @@ class VideoSource:
             if self.video is None:
                 raise RuntimeError("Camera stopped delivering frames")
             return None
+        if frame is None or not isinstance(frame, np.ndarray) or frame.size == 0:
+            raise RuntimeError(f"{self.source_kind} returned an invalid frame")
         if self.video is None:
             timestamp = time.monotonic() - self.start
+            if timestamp <= self.last_timestamp:
+                timestamp = self.last_timestamp + 1e-9
         else:
             # Decoder timestamp first, FPS timeline only when timestamps are unavailable.
             timestamp = self.capture.get(cv2.CAP_PROP_POS_MSEC) / 1000
             if not np.isfinite(timestamp) or timestamp <= self.last_timestamp:
                 timestamp = max(self.index / self.fps, self.last_timestamp + 1 / self.fps)
         self.last_timestamp = timestamp
-        sample = FrameSample(self.index, timestamp, frame)
+        sample = FrameSample(self.index, timestamp, frame, self.source_kind)
         self.index += 1
         return sample
 
