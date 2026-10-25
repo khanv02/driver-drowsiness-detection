@@ -103,6 +103,7 @@ Test tự động bao phủ một số trường hợp hình học, thời gian,
 ├── data/                    # Dataset cục bộ, không commit dữ liệu
 ├── demo/                    # Entry point demo
 ├── docs/                    # Kiến trúc và tài liệu đề tài
+├── .specify/                # Constitution và cấu hình Spec Kit
 ├── models/                  # Model tải về và checkpoint cục bộ
 ├── outputs/                 # Kết quả, biểu đồ và log sinh tự động
 ├── scripts/                 # Tải/chuẩn bị dữ liệu, huấn luyện
@@ -122,6 +123,9 @@ Test tự động bao phủ một số trường hợp hình học, thời gian,
 - [Mô tả đề tài 12](docs/de-tai-12-drowsyalert.md)
 - [Phiếu mô tả đề tài gốc](docs/PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx)
 - [Kiến trúc ứng dụng](docs/architecture.md)
+- [Project Constitution](.specify/memory/constitution.md)
+- [Implementation plan](specs/001-drowsyalert/plan.md)
+- [Research decisions](specs/001-drowsyalert/research.md)
 - [Đặc tả yêu cầu](specs/001-drowsyalert/spec.md)
 - [Danh sách công việc](specs/001-drowsyalert/tasks.md)
 
