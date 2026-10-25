@@ -114,7 +114,9 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 
 **Milestone outcome**: deterministic local/video observation path, valid landmark-derived eye evidence, timestamp-based PERCLOS, and tested missing-observation handling.
 
-- [ ] T-005 — Verify and complete webcam/video input behavior
+- [X] T-052 [Parent: Phase 2] Decompose T-005–T-009 into independently reviewable source, validity, EAR, temporal, and integration leaf tasks in `specs/001-drowsyalert/tasks.md`.
+
+- [X] T-005 — Verify and complete webcam/video input behavior
 
 - **Phase:** 2 — Landmark and PERCLOS Baseline.
 - **Priority:** P0.
@@ -126,7 +128,13 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 - **Verification:** Tests cover successful camera/video abstractions, unavailable input, EOF/disconnect, timestamps, and cleanup without requiring a physical camera in CI.
 - **Definition of Done:** Both input modes provide documented timestamp semantics and failures do not reuse stale frames; focused tests pass.
 
-- [ ] T-006 — Verify face/landmark and eye-region validity
+### T-005 leaf tasks — Input and timestamps
+
+- [X] T-053 [Parent: T-005] Add focused fake-capture tests for open failure, video EOF, camera failure, cleanup, source kind, and timestamp fallback in `tests/test_source.py`.
+- [X] T-054 [Parent: T-005] Implement explicit source kind/timebase and verified monotonic live/media timestamp behavior in `src/drowsyalert/pipeline/source.py` (depends on T-053).
+- [X] T-055 [Parent: T-005] Run focused source tests and Ruff, then record T-005 completion in `specs/001-drowsyalert/tasks.md` (depends on T-054).
+
+- [X] T-006 — Verify face/landmark and eye-region validity
 
 - **Phase:** 2 — Landmark and PERCLOS Baseline.
 - **Priority:** P0.
@@ -138,7 +146,14 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 - **Verification:** Synthetic observations cover valid and invalid boundaries; no-face/multiple-face outputs cannot become open-eye observations.
 - **Definition of Done:** Detection and eye-region outputs have tested validity semantics and preserve the single-person constraint.
 
-- [ ] T-007 — Define and test landmark-derived eye-state estimation
+### T-006 leaf tasks — Face and per-eye validity
+
+- [X] T-056 [Parent: T-006] Add tests for no face, multiple-face ambiguity, malformed landmarks, out-of-frame/degenerate eyes, and independent per-eye validity in `tests/test_detection.py`.
+- [X] T-057 [Parent: T-006] Extend `FaceObservation` with explicit per-eye validity and nullable per-eye crops/boxes/EAR values in `src/drowsyalert/types.py` (depends on T-056).
+- [X] T-058 [Parent: T-006] Implement no-face/multiple-face selection and independent eye validation in `src/drowsyalert/detection/face.py`; adapt presentation/log consumers as needed (depends on T-057).
+- [X] T-059 [Parent: T-006] Run focused detection tests and Ruff, then record T-006 completion in `specs/001-drowsyalert/tasks.md` (depends on T-058).
+
+- [X] T-007 — Define and test landmark-derived eye-state estimation
 
 - **Phase:** 2 — Landmark and PERCLOS Baseline.
 - **Priority:** P0.
@@ -150,7 +165,13 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 - **Verification:** Deterministic landmark fixtures exercise open, closed, boundary, and invalid cases; rule/threshold are recorded in configuration.
 - **Definition of Done:** Landmark eye-state source is independently testable and named separately in outputs and documentation.
 
-- [ ] T-008 — Verify timestamp-based PERCLOS and tracking-loss semantics
+### T-007 leaf tasks — Landmark eye state
+
+- [X] T-060 [Parent: T-007] Add tests for threshold equality, bilateral closure, one valid open eye, one valid closed eye with the other invalid, and invalid EAR evidence in `tests/test_eye_state.py`.
+- [X] T-061 [Parent: T-007] Implement the approved bilateral landmark-EAR `OPEN`/`CLOSED`/`UNKNOWN` policy and source identity in `src/drowsyalert/models/ear.py` and `src/drowsyalert/types.py` (depends on T-060).
+- [X] T-062 [Parent: T-007] Run focused landmark eye-state tests and Ruff, then record T-007 completion in `specs/001-drowsyalert/tasks.md` (depends on T-061).
+
+- [X] T-008 — Verify timestamp-based PERCLOS and tracking-loss semantics
 
 - **Phase:** 2 — Landmark and PERCLOS Baseline.
 - **Priority:** P0.
@@ -162,7 +183,13 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 - **Verification:** Hand-calculated timestamp sequences match expected closed-duration/valid-duration PERCLOS; gaps reduce valid coverage and never become open observations.
 - **Definition of Done:** Core temporal behavior passes deterministic tests and emits source, coverage, readiness, and configured window.
 
-- [ ] T-009 — Establish landmark/PERCLOS baseline integration gate
+### T-008 leaf tasks — Timestamp-weighted temporal behavior
+
+- [X] T-063 [Parent: T-008] Add deterministic tests for irregular intervals, window clipping, unknown/gap exclusion, closure reset, invalid timestamps, readiness, source, and window metadata in `tests/test_temporal.py`.
+- [X] T-064 [Parent: T-008] Complete temporal source/window metadata and interval behavior in `src/drowsyalert/features/temporal.py` and `src/drowsyalert/types.py` (depends on T-063).
+- [X] T-065 [Parent: T-008] Run focused temporal tests and Ruff, then record T-008 completion in `specs/001-drowsyalert/tasks.md` (depends on T-064).
+
+- [X] T-009 — Establish landmark/PERCLOS baseline integration gate
 
 - **Phase:** 2 — Landmark and PERCLOS Baseline.
 - **Priority:** P0.
@@ -174,9 +201,19 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 - **Verification:** Automated replay confirms state/PERCLOS/unknown transitions and timestamp source; a manual local webcam check records environment and outcome without claiming general performance.
 - **Definition of Done:** G2 review demonstrates valid and invalid observation paths; tests pass before CNN work proceeds.
 
+### T-009 leaf tasks — Baseline integration gate
+
+- [X] T-066 [Parent: T-009] Add a deterministic fake-source/fake-detector integration test covering valid, unknown, and timestamped replay records in `tests/test_pipeline.py`.
+- [X] T-067 [Parent: T-009] Complete landmark-source/timebase/window/coverage metadata in `src/drowsyalert/pipeline/realtime.py` and keep offline replay silent (depends on T-066).
+- [X] T-068 [Parent: T-009] Record automated replay evidence and any unavailable webcam/model/manual checks in `docs/verification.md` without claiming skipped hardware checks passed (depends on T-067).
+- [X] T-069 [Parent: T-009] Run the Phase 2 test/lint suite, update requirement evidence and G2 status, and mark T-009 complete in `specs/001-drowsyalert/tasks.md` (depends on T-068).
+- [X] T-070 [Parent: Phase 2] Run the final Phase 2 suite and Ruff checks, confirm every T-005–T-009 leaf task is complete, and clear staged/diff formatting errors before merging the phase branch.
+
 ### Phase 2 acceptance gate
 
 G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmark-derived eye state and PERCLOS are separately traceable; gaps and invalid input remain unknown; unit and integration tests pass. No CNN accuracy claim is made at this gate.
+
+**G2 status (2026-10-26): Passed for automated code progression.** The full suite reports 41 passed and 1 optional-CNN skip; Ruff passes. Physical webcam, real Face Landmarker asset, real video codec, and audio checks remain explicitly unverified in `docs/verification.md` and are not claimed as passed.
 
 ## Phase 3 — CNN Eye Classification
 
@@ -538,7 +575,7 @@ Parallel work is allowed only after listed dependencies are complete and when se
 
 ## Format and traceability summary
 
-- Task list currently contains **31 parent work packages plus 20 leaf tasks** (51 numbered items). Create leaf tasks for the active work package before implementation; the leaf count will grow as approved work is decomposed.
+- Task list currently contains **31 parent work packages plus 39 leaf tasks** (70 numbered items). Create leaf tasks for the active work package before implementation; the leaf count will grow as approved work is decomposed.
 - By phase: Phase 1 **4**; Phase 2 **5**; Phase 3 **5**; Phase 4 **4**; Phase 5 **4**; Phase 6 **5**; Phase 7 **4**.
 - Research/data tasks: T-001, T-010, T-023, T-024, T-027; implementation/environment tasks are otherwise separated as labelled.
 - T-001–T-031 are parent work packages, not the intended smallest execution units. Add focused leaf tasks with stable IDs before starting each parent; avoid speculative leaf tasks where dataset/protocol approvals may change the work.

@@ -87,7 +87,10 @@ def prepare(
                 if not observation.valid:
                     skipped += 1
                     continue
-                crops = observation.eye_crops
+                crops = tuple(crop for crop in observation.eye_crops or () if crop is not None)
+                if not crops:
+                    skipped += 1
+                    continue
             for eye_index, crop in enumerate(crops):
                 resized = cv2.resize(crop, (IMAGE_SIZE, IMAGE_SIZE))
                 digest = sha256(resized.tobytes()).hexdigest()
