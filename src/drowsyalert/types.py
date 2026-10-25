@@ -47,6 +47,10 @@ class TemporalFeatures:
     valid_seconds: float
     ready: bool
     continuous: bool
+    source: str = "unknown"
+    window_seconds: float = 0.0
+    window_start: float = 0.0
+    window_end: float = 0.0
 
 
 @dataclass(frozen=True)

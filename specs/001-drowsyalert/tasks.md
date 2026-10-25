@@ -171,7 +171,7 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 - [X] T-061 [Parent: T-007] Implement the approved bilateral landmark-EAR `OPEN`/`CLOSED`/`UNKNOWN` policy and source identity in `src/drowsyalert/models/ear.py` and `src/drowsyalert/types.py` (depends on T-060).
 - [X] T-062 [Parent: T-007] Run focused landmark eye-state tests and Ruff, then record T-007 completion in `specs/001-drowsyalert/tasks.md` (depends on T-061).
 
-- [ ] T-008 — Verify timestamp-based PERCLOS and tracking-loss semantics
+- [X] T-008 — Verify timestamp-based PERCLOS and tracking-loss semantics
 
 - **Phase:** 2 — Landmark and PERCLOS Baseline.
 - **Priority:** P0.
@@ -185,9 +185,9 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 
 ### T-008 leaf tasks — Timestamp-weighted temporal behavior
 
-- [ ] T-063 [Parent: T-008] Add deterministic tests for irregular intervals, window clipping, unknown/gap exclusion, closure reset, invalid timestamps, readiness, source, and window metadata in `tests/test_temporal.py`.
-- [ ] T-064 [Parent: T-008] Complete temporal source/window metadata and interval behavior in `src/drowsyalert/features/temporal.py` and `src/drowsyalert/types.py` (depends on T-063).
-- [ ] T-065 [Parent: T-008] Run focused temporal tests and Ruff, then record T-008 completion in `specs/001-drowsyalert/tasks.md` (depends on T-064).
+- [X] T-063 [Parent: T-008] Add deterministic tests for irregular intervals, window clipping, unknown/gap exclusion, closure reset, invalid timestamps, readiness, source, and window metadata in `tests/test_temporal.py`.
+- [X] T-064 [Parent: T-008] Complete temporal source/window metadata and interval behavior in `src/drowsyalert/features/temporal.py` and `src/drowsyalert/types.py` (depends on T-063).
+- [X] T-065 [Parent: T-008] Run focused temporal tests and Ruff, then record T-008 completion in `specs/001-drowsyalert/tasks.md` (depends on T-064).
 
 - [ ] T-009 — Establish landmark/PERCLOS baseline integration gate
 
