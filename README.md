@@ -30,6 +30,18 @@ DrowsyAlert là ứng dụng nghiên cứu nhận biết dấu hiệu buồn ng�
 
 Model Face Landmarker và checkpoint CNN không được lưu trong Git. EAR không cần checkpoint CNN. Chế độ CNN cần cài PyTorch và cung cấp checkpoint tương thích.
 
+## Trạng thái phát triển
+
+**Phase 2 — Landmark và PERCLOS baseline: hoàn thành (G2).** Hệ thống hiện có:
+
+- Nguồn webcam/video với loại nguồn và timebase rõ ràng; video dùng media timestamp, webcam dùng đồng hồ đơn điệu.
+- Kiểm tra tính hợp lệ của khuôn mặt và từng mắt; dữ liệu thiếu, lỗi hoặc nhiều khuôn mặt không bị xem nhầm là mắt mở.
+- Trạng thái mắt `OPEN`/`CLOSED`/`UNKNOWN` từ landmark EAR, tách biệt với nguồn CNN tùy chọn.
+- PERCLOS theo thời lượng quan sát hợp lệ, kèm coverage, readiness, cửa sổ thời gian và xử lý tracking gap.
+- Replay xác định để kiểm thử tích hợp và log metadata; chế độ replay headless không phát âm thanh.
+
+Gate G2 đã vượt qua bộ kiểm thử tự động với **41 passed, 1 skipped** và Ruff không báo lỗi. Test bị skip thuộc luồng CNN/PyTorch tùy chọn. Webcam vật lý, Face Landmarker asset thật, codec video thật và âm thanh vẫn cần kiểm tra trên máy demo; Phase 2 chưa đưa ra tuyên bố về độ chính xác thực tế. Xem [bằng chứng kiểm thử](docs/verification.md) và [danh sách công việc](specs/001-drowsyalert/tasks.md) để biết chi tiết.
+
 ## Công nghệ
 
 | Nhóm | Công nghệ | Vai trò |
