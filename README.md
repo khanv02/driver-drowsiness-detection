@@ -1,34 +1,51 @@
 ﻿# DrowsyAlert
 
-## What is it?
+<p align="center">
+  <a href="https://www.python.org/"><img alt="Python 3.12" src="https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white"></a>
+  <a href="https://opencv.org/"><img alt="OpenCV" src="https://img.shields.io/badge/OpenCV-4.x-5C3EE8?logo=opencv&logoColor=white"></a>
+  <a href="https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker"><img alt="MediaPipe" src="https://img.shields.io/badge/MediaPipe-Face%20Landmarker-0097A7?logo=google&logoColor=white"></a>
+  <a href="https://pytorch.org/"><img alt="PyTorch optional" src="https://img.shields.io/badge/PyTorch-optional-EE4C2C?logo=pytorch&logoColor=white"></a>
+  <a href="https://numpy.org/"><img alt="NumPy" src="https://img.shields.io/badge/NumPy-1.26%2B-013243?logo=numpy&logoColor=white"></a>
+  <a href="https://pyyaml.org/"><img alt="PyYAML" src="https://img.shields.io/badge/PyYAML-6%2B-CC0000"></a>
+  <a href="https://docs.astral.sh/uv/"><img alt="uv" src="https://img.shields.io/badge/uv-package%20manager-DE5FE9"></a>
+  <a href="https://pytest.org/"><img alt="pytest" src="https://img.shields.io/badge/pytest-tests-0A9EDC?logo=pytest&logoColor=white"></a>
+  <a href="https://docs.astral.sh/ruff/"><img alt="Ruff" src="https://img.shields.io/badge/Ruff-linting-D7FF64?logo=ruff&logoColor=black"></a>
+</p>
 
-DrowsyAlert is a local research prototype for driver drowsiness cues from a webcam or recorded video. It detects facial landmarks, estimates eye state using EAR or an optional CNN, calculates time-based PERCLOS, and can add yawning or head-pose cues. Live use displays a status overlay and can play an audible warning; recorded video can be processed headlessly and logged for repeatable review.
+## Giới thiệu
 
-This is an advisory research tool, not a certified driver-safety system or medical device. It does not replace safe driving practices or official vehicle safety measures. Accuracy ≥ 0.90 is a research goal, not an established result.
+DrowsyAlert là ứng dụng nghiên cứu nhận biết dấu hiệu buồn ngủ qua webcam hoặc video. Hệ thống theo dõi trạng thái mắt, tính PERCLOS theo thời gian và hỗ trợ so sánh với dấu hiệu ngáp hoặc tư thế đầu. Khi chạy trực tiếp, ứng dụng hiển thị trạng thái và có thể phát cảnh báo âm thanh.
 
-## Current capabilities and limits
+Đây là công cụ nghiên cứu tham khảo, không phải thiết bị an toàn được chứng nhận hay thiết bị chẩn đoán y tế. Ứng dụng không thay thế các biện pháp an toàn giao thông chính thức. Mục tiêu Accuracy ≥ 0,90 là mục tiêu nghiên cứu, chưa phải kết quả đã đạt.
 
-- Local webcam and recorded-video input with timestamps.
-- Face landmarks, eye-region extraction, and EAR-based eye-state estimation (default backend).
-- Optional CNN eye-state inference, training, dataset preparation, and evaluation scripts.
-- Time-weighted PERCLOS, prolonged eye-closure indication, and explicit unknown observations.
-- Selectable decision methods: `perclos`, `perclos-yawn`, and `perclos-head-pose`.
-- Visual overlay, optional CSV logging, and headless processing. Audible playback is currently supported on Windows.
-- Automated tests for selected temporal, geometry, dataset preparation, configuration, and alert behavior.
+## Chức năng
 
-The Face Landmarker asset and trained CNN checkpoint are not stored in Git. EAR mode does not require a CNN checkpoint. CNN mode requires a compatible checkpoint. Missing model assets are reported as errors rather than silently substituted.
+- Nhận hình từ webcam cục bộ hoặc đọc video có timestamp.
+- Phát hiện khuôn mặt và landmark; cắt vùng mắt.
+- Ước lượng trạng thái mắt bằng EAR (mặc định) hoặc CNN tùy chọn.
+- Tính PERCLOS có trọng số thời gian, theo dõi nhắm mắt kéo dài và giữ trạng thái không xác định khi mất quan sát.
+- Chọn một trong ba phương pháp: `perclos`, `perclos-yawn`, `perclos-head-pose`.
+- Hiển thị overlay, ghi log CSV tùy chọn, chạy headless với video.
+- Phát âm thanh cảnh báo trên Windows; video replay không phát âm thanh.
 
-## Requirements
+Model Face Landmarker và checkpoint CNN không được lưu trong Git. EAR không cần checkpoint CNN. Chế độ CNN cần cài PyTorch và cung cấp checkpoint tương thích.
 
-- Python 3.12 is selected in `.python-version`; `pyproject.toml` permits Python `>=3.12,<3.15`.
-- [uv](https://docs.astral.sh/uv/) for environment and dependency management.
-- A webcam for live use; recorded video can be used without a camera.
-- The Face Landmarker asset for video or webcam processing. Initial download requires network access; inference uses the local asset.
-- PyTorch is optional for EAR use and required for CNN inference/training.
+## Công nghệ
 
-## Install and run
+| Nhóm | Công nghệ | Vai trò |
+|---|---|---|
+| Ngôn ngữ | Python 3.12 | Ứng dụng và công cụ nghiên cứu |
+| Thị giác máy tính | OpenCV, MediaPipe | Đọc video, phát hiện landmark, xử lý vùng mắt |
+| Tính toán | NumPy, PyYAML | Tính toán mảng và cấu hình YAML |
+| CNN (tùy chọn) | PyTorch | Huấn luyện và suy luận phân loại mắt |
+| Chuẩn bị/đánh giá dữ liệu | Pillow, scikit-learn, Matplotlib | Gói `train` tùy chọn |
+| Công cụ phát triển | uv, pytest, Ruff | Quản lý môi trường, kiểm thử và lint |
 
-Run commands from the repository root:
+Các huy hiệu phía trên là liên kết tới trang chính thức của từng công nghệ. Dependency thực tế được khai báo trong [`pyproject.toml`](pyproject.toml); phiên bản Python được chọn tại [`.python-version`](.python-version).
+
+## Cài đặt và chạy
+
+Cần Python 3.12 và [uv](https://docs.astral.sh/uv/). Từ thư mục gốc dự án:
 
 ```powershell
 uv sync
@@ -36,32 +53,29 @@ uv run drowsyalert --download-model
 uv run drowsyalert --camera 0 --eye-backend ear
 ```
 
-To use a trained CNN checkpoint:
+Lần đầu tải Face Landmarker cần kết nối mạng. Sau đó xử lý webcam dùng model cục bộ.
+
+### Chạy với CNN
 
 ```powershell
 uv sync --extra cnn
 uv run drowsyalert --camera 0 --eye-backend cnn --checkpoint models/checkpoints/eye_cnn.pt
 ```
 
-To process a video without opening a display window or playing audio:
+### Chạy video và chọn phương pháp
 
 ```powershell
 uv run drowsyalert --video path/to/video.mp4 --headless --log outputs/logs/run.csv
-```
-
-Available decision methods:
-
-```powershell
 uv run drowsyalert --camera 0 --method perclos
 uv run drowsyalert --camera 0 --method perclos-yawn
 uv run drowsyalert --camera 0 --method perclos-head-pose
 ```
 
-The default configuration is `configs/config.yaml`. Its thresholds and temporal settings are configurable defaults, not experimentally validated driver-safety thresholds. Use `uv run drowsyalert --help` to see all command-line options.
+Cấu hình mặc định nằm ở [`configs/config.yaml`](configs/config.yaml). Các ngưỡng trong file là giá trị cấu hình ban đầu, chưa được xác nhận là ngưỡng an toàn cho tài xế. Xem `uv run drowsyalert --help` để biết các tùy chọn khác.
 
-## Prepare data and train the CNN
+## Chuẩn bị dữ liệu và huấn luyện CNN
 
-Review dataset availability, terms, provenance, labels, and intended use before training. The download helper targets a public Kaggle archive, but availability and permission to use or redistribute it are not guaranteed. Keep raw and processed data in the ignored `data/` directory.
+Kiểm tra nguồn, điều khoản sử dụng, nhãn và cấu trúc dataset trước khi huấn luyện. Script tải dataset có thể không hoạt động nếu nguồn thay đổi hoặc quyền truy cập/giấy phép không phù hợp. Không đưa dữ liệu tình nguyện viên hoặc dữ liệu cá nhân vào Git.
 
 ```powershell
 uv sync --extra train
@@ -70,54 +84,45 @@ uv run python scripts/prepare_dataset.py --input data/raw/kaggle --output data/p
 uv run python scripts/train_model.py --manifest data/processed/manifest.csv --checkpoint models/checkpoints/eye_cnn.pt --output outputs/results/eye_cnn
 ```
 
-If subject/session metadata is available, pass a `--groups` CSV with `source,group_id` columns. Without metadata, grouping by source and duplicate-image checks cannot guarantee subject-independent evaluation. Inspect labels, split report, and data quality before interpreting metrics. Use the test split only for final evaluation, not model or threshold selection.
+Nếu có metadata người/phiên, truyền thêm `--groups` với CSV gồm cột `source,group_id`. Nếu không có metadata này, cách nhóm nguồn và phát hiện ảnh trùng không đảm bảo tách độc lập theo người. Chỉ dùng tập test để đánh giá cuối, không dùng để chọn model hoặc ngưỡng.
 
-## Configuration and generated files
-
-`configs/config.yaml` contains model paths, EAR/CNN and auxiliary-feature thresholds, temporal-window settings, camera dimensions, and alert cooldown. `--config` selects another YAML file; supported command-line options can override runtime selections.
-
-- `data/raw/` and `data/processed/`: local datasets and prepared eye samples.
-- `data/volunteer/`: consented participant recordings; never commit these files.
-- `models/pretrained/`: downloaded face model.
-- `models/checkpoints/`: trained CNN checkpoints.
-- `outputs/results/`, `outputs/figures/`, and `outputs/logs/`: generated experiment results.
-
-The contents of these data, model, and output directories are ignored by Git; README files and `.gitkeep` placeholders are retained. Record dataset provenance, license, labels, split, model/configuration, thresholds, random seed, and evaluation protocol with reported results. Webcam processing is local by default. Do not publish participant recordings without consent and authorization.
-
-## Tests and lint
+## Kiểm thử
 
 ```powershell
 uv run ruff check src scripts demo tests
 uv run pytest
 ```
 
-Automated tests use synthetic fixtures for core behavior where possible. Passing tests do not establish real-world detection accuracy. Webcam and audio checks require local hardware and should be recorded separately from automated test results.
+Test tự động bao phủ một số trường hợp hình học, thời gian, cấu hình, dữ liệu và cảnh báo. Test đạt không chứng minh độ chính xác thực tế. Kiểm tra webcam và âm thanh cần thiết bị thật, nên ghi kết quả riêng.
 
-## Repository layout
+## Cấu trúc dự án
 
 ```text
 .
-├── configs/                 # Runtime configuration
-├── data/                    # Local data; ignored except guidance/placeholders
-├── demo/                    # Optional demo entry point
-├── docs/                    # Architecture and project documentation
-├── models/                  # Local pretrained assets and checkpoints
-├── outputs/                 # Generated results, figures, and logs
-├── scripts/                 # Download, preparation, and training wrappers
-├── src/drowsyalert/         # Application package
-│   ├── detection/           # Face and landmark observations
-│   ├── features/            # Geometry, PERCLOS, yawning, and pose
-│   ├── models/              # EAR/CNN inference and training/data logic
-│   ├── pipeline/            # Sources, decisions, alerts, orchestration
-│   └── utils/               # Configuration and overlay
-└── tests/                   # Automated tests
+├── configs/                 # Cấu hình chạy
+├── data/                    # Dataset cục bộ, không commit dữ liệu
+├── demo/                    # Entry point demo
+├── docs/                    # Kiến trúc và tài liệu đề tài
+├── models/                  # Model tải về và checkpoint cục bộ
+├── outputs/                 # Kết quả, biểu đồ và log sinh tự động
+├── scripts/                 # Tải/chuẩn bị dữ liệu, huấn luyện
+├── src/drowsyalert/
+│   ├── detection/           # Khuôn mặt và landmark
+│   ├── features/            # Hình học, PERCLOS, ngáp, tư thế đầu
+│   ├── models/              # EAR/CNN, huấn luyện và dữ liệu
+│   ├── pipeline/            # Nguồn video, quyết định, cảnh báo
+│   └── utils/               # Cấu hình và overlay
+├── tests/                   # Kiểm thử tự động
+├── specs/                   # Đặc tả và task breakdown
+└── plan/                    # Kế hoạch và backlog nghiên cứu
 ```
 
-See [docs/architecture.md](docs/architecture.md) for module responsibilities and data flow.
+## Tài liệu và quyền riêng tư
 
-## Research documents
+- [Mô tả đề tài 12](docs/de-tai-12-drowsyalert.md)
+- [Phiếu mô tả đề tài gốc](docs/PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx)
+- [Kiến trúc ứng dụng](docs/architecture.md)
+- [Đặc tả yêu cầu](specs/001-drowsyalert/spec.md)
+- [Danh sách công việc](specs/001-drowsyalert/tasks.md)
 
-- [Project #12 description](docs/de-tai-12-drowsyalert.md)
-- [Official instructor brief](docs/PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx)
-- [Software requirements specification](specs/001-drowsyalert/spec.md)
-- [Implementation task breakdown](specs/001-drowsyalert/tasks.md)
+Dữ liệu ở `data/`, model ở `models/` và kết quả ở `outputs/` được loại khỏi Git; chỉ README và `.gitkeep` được giữ. Webcam được xử lý cục bộ mặc định. Việc thu thập video tình nguyện viên cần có đồng ý và tuân thủ hướng dẫn của đơn vị phụ trách.
