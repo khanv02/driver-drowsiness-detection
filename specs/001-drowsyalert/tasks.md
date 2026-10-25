@@ -116,7 +116,7 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 
 - [X] T-052 [Parent: Phase 2] Decompose T-005–T-009 into independently reviewable source, validity, EAR, temporal, and integration leaf tasks in `specs/001-drowsyalert/tasks.md`.
 
-- [ ] T-005 — Verify and complete webcam/video input behavior
+- [X] T-005 — Verify and complete webcam/video input behavior
 
 - **Phase:** 2 — Landmark and PERCLOS Baseline.
 - **Priority:** P0.
@@ -130,9 +130,9 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 
 ### T-005 leaf tasks — Input and timestamps
 
-- [ ] T-053 [Parent: T-005] Add focused fake-capture tests for open failure, video EOF, camera failure, cleanup, source kind, and timestamp fallback in `tests/test_source.py`.
-- [ ] T-054 [Parent: T-005] Implement explicit source kind/timebase and verified monotonic live/media timestamp behavior in `src/drowsyalert/pipeline/source.py` (depends on T-053).
-- [ ] T-055 [Parent: T-005] Run focused source tests and Ruff, then record T-005 completion in `specs/001-drowsyalert/tasks.md` (depends on T-054).
+- [X] T-053 [Parent: T-005] Add focused fake-capture tests for open failure, video EOF, camera failure, cleanup, source kind, and timestamp fallback in `tests/test_source.py`.
+- [X] T-054 [Parent: T-005] Implement explicit source kind/timebase and verified monotonic live/media timestamp behavior in `src/drowsyalert/pipeline/source.py` (depends on T-053).
+- [X] T-055 [Parent: T-005] Run focused source tests and Ruff, then record T-005 completion in `specs/001-drowsyalert/tasks.md` (depends on T-054).
 
 - [ ] T-006 — Verify face/landmark and eye-region validity
 
