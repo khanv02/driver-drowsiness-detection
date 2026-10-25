@@ -219,6 +219,8 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 
 **Milestone outcome**: lawful and leakage-aware eye-image data pipeline, trained classifier, independent held-out metrics, and explicit CNN inference integration.
 
+- [X] T-071 [Parent: Phase 3] Decompose T-010–T-014 into independently reviewable dataset, preparation, training, evaluation, and inference tasks in `specs/001-drowsyalert/tasks.md`.
+
 - [ ] T-010 — Select and document eye-state dataset and split (Research/Data)
 
 - **Phase:** 3 — CNN Eye Classification.
@@ -230,6 +232,13 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - **Expected Artifacts:** `data/README.md`; `docs/dataset-card.md`; split manifest or documented generation procedure in an approved private/derived-data location.
 - **Verification:** Reviewer checks source/version/retrieval date/license/labels/splits and confirms held-out examples do not share subjects/sessions/near-duplicate frames where metadata permits.
 - **Definition of Done:** Dataset is approved for intended use and reproducibility; if no suitable lawful dataset is available, task is blocked with documented alternatives rather than fabricated availability.
+
+### T-010 leaf tasks — Dataset authority and split protocol
+
+- [ ] T-072 [Parent: T-010] Audit candidate datasets, access terms, provenance, labels, identity metadata, and leakage risks in `docs/dataset-card.md`; reject sources without usable rights evidence.
+- [ ] T-073 [Parent: T-010] Replace the automatic unknown-license Kaggle downloader with a safe acquisition verifier that never downloads or redistributes data implicitly (depends on T-072).
+- [ ] T-074 [Parent: T-010] Document the selected CEW acquisition, local layout, labels, split, provenance, and no-redistribution procedure in `data/README.md` and `docs/dataset-card.md` (depends on T-072).
+- [ ] T-075 [Parent: T-010] Inspect the owner-provided CEW extraction, record source/version/file hashes and actual counts, and approve the real-data manifest before training (depends on T-074; owner must provide dataset).
 
 - [ ] T-011 — Prepare eye-image labels and dataset loading
 
@@ -243,6 +252,13 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - **Verification:** Tests use small synthetic fixtures and prove labels, exclusions, and splits are deterministic and auditable; no real dataset statistics are asserted until data are obtained.
 - **Definition of Done:** Prepared samples conform to documented label mapping and split manifest; provenance remains attached.
 
+### T-011 leaf tasks — Validated preparation pipeline
+
+- [ ] T-076 [Parent: T-011] Add synthetic tests for label mapping, rejected samples, manifest schema, duplicate handling, group-disjoint splits, and deterministic output in `tests/test_cnn_dataset.py` (depends on T-074).
+- [ ] T-077 [Parent: T-011] Implement strict label/group/manifest validation and leakage-safe deterministic preparation in `src/drowsyalert/models/dataset.py` (depends on T-076).
+- [ ] T-078 [Parent: T-011] Update the preparation CLI and generated provenance report with source identity, transformations, hashes, split counts, and warnings (depends on T-077).
+- [ ] T-079 [Parent: T-011] Run the synthetic preparation suite and Ruff checks, then document which real-data assertions remain pending T-075 (depends on T-078).
+
 - [ ] T-012 — Train and validate the eye-state CNN
 
 - **Phase:** 3 — CNN Eye Classification.
@@ -254,6 +270,13 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - **Expected Artifacts:** Training code/scripts; checkpoint stored in ignored model artifact location; `docs/training.md`; run metadata.
 - **Verification:** A small synthetic or authorized sample run validates the training/checkpoint path; training and validation identities, seed, settings, and metrics are recorded. The full performance claim awaits T-013.
 - **Definition of Done:** A compatible checkpoint is reproducibly generated from authorized data and validation selection is documented.
+
+### T-012 leaf tasks — Reproducible training and selection
+
+- [ ] T-080 [Parent: T-012] Add tests for deterministic training configuration, validation-only checkpoint selection, class mapping, and checkpoint metadata in `tests/test_cnn_training.py` (depends on T-079).
+- [ ] T-081 [Parent: T-012] Implement deterministic loaders/training, validation-only selection, and complete checkpoint/run metadata in `src/drowsyalert/models/train.py` and `src/drowsyalert/models/eye_cnn.py` (depends on T-080).
+- [ ] T-082 [Parent: T-012] Run a tiny synthetic training/checkpoint smoke test without making a performance claim (depends on T-081).
+- [ ] T-083 [Parent: T-012] Document the reproducible training command, configuration, artifacts, selection rule, and real-data prerequisites in `docs/training.md` (depends on T-082).
 
 - [ ] T-013 — Evaluate eye classification on the held-out test split
 
@@ -267,6 +290,12 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - **Verification:** Metric calculations pass known-confusion-matrix tests; report states whether Accuracy ≥0.90 was met without implying it must be.
 - **Definition of Done:** Held-out results and protocol are auditable; no unavailable or fabricated data/results.
 
+### T-013 leaf tasks — Frozen held-out evaluation
+
+- [ ] T-084 [Parent: T-013] Add known-confusion-matrix tests for counts, Accuracy, per-class Precision/Recall/F1, macro F1, and empty/invalid inputs in `tests/test_cnn_metrics.py` (depends on T-081).
+- [ ] T-085 [Parent: T-013] Implement a one-way held-out evaluator with checkpoint/manifest identity, threshold policy, and machine-readable results (depends on T-084).
+- [ ] T-086 [Parent: T-013] Evaluate the frozen checkpoint once on the owner-approved real CEW test split and record whether Accuracy ≥0.90 was met (depends on T-075, T-083, T-085; blocked until dataset/model exist).
+
 - [ ] T-014 — Integrate CNN inference as a distinct eye-state source
 
 - **Phase:** 3 — CNN Eye Classification.
@@ -278,6 +307,13 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - **Expected Artifacts:** Model/pipeline changes; `tests/test_cnn_inference.py`; updated run schema/documentation.
 - **Verification:** Tests cover valid predictions, uncertain output, invalid crop, incompatible/missing checkpoint, and source identity; selected source matches the recorded PERCLOS source.
 - **Definition of Done:** CNN path is independently selectable and cannot overwrite the identity of the landmark baseline.
+
+### T-014 leaf tasks — Distinct runtime CNN evidence
+
+- [ ] T-087 [Parent: T-014] Add tests for per-eye probabilities, configurable uncertainty, bilateral policy, invalid crops, missing/incompatible checkpoints, and source identity in `tests/test_cnn_inference.py` (depends on T-081).
+- [ ] T-088 [Parent: T-014] Implement explicit CNN uncertainty and bilateral eye-state behavior in `src/drowsyalert/models/eye_cnn.py` (depends on T-087).
+- [ ] T-089 [Parent: T-014] Integrate CNN checkpoint/source/threshold identity into runtime results and CSV logging without changing the landmark baseline (depends on T-088).
+- [ ] T-090 [Parent: Phase 3] Run the full Phase 3 suite and Ruff checks; record completed code paths, dataset blockers, and G3 status without fabricating results (depends on T-075–T-089).
 
 ### Phase 3 acceptance gate
 
@@ -575,7 +611,7 @@ Parallel work is allowed only after listed dependencies are complete and when se
 
 ## Format and traceability summary
 
-- Task list currently contains **31 parent work packages plus 39 leaf tasks** (70 numbered items). Create leaf tasks for the active work package before implementation; the leaf count will grow as approved work is decomposed.
+- Task list currently contains **31 parent work packages plus 59 leaf tasks** (90 numbered items). Create leaf tasks for the active work package before implementation; the leaf count will grow as approved work is decomposed.
 - By phase: Phase 1 **4**; Phase 2 **5**; Phase 3 **5**; Phase 4 **4**; Phase 5 **4**; Phase 6 **5**; Phase 7 **4**.
 - Research/data tasks: T-001, T-010, T-023, T-024, T-027; implementation/environment tasks are otherwise separated as labelled.
 - T-001–T-031 are parent work packages, not the intended smallest execution units. Add focused leaf tasks with stable IDs before starting each parent; avoid speculative leaf tasks where dataset/protocol approvals may change the work.
