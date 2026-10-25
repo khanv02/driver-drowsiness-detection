@@ -88,11 +88,13 @@ class CNNBackend:
             or observation.eye_crops is None
             or any(eye is None for eye in observation.eye_crops)
         ):
-            return EyeObservation(EyeState.UNKNOWN)
+            return EyeObservation(
+                EyeState.UNKNOWN, source="cnn", reason="Bilateral eye crops unavailable"
+            )
         inputs = torch.stack([preprocess_eye(eye) for eye in observation.eye_crops])
         with torch.inference_mode():
             probabilities = self.model(inputs).softmax(dim=1)[:, 1].tolist()
         state = (
             EyeState.CLOSED if all(p >= self.threshold for p in probabilities) else EyeState.OPEN
         )
-        return EyeObservation(state, tuple(probabilities))
+        return EyeObservation(state, tuple(probabilities), source="cnn")

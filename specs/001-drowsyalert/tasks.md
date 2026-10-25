@@ -153,7 +153,7 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 - [X] T-058 [Parent: T-006] Implement no-face/multiple-face selection and independent eye validation in `src/drowsyalert/detection/face.py`; adapt presentation/log consumers as needed (depends on T-057).
 - [X] T-059 [Parent: T-006] Run focused detection tests and Ruff, then record T-006 completion in `specs/001-drowsyalert/tasks.md` (depends on T-058).
 
-- [ ] T-007 — Define and test landmark-derived eye-state estimation
+- [X] T-007 — Define and test landmark-derived eye-state estimation
 
 - **Phase:** 2 — Landmark and PERCLOS Baseline.
 - **Priority:** P0.
@@ -167,9 +167,9 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 
 ### T-007 leaf tasks — Landmark eye state
 
-- [ ] T-060 [Parent: T-007] Add tests for threshold equality, bilateral closure, one valid open eye, one valid closed eye with the other invalid, and invalid EAR evidence in `tests/test_eye_state.py`.
-- [ ] T-061 [Parent: T-007] Implement the approved bilateral landmark-EAR `OPEN`/`CLOSED`/`UNKNOWN` policy and source identity in `src/drowsyalert/models/ear.py` and `src/drowsyalert/types.py` (depends on T-060).
-- [ ] T-062 [Parent: T-007] Run focused landmark eye-state tests and Ruff, then record T-007 completion in `specs/001-drowsyalert/tasks.md` (depends on T-061).
+- [X] T-060 [Parent: T-007] Add tests for threshold equality, bilateral closure, one valid open eye, one valid closed eye with the other invalid, and invalid EAR evidence in `tests/test_eye_state.py`.
+- [X] T-061 [Parent: T-007] Implement the approved bilateral landmark-EAR `OPEN`/`CLOSED`/`UNKNOWN` policy and source identity in `src/drowsyalert/models/ear.py` and `src/drowsyalert/types.py` (depends on T-060).
+- [X] T-062 [Parent: T-007] Run focused landmark eye-state tests and Ruff, then record T-007 completion in `specs/001-drowsyalert/tasks.md` (depends on T-061).
 
 - [ ] T-008 — Verify timestamp-based PERCLOS and tracking-loss semantics
 
