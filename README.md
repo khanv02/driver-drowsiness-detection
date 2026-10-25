@@ -133,10 +133,12 @@ Dữ liệu ở `data/`, model ở `models/` và kết quả ở `outputs/` đư
 
 ## Nhóm phát triển
 
-- Phạm Nguyễn Phúc Khang
-- Huỳnh Vĩnh Lợi
-- Dương Công Khoa
-- Cao Thanh Hùng
+| Thành viên | Vai trò |
+|---|---|
+| Huỳnh Vĩnh Lợi | Nhóm trưởng |
+| Phạm Nguyễn Phúc Khang | Lập trình viên |
+| Cao Thanh Hùng | Thư ký |
+| Dương Công Khoa | Kiểm thử và gán nhãn dữ liệu |
 
 ## Giấy phép
 
