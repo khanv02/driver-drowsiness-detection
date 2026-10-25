@@ -104,3 +104,6 @@ Desktop.ini
 
 # Archived metadata from the former nested application repository
 /.legacy-my-project-git/
+
+# Local project template
+/template.md

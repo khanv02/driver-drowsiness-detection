@@ -130,3 +130,14 @@ Test tự động bao phủ một số trường hợp hình học, thời gian,
 - [Danh sách công việc](specs/001-drowsyalert/tasks.md)
 
 Dữ liệu ở `data/`, model ở `models/` và kết quả ở `outputs/` được loại khỏi Git; chỉ README và `.gitkeep` được giữ. Webcam được xử lý cục bộ mặc định. Việc thu thập video tình nguyện viên cần có đồng ý và tuân thủ hướng dẫn của đơn vị phụ trách.
+
+## Nhóm phát triển
+
+- Phạm Nguyễn Phúc Khang
+- Huỳnh Vĩnh Lợi
+- Dương Công Khoa
+- Cao Thanh Hùng
+
+## Giấy phép
+
+Dự án được phát hành theo [Giấy phép MIT](LICENSE).
