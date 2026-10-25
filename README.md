@@ -145,13 +145,14 @@ Dữ liệu ở `data/`, model ở `models/` và kết quả ở `outputs/` đư
 
 ## Nhóm phát triển
 
-| Thành viên | Vai trò |
-|---|---|
-| Huỳnh Vĩnh Lợi | Nhóm trưởng |
-| Phạm Nguyễn Phúc Khang | Lập trình viên |
-| Cao Thanh Hùng | Thư ký |
-| Dương Công Khoa | Kiểm thử và gán nhãn dữ liệu |
+| Thành viên | Vai trò | Nhiệm vụ chính |
+|---|---|---|
+| Huỳnh Vĩnh Lợi | Trưởng nhóm | Định hướng nhóm và câu hỏi nghiên cứu; thống nhất mục tiêu, phạm vi, ưu tiên; phân công và theo dõi tiến độ; điều phối quyết định và rà soát kết quả theo yêu cầu đề tài. |
+| Cao Thanh Hùng | Thư ký | Ghi biên bản họp, quyết định và đầu việc; lưu trữ tài liệu, phiên bản báo cáo và hồ sơ hoạt động; nhắc cập nhật tiến độ và kết quả thảo luận. |
+| Phạm Nguyễn Phúc Khang | Developer | Quản lý repository và cấu hình dự án; triển khai, tích hợp và xây dựng pipeline/demo; duy trì cấu trúc mã nguồn và hướng dẫn chạy. |
+| Dương Công Khoa | Kiểm thử và phụ trách dữ liệu | Kiểm tra yêu cầu, lập và thực hiện kiểm thử, ghi nhận lỗi; theo dõi nguồn và giấy phép dataset, làm sạch/kiểm tra nhãn, chuẩn bị dữ liệu và split hạn chế leakage. |
 
+Các vai trò có thể kiêm nhiệm hoặc điều chỉnh theo khối lượng công việc. Người phụ trách dữ liệu cần ghi rõ nguồn, nhãn, cách tiền xử lý và cách chia tập; dữ liệu tình nguyện viên chỉ được thu thập khi có đồng ý và không đưa vào Git.
 ## Giấy phép
 
 Dự án được phát hành theo [Giấy phép MIT](LICENSE).
