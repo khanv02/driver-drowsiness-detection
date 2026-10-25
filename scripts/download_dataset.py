@@ -1,33 +1,47 @@
-"""Download the selected public Kaggle archive; credentials are never embedded."""
+"""Record a manually downloaded CEW archive without fetching or extracting it.
+
+The historical script downloaded an archive whose Kaggle metadata reported an unknown
+license. Phase 3 deliberately requires an owner-mediated download from the official CEW
+page instead. This command is read-only and records the local archive identity needed for
+the dataset card.
+"""
 
 import argparse
-import urllib.request
-import zipfile
+import hashlib
+import json
 from pathlib import Path
 
-URL = "https://www.kaggle.com/api/v1/datasets/download/dheerajperumandla/drowsiness-dataset"
+CEW_PAGE = (
+    "https://parnec.nuaa.edu.cn/_upload/tpl/02/db/731/template731/"
+    "pages/xtan/ClosedEyeDatabases.html"
+)
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Download public Kaggle eye/yawn images")
-    parser.add_argument("--output", type=Path, default=Path("data/raw/kaggle"))
+def archive_identity(path: Path) -> dict[str, str | int]:
+    if not path.is_file():
+        raise FileNotFoundError(f"Dataset archive not found: {path}")
+    digest = hashlib.sha256()
+    size = 0
+    with path.open("rb") as source:
+        while block := source.read(1024 * 1024):
+            size += len(block)
+            digest.update(block)
+    return {
+        "archive": path.name,
+        "bytes": size,
+        "sha256": digest.hexdigest(),
+        "source_page": CEW_PAGE,
+        "action": "Record this identity in docs/dataset-card.md; extract under data/raw/cew/.",
+    }
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Hash an owner-downloaded CEW archive (no network or extraction)"
+    )
+    parser.add_argument("--archive", type=Path, required=True)
     args = parser.parse_args()
-    destination = args.output.resolve()
-    destination.mkdir(parents=True, exist_ok=True)
-    archive = destination / "dataset.zip"
-    request = urllib.request.Request(URL, headers={"User-Agent": "DrowsyAlert/0.2"})
-    with urllib.request.urlopen(request, timeout=60) as response, archive.open("wb") as target:
-        while block := response.read(1024 * 1024):
-            target.write(block)
-    if not zipfile.is_zipfile(archive):
-        raise RuntimeError("Kaggle did not return a ZIP. Download manually from the dataset page.")
-    with zipfile.ZipFile(archive) as zipped:
-        for member in zipped.infolist():
-            target = (destination / member.filename).resolve()
-            if not target.is_relative_to(destination):
-                raise ValueError("Archive contains a path outside the dataset directory")
-        zipped.extractall(destination)
-    print(destination)
+    print(json.dumps(archive_identity(args.archive), indent=2))
 
 
 if __name__ == "__main__":
