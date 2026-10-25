@@ -207,6 +207,7 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 - [X] T-067 [Parent: T-009] Complete landmark-source/timebase/window/coverage metadata in `src/drowsyalert/pipeline/realtime.py` and keep offline replay silent (depends on T-066).
 - [X] T-068 [Parent: T-009] Record automated replay evidence and any unavailable webcam/model/manual checks in `docs/verification.md` without claiming skipped hardware checks passed (depends on T-067).
 - [X] T-069 [Parent: T-009] Run the Phase 2 test/lint suite, update requirement evidence and G2 status, and mark T-009 complete in `specs/001-drowsyalert/tasks.md` (depends on T-068).
+- [X] T-070 [Parent: Phase 2] Run the final Phase 2 suite and Ruff checks, confirm every T-005–T-009 leaf task is complete, and clear staged/diff formatting errors before merging the phase branch.
 
 ### Phase 2 acceptance gate
 
@@ -574,7 +575,7 @@ Parallel work is allowed only after listed dependencies are complete and when se
 
 ## Format and traceability summary
 
-- Task list currently contains **31 parent work packages plus 38 leaf tasks** (69 numbered items). Create leaf tasks for the active work package before implementation; the leaf count will grow as approved work is decomposed.
+- Task list currently contains **31 parent work packages plus 39 leaf tasks** (70 numbered items). Create leaf tasks for the active work package before implementation; the leaf count will grow as approved work is decomposed.
 - By phase: Phase 1 **4**; Phase 2 **5**; Phase 3 **5**; Phase 4 **4**; Phase 5 **4**; Phase 6 **5**; Phase 7 **4**.
 - Research/data tasks: T-001, T-010, T-023, T-024, T-027; implementation/environment tasks are otherwise separated as labelled.
 - T-001–T-031 are parent work packages, not the intended smallest execution units. Add focused leaf tasks with stable IDs before starting each parent; avoid speculative leaf tasks where dataset/protocol approvals may change the work.

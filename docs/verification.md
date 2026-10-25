@@ -4,8 +4,10 @@ This record separates automated evidence from hardware/model/data checks that we
 
 ## Phase 2 — Landmark and PERCLOS baseline
 
-**Date:** 2026-10-26  
-**Branch:** `phase/2-landmark-perclos`  
+**Date:** 2026-10-26
+
+**Branch:** `phase/2-landmark-perclos`
+
 **Scope:** T-005–T-009 / G2
 
 ### Automated evidence
