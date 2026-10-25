@@ -29,8 +29,8 @@ This record separates decisions that require the project owner or supervisor fro
 
 | ID | Decision required | Current evidence | Owner | Status | Blocking effect |
 |---|---|---|---|---|---|
-| G0-10 | Preserve an approved clean Git baseline before feature branching | The repository is on `master` with substantial pre-existing uncommitted restructuring, including removal of the former `my-project` path and addition of root-level project files. | Project owner | Policy approved; checkpoint still required before branching | Blocks branch creation and commits, but not safe documentation inventory |
-| G0-11 | Use the documented recovery workflow | After the baseline checkpoint, create `feature/001-drowsyalert`; use one short-lived `task/T-###-slug` branch per leaf task; recover by abandoning an unmerged task branch or reverting a task commit. | Project owner | Approved 2026-10-26 | Applies once G0-10 checkpoint is reviewed |
+| G0-10 | Preserve an approved clean Git baseline before feature branching | The root-layout migration was reviewed for private/generated paths and committed on `checkpoint/root-layout` at `3f717de`. The original `master` branch remains unchanged. | Project owner | Completed 2026-10-26 | Provides the recoverable starting checkpoint |
+| G0-11 | Use the documented recovery workflow | `feature/001-drowsyalert` was created from checkpoint `3f717de`; leaf work uses `task/T-###-slug` branches and is recovered by abandoning an unmerged branch or reverting its commit. | Project owner | Active 2026-10-26 | Governs subsequent implementation |
 
 ## Approval statement
 
@@ -40,4 +40,4 @@ Record approval here or in an equivalent supervisor review record:
 
 | Reviewer | Role | Decision/date | Notes |
 |---|---|---|---|
-| Chat user | Project owner | Approved 2026-10-26 | Directed work to proceed; G0-05–G0-09 remain owned blockers and G0-10 still requires a safe baseline checkpoint before branch/commit operations. |
+| Chat user | Project owner | Approved 2026-10-26 | Directed work to proceed; G0-05–G0-09 remain owned blockers. Root-layout checkpoint `3f717de` preserves the approved starting state. |

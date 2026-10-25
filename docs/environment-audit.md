@@ -54,6 +54,8 @@ No personal recording or restricted dataset was inspected or created. Dataset av
 - Per the approved branch policy, do not create the feature/task branch chain until this starting state has been reviewed and preserved in an explicit baseline checkpoint.
 - This audit does not classify the pre-existing changes as correct or complete.
 
+**Checkpoint resolution:** After owner approval, the staged root migration was checked for whitespace errors, high-confidence secret patterns, private/generated paths, and staged blobs larger than 1 MiB. The reviewed baseline was committed as `3f717de` on `checkpoint/root-layout`; `feature/001-drowsyalert` was created from that commit and `master` was left unchanged.
+
 ## T-002 conclusion
 
 The base Python/OpenCV/MediaPipe development environment is present and the lockfile is internally resolvable offline. CNN training is not ready because PyTorch and scikit-learn are unavailable in the current environment and no approved dataset exists. End-to-end landmark or CNN execution is also blocked by missing local model assets and the absence of an approved recorded-video fixture. These are recorded prerequisites, not successful implementation or evaluation results.

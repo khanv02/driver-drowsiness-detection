@@ -1,6 +1,6 @@
 # Implementation Plan: DrowsyAlert
 
-**Branch**: `001-drowsyalert` | **Date**: 2026-10-26 | **Spec**: [spec.md](spec.md)
+**Branch**: `feature/001-drowsyalert` | **Date**: 2026-10-26 | **Spec**: [spec.md](spec.md)
 
 **Development branch policy**: At G0, start from the repository's approved default branch with a clean, committed baseline and create the integration branch `feature/001-drowsyalert`. Implement one small task at a time on a short-lived branch named `task/T-###-short-description`, based on the integration branch. Verify and review each focused diff, commit it, then merge it into the integration branch. Keep the default branch unchanged until the feature is accepted. If a task goes wrong, abandon/recreate its task branch or revert its task commit; do not reset shared branches. Do not start branching from an uncommitted worktree.
 

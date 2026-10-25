@@ -10,7 +10,7 @@ Each T-task below is a parent work package. Before starting one, split it into l
 
 ### Branch and recovery workflow
 
-The repository is currently on `master` with uncommitted workspace changes. Do not create or switch branches until the existing changes are understood and preserved in a reviewed commit or another explicitly chosen checkpoint. At G0, use the branch policy in `plan.md`: create `feature/001-drowsyalert` from the approved default branch, then use one short-lived `task/T-###-slug` branch per leaf task. Keep each branch focused, verify the task's checks, review the diff, commit, and merge into the feature branch. Never use `git reset --hard` or rewrite shared branch history as a recovery shortcut. Recover by abandoning an unmerged task branch or reverting its task commit; the feature branch and accepted commits remain recoverable.
+The root-layout migration is preserved at commit `3f717de` on `checkpoint/root-layout`; the original `master` branch remains unchanged. `feature/001-drowsyalert` starts from that checkpoint. Use one short-lived `task/T-###-slug` branch per leaf task. Keep each branch focused, verify the task's checks, review the diff, commit, and merge into the feature branch. Never use `git reset --hard` or rewrite shared branch history as a recovery shortcut. Recover by abandoning an unmerged task branch or reverting its task commit; the feature branch and accepted commits remain recoverable.
 
 ### Gate G0 — approval before implementation
 
@@ -42,6 +42,7 @@ T-001 is complete only when all leaf tasks below are checked. Approval tasks mus
 - [X] T-039 [Parent: T-001] Record Constitution v1.0.0 adoption and ratification date in `.specify/memory/constitution.md` and `specs/001-drowsyalert/decisions.md` (depends on T-037; human approval required).
 - [X] T-040 [Parent: T-001] Confirm whether the available unsuffixed Project 12 DOCX is the authoritative revision and record the answer in `specs/001-drowsyalert/decisions.md` (depends on T-037; human confirmation required).
 - [X] T-041 [Parent: T-001] Review and accept the owners/blocking effects for dataset, temporal ground truth, metrics, thresholds, consent, and Git baseline decisions in `specs/001-drowsyalert/decisions.md` (depends on T-038–T-040; human approval required).
+- [X] T-051 [Parent: T-001] Preserve the reviewed root-layout migration at checkpoint `3f717de`, keep `master` unchanged, and create `feature/001-drowsyalert` from that checkpoint (depends on T-041; owner approved).
 
 - [X] T-002 — Audit and record the current environment (Coding/Environment)
 
@@ -106,6 +107,8 @@ Complete these small tasks in order. T-002 is complete only when all four leaf t
 ### Phase 1 acceptance gate
 
 G1 passes when T-001 through T-004 are complete, the approved architecture and protocol are available, dependencies and test conventions are understood, and data/privacy boundaries are reviewable. No model training or volunteer capture begins before its applicable approvals and license/consent checks.
+
+**G1 status (2026-10-26): Passed.** T-001–T-004 and their Phase 1 leaf tasks are complete. Dataset, training, volunteer-data, and evaluation prerequisites remain explicit blockers for their later tasks.
 
 ## Phase 2 — Landmark and PERCLOS Baseline
 
@@ -523,7 +526,7 @@ Parallel work is allowed only after listed dependencies are complete and when se
 
 ## First executable task and recommended MVP milestone
 
-**First completed implementation task**: **T-002 — Audit and record the current environment**. Phase 1 authority, dependency/layout, configuration, test, and privacy conventions are now recorded. The next implementation milestone is **Phase 2, G2 landmark/PERCLOS baseline**, but source-code work and task-branch creation wait for the dirty Git baseline to be reviewed and checkpointed. A live alert demo is not accepted as the research MVP until T-015–T-018 are complete.
+**First completed implementation task**: **T-002 — Audit and record the current environment**. Phase 1 authority, dependency/layout, configuration, test, privacy, and recovery conventions are recorded. The next implementation milestone is **Phase 2, G2 landmark/PERCLOS baseline**. A live alert demo is not accepted as the research MVP until T-015–T-018 are complete.
 
 ## Task-readiness review
 
@@ -531,11 +534,11 @@ Parallel work is allowed only after listed dependencies are complete and when se
 - **Verification**: Automated tests are scheduled alongside each behavior, beginning in Phase 2; regression is repeated in Phase 7.
 - **Data/research separation**: Dataset review, volunteer consent, labeling, protocol approval, and comparative evaluation are explicitly research/data tasks, separate from coding.
 - **No fabricated evidence**: Dataset availability, target attainment, and experimental outcomes remain unknown until measured; blocked paths are recorded as blocked.
-- **Current readiness**: Phase 1 parent tasks T-001–T-004 are complete and G1 conventions are documented. Research/data decisions remain owned blockers for their dependent tasks. Branch creation, commits, dependency installation, downloads, and Phase 2 source-code work wait for review of the dirty Git baseline checkpoint.
+- **Current readiness**: Phase 1 parent tasks T-001–T-004 are complete, G1 passed, checkpoint `3f717de` preserves the root-layout baseline, and `feature/001-drowsyalert` is ready for Phase 2 leaf-task development. Research/data decisions remain owned blockers for their dependent tasks; no dataset/model download, dependency installation, or volunteer capture has been authorized by completing G1.
 
 ## Format and traceability summary
 
-- Task list currently contains **31 parent work packages plus 19 leaf tasks** (50 numbered items). Create leaf tasks for the active work package before implementation; the leaf count will grow as approved work is decomposed.
+- Task list currently contains **31 parent work packages plus 20 leaf tasks** (51 numbered items). Create leaf tasks for the active work package before implementation; the leaf count will grow as approved work is decomposed.
 - By phase: Phase 1 **4**; Phase 2 **5**; Phase 3 **5**; Phase 4 **4**; Phase 5 **4**; Phase 6 **5**; Phase 7 **4**.
 - Research/data tasks: T-001, T-010, T-023, T-024, T-027; implementation/environment tasks are otherwise separated as labelled.
 - T-001–T-031 are parent work packages, not the intended smallest execution units. Add focused leaf tasks with stable IDs before starting each parent; avoid speculative leaf tasks where dataset/protocol approvals may change the work.
