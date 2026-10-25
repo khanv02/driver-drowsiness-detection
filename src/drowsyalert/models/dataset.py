@@ -24,6 +24,52 @@ MANIFEST_FIELDS = [
 ]
 
 
+def read_manifest(manifest: Path) -> list[dict[str, str]]:
+    """Read and validate the full split manifest before a model can consume it."""
+    if not manifest.is_file():
+        raise FileNotFoundError(f"Manifest not found: {manifest}")
+    with manifest.open(encoding="utf-8", newline="") as source:
+        reader = csv.DictReader(source)
+        missing = set(MANIFEST_FIELDS) - set(reader.fieldnames or ())
+        if missing:
+            raise ValueError(f"Manifest is missing columns: {', '.join(sorted(missing))}")
+        rows = list(reader)
+    if not rows:
+        raise ValueError("Manifest is empty")
+    paths: set[str] = set()
+    group_splits: dict[str, str] = {}
+    split_labels = {split: set() for split in ("train", "val", "test")}
+    for line, row in enumerate(rows, start=2):
+        path = _normalise_source(row["path"])
+        source = _normalise_source(row["source"])
+        split = row["split"]
+        group_id = row["group_id"].strip()
+        if path in paths:
+            raise ValueError(f"Duplicate manifest path at line {line}: {path}")
+        if split not in split_labels:
+            raise ValueError(f"Invalid split at line {line}: {split!r}")
+        if row["label"] not in {"0", "1"}:
+            raise ValueError(f"Invalid label at line {line}: {row['label']!r}")
+        if not group_id:
+            raise ValueError(f"Empty group_id at manifest line {line}")
+        for field in ("source_sha256", "sha256"):
+            value = row[field].lower()
+            if len(value) != 64 or any(character not in "0123456789abcdef" for character in value):
+                raise ValueError(f"Invalid {field} at manifest line {line}")
+        prior_split = group_splits.setdefault(group_id, split)
+        if prior_split != split:
+            raise ValueError(
+                f"Group {group_id!r} appears in both {prior_split!r} and {split!r} splits"
+            )
+        paths.add(path)
+        split_labels[split].add(row["label"])
+        row["path"], row["source"] = path, source
+    for split, labels in split_labels.items():
+        if labels != {"0", "1"}:
+            raise ValueError(f"Split {split!r} must contain both open and closed labels")
+    return rows
+
+
 def _label_key(value: str) -> str:
     return value.lower().replace("_", "").replace("-", "").replace(" ", "")
 

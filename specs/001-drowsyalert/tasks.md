@@ -273,10 +273,10 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 
 ### T-012 leaf tasks — Reproducible training and selection
 
-- [ ] T-080 [Parent: T-012] Add tests for deterministic training configuration, validation-only checkpoint selection, class mapping, and checkpoint metadata in `tests/test_cnn_training.py` (depends on T-079).
-- [ ] T-081 [Parent: T-012] Implement deterministic loaders/training, validation-only selection, and complete checkpoint/run metadata in `src/drowsyalert/models/train.py` and `src/drowsyalert/models/eye_cnn.py` (depends on T-080).
-- [ ] T-082 [Parent: T-012] Run a tiny synthetic training/checkpoint smoke test without making a performance claim (depends on T-081).
-- [ ] T-083 [Parent: T-012] Document the reproducible training command, configuration, artifacts, selection rule, and real-data prerequisites in `docs/training.md` (depends on T-082).
+- [X] T-080 [Parent: T-012] Add tests for deterministic training configuration, validation-only checkpoint selection, class mapping, and checkpoint metadata in `tests/test_cnn_training.py` (depends on T-079).
+- [X] T-081 [Parent: T-012] Implement deterministic loaders/training, validation-only selection, and complete checkpoint/run metadata in `src/drowsyalert/models/train.py` and `src/drowsyalert/models/eye_cnn.py` (depends on T-080).
+- [X] T-082 [Parent: T-012] Run a tiny synthetic training/checkpoint smoke test without making a performance claim (depends on T-081).
+- [X] T-083 [Parent: T-012] Document the reproducible training command, configuration, artifacts, selection rule, and real-data prerequisites in `docs/training.md` (depends on T-082).
 
 - [ ] T-013 — Evaluate eye classification on the held-out test split
 
