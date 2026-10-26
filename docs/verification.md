@@ -256,3 +256,38 @@ Formal G5 closure remains **pending** only because parent T-022 declares T-018 a
 dependency, while T-018/G4 still awaits the deferred human-visible webcam and real-speaker
 acceptance check. This hardware limitation does not invalidate the automated Phase 5
 implementation and no visual/audio success is inferred from it.
+
+## Phase 6 - Experimental evaluation foundation
+
+**Date:** 2026-10-26
+
+**Branch:** `phase/6-experimental-evaluation`
+
+**Status:** Data-independent preparation verified; protocol/data/results pending.
+
+Completed preparatory evidence:
+
+- Candidate temporal-video sources and current local inventory were audited without
+  downloading or claiming a dataset.
+- The evaluation protocol defines proposed A/B/C controls, independent reference labels,
+  subject/session separation, matching, latency, false alarms, unknown coverage, system
+  Accuracy, conditions, privacy, and approval fields. It remains explicitly draft.
+- A strict annotation CSV loader validates finite media bounds, final adjudication,
+  approved label/condition values, stable clip identities, duplicates, circular
+  detector-derived labels, and subject/session leakage. It stores no frame pixels.
+- Parameterized metrics validate intervals and compute chronological one-to-one matches,
+  event TP/FP/FN, precision/recall/F1, false alarms per valid hour, signed latency
+  distributions, misses, and observation coverage. Matching tolerances have no defaults.
+
+Verification commands:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -p no:cacheprovider -q
+uv run ruff check src scripts demo tests
+```
+
+Observed result: `176 passed` in 30.39 seconds and Ruff reported `All checks passed!`.
+
+This is synthetic software evidence only. T-023 still requires human protocol/data-path
+approval, T-024 requires an authorized temporally annotated video corpus, and no A/B/C
+performance, alert latency, video Accuracy, or robustness result has been measured.

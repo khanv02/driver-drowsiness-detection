@@ -508,6 +508,7 @@ T-023 before held-out evaluation; no comparative result is claimed.
 **Milestone outcome**: lawful, consent-aware and temporally labelled evaluation data; frozen protocol; reproducible A/B/C results, latency/error analysis, and transparent limitations.
 
 - [X] T-123 [Parent: Phase 6] Audit Phase 6 readiness and decompose only the protocol task T-023 before dataset-specific or scoring work; preserve the T-018/T-022 hardware dependency and the missing temporal-video corpus as explicit blockers.
+- [X] T-133 [Parent: Phase 6] Run the complete suite and Ruff after the data-independent annotation and metric foundations; record that 176 tests pass while protocol approval, video acquisition, and real scoring remain pending.
 
 - [ ] T-023 — Approve temporal ground truth and evaluation protocol (Research)
 
