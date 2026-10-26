@@ -23,6 +23,7 @@ class Config:
     perclos_threshold: float = 0.2
     combined_perclos_threshold: float = 0.1
     cnn_threshold: float = 0.5
+    cnn_uncertainty_margin: float = 0.1
     yawn_threshold: float = 0.6
     yawn_seconds: float = 1.5
     yawn_count: int = 2
@@ -48,6 +49,10 @@ class Config:
             raise ValueError("min_valid_seconds must not exceed window_seconds")
         if self.combined_perclos_threshold > self.perclos_threshold:
             raise ValueError("combined_perclos_threshold must not exceed perclos_threshold")
+        if not 0 < self.cnn_threshold - self.cnn_uncertainty_margin:
+            raise ValueError("cnn_threshold - cnn_uncertainty_margin must be greater than zero")
+        if self.cnn_threshold + self.cnn_uncertainty_margin > 1:
+            raise ValueError("cnn_threshold + cnn_uncertainty_margin must not exceed one")
         for key in ("width", "height", "yawn_count"):
             if not isinstance(getattr(self, key), int):
                 raise ValueError(f"{key} must be an integer")

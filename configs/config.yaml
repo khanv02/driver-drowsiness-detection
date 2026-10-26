@@ -11,6 +11,7 @@ min_coverage: 0.8
 perclos_threshold: 0.20
 combined_perclos_threshold: 0.10
 cnn_threshold: 0.5
+cnn_uncertainty_margin: 0.1
 yawn_threshold: 0.6
 yawn_seconds: 1.5
 yawn_count: 2
