@@ -4,11 +4,17 @@ import pytest
 
 from drowsyalert.experiments.metrics import (
     AlertEpisode,
+    ClipTimeline,
     ReferenceEvent,
+    StatusSample,
     coverage_summary,
     event_metrics,
+    extract_alert_episodes,
+    grouped_system_accuracy,
     latency_summary,
     match_events,
+    status_intervals,
+    system_accuracy,
 )
 
 
@@ -187,3 +193,110 @@ def test_duplicate_event_or_alert_ids_are_rejected():
             early_tolerance=0,
             late_tolerance=0,
         )
+
+
+def test_alert_episode_extraction_merges_frames_and_unknown_ends_episode():
+    samples = [
+        StatusSample(0.0, "NORMAL"),
+        StatusSample(1.0, "ALERT"),
+        StatusSample(1.5, "ALERT"),
+        StatusSample(2.0, "UNKNOWN"),
+        StatusSample(3.0, "ALERT"),
+    ]
+    assert extract_alert_episodes("clip-1", samples, end_seconds=4.0) == (
+        AlertEpisode("clip-1-alert-0001", "clip-1", 1.0, 2.0),
+        AlertEpisode("clip-1-alert-0002", "clip-1", 3.0, 4.0),
+    )
+    assert [(item.state, item.start_seconds, item.end_seconds) for item in status_intervals(
+        "clip-1", samples, end_seconds=4.0
+    )] == [
+        ("NORMAL", 0.0, 1.0),
+        ("ALERT", 1.0, 1.5),
+        ("ALERT", 1.5, 2.0),
+        ("UNKNOWN", 2.0, 3.0),
+        ("ALERT", 3.0, 4.0),
+    ]
+
+
+def test_system_accuracy_keeps_unknown_bins_in_primary_denominator():
+    samples = [
+        StatusSample(0.0, "NORMAL"),
+        StatusSample(1.0, "ALERT"),
+        StatusSample(2.0, "UNKNOWN"),
+        StatusSample(3.0, "NORMAL"),
+    ]
+    intervals = status_intervals("clip-1", samples, end_seconds=4.0)
+    result = system_accuracy(
+        [ClipTimeline("clip-1", 4.0)],
+        [ReferenceEvent("event-1", "clip-1", 1.0, 2.0)],
+        intervals,
+        bin_seconds=1.0,
+    )
+    assert result == {
+        "bins": 4,
+        "observed_bins": 3,
+        "unknown_bins": 1,
+        "correct_bins": 3,
+        "tp": 1,
+        "tn": 2,
+        "fp": 0,
+        "fn": 0,
+        "accuracy": 0.75,
+        "observed_only_accuracy": 1.0,
+        "observation_coverage": 0.75,
+    }
+
+
+def test_system_accuracy_treats_prediction_ties_as_unknown():
+    intervals = [
+        ("NORMAL", 0.0, 0.5),
+        ("ALERT", 0.5, 1.0),
+    ]
+    states = status_intervals(
+        "clip-1",
+        [StatusSample(start, state) for state, start, _end in intervals],
+        end_seconds=1.0,
+    )
+    result = system_accuracy(
+        [ClipTimeline("clip-1", 1.0)], [], states, bin_seconds=1.0
+    )
+    assert result["unknown_bins"] == 1
+    assert result["accuracy"] == 0.0
+    assert result["observed_only_accuracy"] is None
+
+
+def test_grouped_system_accuracy_reports_counts_and_unknown_groups():
+    timelines = [ClipTimeline("clip-1", 1.0), ClipTimeline("clip-2", 1.0)]
+    states = [
+        *status_intervals(
+            "clip-1", [StatusSample(0.0, "NORMAL")], end_seconds=1.0
+        ),
+        *status_intervals(
+            "clip-2", [StatusSample(0.0, "UNKNOWN")], end_seconds=1.0
+        ),
+    ]
+    grouped = grouped_system_accuracy(
+        timelines,
+        [],
+        states,
+        conditions={"clip-1": "present", "clip-2": "unknown"},
+        bin_seconds=1.0,
+    )
+    assert grouped["present"]["bins"] == 1
+    assert grouped["present"]["accuracy"] == 1.0
+    assert grouped["unknown"]["bins"] == 1
+    assert grouped["unknown"]["accuracy"] == 0.0
+    assert grouped["unknown"]["observation_coverage"] == 0.0
+
+
+@pytest.mark.parametrize(
+    "samples",
+    [
+        [StatusSample(1.0, "NORMAL"), StatusSample(1.0, "ALERT")],
+        [StatusSample(1.0, "unsupported")],
+        [StatusSample(-1.0, "NORMAL")],
+    ],
+)
+def test_status_samples_require_ordered_media_time_and_known_states(samples):
+    with pytest.raises(ValueError, match="status sample"):
+        status_intervals("clip-1", samples, end_seconds=2.0)
