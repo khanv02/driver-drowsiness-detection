@@ -1,4 +1,6 @@
-﻿# DrowsyAlert
+﻿<h1 align="center">🚗💤 DrowsyAlert</h1>
+
+<p align="center">CNN-based Driver Drowsiness Detection Research Prototype</p>
 
 <p align="center">
   <a href="https://www.python.org/"><img alt="Python 3.12" src="https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white"></a>
@@ -16,7 +18,7 @@
 
 DrowsyAlert là ứng dụng nghiên cứu nhận biết dấu hiệu buồn ngủ qua webcam hoặc video. Hệ thống theo dõi trạng thái mắt, tính PERCLOS theo thời gian và hỗ trợ so sánh với dấu hiệu ngáp hoặc tư thế đầu. Khi chạy trực tiếp, ứng dụng hiển thị trạng thái và có thể phát cảnh báo âm thanh.
 
-Đây là công cụ nghiên cứu tham khảo, không phải thiết bị an toàn được chứng nhận hay thiết bị chẩn đoán y tế. Ứng dụng không thay thế các biện pháp an toàn giao thông chính thức. Mục tiêu Accuracy ≥ 0,90 là mục tiêu nghiên cứu, chưa phải kết quả đã đạt.
+Đây là công cụ nghiên cứu tham khảo, không phải thiết bị an toàn được chứng nhận hay thiết bị chẩn đoán y tế. Ứng dụng không thay thế các biện pháp an toàn giao thông chính thức. Trên tập test CEW, CNN đạt Accuracy 0,907967 cho phân loại ảnh mắt; đây không phải kết quả phát hiện buồn ngủ trên video, bằng chứng an toàn đường bộ hay kết quả tổng quát hóa sang tài xế thực tế.
 
 ## Chức năng
 
@@ -32,15 +34,13 @@ Model Face Landmarker và checkpoint CNN không được lưu trong Git. EAR kh�
 
 ## Trạng thái phát triển
 
-**Phase 2 — Landmark và PERCLOS baseline: hoàn thành (G2).** Hệ thống hiện có:
+**Phase 1 — Foundation: hoàn thành (G1).** Nền tảng dự án, quy ước kiểm thử, quản lý cấu hình và ranh giới dữ liệu riêng tư đã được thiết lập.
 
-- Nguồn webcam/video với loại nguồn và timebase rõ ràng; video dùng media timestamp, webcam dùng đồng hồ đơn điệu.
-- Kiểm tra tính hợp lệ của khuôn mặt và từng mắt; dữ liệu thiếu, lỗi hoặc nhiều khuôn mặt không bị xem nhầm là mắt mở.
-- Trạng thái mắt `OPEN`/`CLOSED`/`UNKNOWN` từ landmark EAR, tách biệt với nguồn CNN tùy chọn.
-- PERCLOS theo thời lượng quan sát hợp lệ, kèm coverage, readiness, cửa sổ thời gian và xử lý tracking gap.
-- Replay xác định để kiểm thử tích hợp và log metadata; chế độ replay headless không phát âm thanh.
+**Phase 2 — Landmark và PERCLOS baseline: hoàn thành (G2).** Pipeline webcam/video có timestamp; kiểm tra tính hợp lệ riêng cho khuôn mặt và từng mắt; trạng thái mắt `OPEN`/`CLOSED`/`UNKNOWN` từ EAR; PERCLOS theo thời gian có coverage/readiness và xử lý khoảng mất quan sát. Replay headless tái lập được và xuất metadata.
 
-Gate G2 đã vượt qua bộ kiểm thử tự động với **41 passed, 1 skipped** và Ruff không báo lỗi. Test bị skip thuộc luồng CNN/PyTorch tùy chọn. Webcam vật lý, Face Landmarker asset thật, codec video thật và âm thanh vẫn cần kiểm tra trên máy demo; Phase 2 chưa đưa ra tuyên bố về độ chính xác thực tế. Xem [bằng chứng kiểm thử](docs/verification.md) và [danh sách công việc](specs/001-drowsyalert/tasks.md) để biết chi tiết.
+**Phase 3 — CNN eye classification: hoàn thành (G3).** Dataset CEW được chuẩn bị theo split nhóm, CNN được chọn checkpoint bằng validation và đánh giá một lần trên tập test đã đóng băng. Trên 728 ảnh test, mô hình đạt Accuracy **0,907967** và macro F1 **0,907904**. G3 đã vượt qua 79 kiểm thử tự động; Ruff đạt.
+
+Kết quả Phase 3 chỉ đo phân loại ảnh mắt trên CEW. Chưa có kết luận về độ chính xác phát hiện buồn ngủ theo video, hiệu quả cảnh báo, an toàn lái xe hoặc tổng quát hóa sang người lái và điều kiện thực tế. So sánh nghiên cứu PERCLOS, PERCLOS + yawning và PERCLOS + head pose, cùng kiểm tra webcam, model asset và thiết bị demo, vẫn cần được thực hiện ở các giai đoạn tiếp theo. Xem [bằng chứng kiểm thử và kết quả](docs/verification.md), [quy trình huấn luyện](docs/training.md) và [danh sách công việc](specs/001-drowsyalert/tasks.md).
 
 ## Công nghệ
 
