@@ -511,7 +511,7 @@ T-023 before held-out evaluation; no comparative result is claimed.
 - [X] T-133 [Parent: Phase 6] Run the complete suite and Ruff after the data-independent annotation and metric foundations; record that 176 tests pass while protocol approval, video acquisition, and real scoring remain pending.
 - [X] T-134 [Parent: Phase 6] Audit the acquired NITYMED HDTV720 corpus and decompose T-024 through T-027 into recoverable data, metric, evaluator, and controlled-run leaf tasks without treating category folders as temporal ground truth.
 
-- [ ] T-023 — Approve temporal ground truth and evaluation protocol (Research)
+- [X] T-023 — Approve temporal ground truth and evaluation protocol (Research)
 
 - **Phase:** 6 — Experimental Evaluation.
 - **Priority:** P0.
@@ -527,7 +527,7 @@ T-023 before held-out evaluation; no comparative result is claimed.
 
 - [X] T-124 [Parent: T-023] Audit candidate public temporal-video sources and the current local data inventory for license, access, subject/session identity, event timing, and condition-label suitability without downloading or claiming a dataset.
 - [X] T-125 [Parent: T-023] Draft `docs/evaluation-protocol.md` with annotation units, onset/offset rules, validation/test separation, one-to-one alert matching, latency, false-alarm denominator, unknown coverage, condition analysis, A/B/C controls, and approval fields (depends on T-124).
-- [ ] T-126 [Parent: T-023] Obtain and record project-owner/supervisor approval of the selected data path, protocol version, event/matching definitions, threshold-freeze rule, and any volunteer ethics requirements; only then mark T-023 complete (depends on T-129; human approval required).
+- [X] T-126 [Parent: T-023] Obtain and record project-owner/supervisor approval of the selected data path, protocol version, event/matching definitions, threshold-freeze rule, and any volunteer ethics requirements; only then mark T-023 complete (depends on T-129; human approval required).
 - [X] T-127 [Parent: T-023] Add synthetic tests for the draft annotation schema, media bounds, stable identities, final-adjudication state, circular-label rejection, and subject/session split leakage in `tests/test_annotations.py` (depends on T-125).
 - [X] T-128 [Parent: T-023] Implement a data-independent temporal annotation loader/validator and stable manifest identity in `src/drowsyalert/experiments/annotations.py` (depends on T-127; does not approve a dataset or protocol).
 - [X] T-129 [Parent: T-023] Publish the CSV template/field contract, run focused tests and Ruff, and record that real annotations remain blocked by T-126/T-024 (depends on T-128).
@@ -552,7 +552,7 @@ T-023 before held-out evaluation; no comparative result is claimed.
 - [X] T-138 [Parent: T-024] Add a local human-review annotation worklist/tool that records independent media-time intervals using the approved annotation schema and never promotes detector output to reference truth (depends on T-137).
 - [ ] T-139 [Parent: T-024] Validate final annotations, participant/session grouping, validation/test isolation, condition tags, and manifest hashes; keep T-024 blocked if subject mapping or independently reviewed event timing remains incomplete (depends on T-126, T-138; human review required).
 
-- [ ] T-025 — Implement and unit-test temporal/video evaluation metrics
+- [X] T-025 — Implement and unit-test temporal/video evaluation metrics
 
 - **Phase:** 6 — Experimental Evaluation.
 - **Priority:** P1.
@@ -575,7 +575,7 @@ protocol, complete T-025, or authorize held-out scoring.
 - [X] T-132 [Parent: T-025] Document the draft metric primitives, run focused tests and Ruff, and preserve T-025 as pending T-023 approval (depends on T-131).
 - [X] T-140 [Parent: T-025] Add hand-calculated tests for alert-episode extraction, fixed-bin system Accuracy with UNKNOWN retained in the primary denominator, observed-only diagnostics, and condition-group aggregation.
 - [X] T-141 [Parent: T-025] Implement the protocol-parameterized episode, system-Accuracy, and grouped metric functions without embedding unapproved thresholds (depends on T-140).
-- [ ] T-142 [Parent: T-025] Reconcile metric documentation with the approved protocol, run focused/full verification, and mark T-025 complete only after T-126 freezes definitions (depends on T-126, T-141).
+- [X] T-142 [Parent: T-025] Reconcile metric documentation with the approved protocol, run focused/full verification, and mark T-025 complete only after T-126 freezes definitions (depends on T-126, T-141).
 
 - [ ] T-026 — Measure alert latency and failure scenarios
 

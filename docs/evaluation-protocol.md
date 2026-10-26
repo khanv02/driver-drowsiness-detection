@@ -1,14 +1,14 @@
 # DrowsyAlert Temporal Evaluation Protocol
 
-**Protocol ID:** `drowsyalert-video-eval-v1-draft`
+**Protocol ID:** `drowsyalert-video-eval-v1`
 
 **Prepared:** 2026-10-26
 
-**Status:** DRAFT — NOT APPROVED OR FROZEN
+**Status:** APPROVED AND FROZEN by the project owner on 2026-10-26
 
-This document proposes the definitions needed for T-023. Bracketed data-source fields
-and the approval table must be completed by the project owner/research supervisor before
-threshold selection, test scoring, or a Phase 6 performance claim.
+This document fixes the definitions approved under T-126. Data-artifact fields that
+depend on completed annotations and grouping remain T-139 evidence gates; their absence
+blocks a final run but does not reopen the scoring rules below.
 
 ## 1. Research comparison
 
@@ -24,15 +24,16 @@ thresholds, prolonged-closure rule, clips, labels, and event matcher. Only the n
 auxiliary cue and its declared settings differ. CNN-derived PERCLOS, if later evaluated,
 is a separately labelled secondary ablation.
 
-## 2. Dataset and partition (approval blocker)
+## 2. Dataset and partition
 
-- Selected source/version: **NITYMED HDTV720 local inventory candidate, provider page
-  last updated 2022-05-25; final protocol approval pending**
+- Selected source/version: **NITYMED HDTV720 local inventory, provider page last updated
+  2022-05-25; approved public-data path**
 - License/terms evidence and retrieval date: **Provider-declared CC BY; retrieved
   2026-10-26 through the official grouped access page; owner must retain access evidence**
 - Dataset/archive SHA-256: **No archive retained. Per-video hashes are recorded in local
   manifest `bb654b8c5f7104d23268503f02935d3c30974a0199fa4c64d3b8fe4985816307`.**
-- Annotation source/version: **[PENDING]**
+- Annotation source/version: **Independent human media-time review using
+  `docs/annotation-review.md`; exact final annotation manifest pending T-139**
 - Subject/session identifiers: **Absent from acquired layout; provider mapping or
   reviewed grouping still required**
 - Validation/test split manifest and SHA-256: **[PENDING AUDIT]**
@@ -70,7 +71,7 @@ final adjudication, and subject/session-disjoint validation/test splits. It reje
 duplicate rows and detector-derived reference sources. The validator operates only on
 metadata and never loads or stores video frames.
 
-Current draft controlled values are:
+Approved controlled values are:
 
 - split: `validation` or `test`;
 - label: `drowsy_event`, `microsleep`, `prolonged_eye_closure`, `yawn`, or
@@ -81,10 +82,18 @@ Current draft controlled values are:
 - glasses/head movement: `present`, `absent`, or `unknown`;
 - lighting: `normal`, `low`, or `unknown`.
 
-Primary drowsy-event definitions must come from the selected dataset's authorized label
-guide or a supervisor-approved independent annotation guide. Algorithm outputs, EAR,
-PERCLOS, MAR, or pose values cannot define the reference label because that would make
-the comparison circular.
+The primary endpoint is an independently reviewed `microsleep` event. Onset is the first
+reviewed media frame showing the transition into a brief visible sleep/awareness-loss
+episode; offset is the first reviewed frame showing clear return to wakeful eye/face
+behavior. If those boundaries cannot be distinguished confidently, the interval remains
+pending/ambiguous and is excluded before the split is frozen with its exclusion reason.
+Provider folder membership alone does not supply onset or offset.
+
+`yawn` is a secondary observable-behavior endpoint and is never silently merged into
+the primary microsleep/system Accuracy result. Its onset is the first clear sustained
+yawn opening and its offset is the return from that opening. Head nod and prolonged eye
+closure may be secondary tags. Algorithm outputs, EAR, PERCLOS, MAR, pose values, or
+DrowsyAlert alerts cannot define any reference boundary because that would be circular.
 
 For manual annotation, two reviewers independently mark onset/offset without seeing
 method predictions. They reconcile disagreements before the split is revealed as final
@@ -100,18 +109,17 @@ audio cooldown does not create additional detections. `UNKNOWN` ends an alert ep
 and contributes to observation-loss measures. Status is derived from media time, not
 wall-clock processing time.
 
-## 5. Proposed one-to-one matching (approval required)
+## 5. Frozen one-to-one matching
 
 Process reference events chronologically. Match each event to the earliest unmatched
 predicted alert onset inside:
 
 `[reference onset - early tolerance, reference end + late tolerance]`
 
-Proposed starting values for validation review are **1.0 second early** and **2.0 seconds
-late**. These are not approved thresholds. Select/freeze them on validation evidence or
-replace them with a supervisor-approved fixed rule before viewing test scores. Each alert
-and reference event can be matched at most once. Unmatched references are false
-negatives; unmatched alerts are false positives.
+The approved fixed tolerances are **1.0 second early** and **2.0 seconds late**. Each
+alert and reference event can be matched at most once. Unmatched references are false
+negatives; unmatched alerts are false positives. Changing these tolerances creates a new
+protocol version and the held-out test must not be rescored as the same experiment.
 
 Latency is `matched alert onset - reference onset` in media seconds. Negative latency is
 retained and reported as early detection, not clamped to zero. A continuous alert that
@@ -137,7 +145,7 @@ Division by zero yields an explicit unavailable/null metric with its count/denom
 not a fabricated zero. Eye-image Accuracy remains the Phase 3 classifier metric and is
 not mixed with video-event measures.
 
-## 7. Proposed system-level Accuracy definition (approval required)
+## 7. Frozen system-level Accuracy definition
 
 Use fixed, non-overlapping 1-second media-time bins over eligible labelled time. A bin is
 reference-positive when at least half its labelled duration is inside a primary drowsy
@@ -175,21 +183,19 @@ DrowsyAlert remains a research prototype, not a safety or medical system.
 
 ## 10. Approval record
 
-| Decision | Proposed value/status | Reviewer/date |
+| Decision | Frozen value/status | Reviewer/date |
 |---|---|---|
-| Dataset path and rights | NITYMED HDTV720 acquired and integrity-audited; final rights/access evidence review pending | Pending |
-| Primary event-label guide | Pending selected dataset/annotation guide | Pending |
-| Subject/session split | Subject-disjoint; exact manifest pending | Pending |
-| Matching rule | Earliest unmatched alert; proposed -1.0/+2.0 s validation-selected window | Pending |
-| False-alarm denominator | Valid observed hours; also report eligible and unknown time | Pending |
-| Latency and miss handling | Signed media-time latency; misses excluded from latency and counted as FN | Pending |
-| System Accuracy | Fixed 1-second bins; unknown incorrect in primary denominator | Pending |
-| Threshold selection/freeze | Validation only; one-way held-out test | Pending |
-| Volunteer ethics path | Not authorized; public-data path preferred | Pending supervisor review |
+| Dataset path and rights | Official-path NITYMED HDTV720 under provider-declared CC BY; access evidence stays outside Git | Project owner, 2026-10-26 |
+| Primary event-label guide | Independently reviewed microsleep intervals; yawn is a separate secondary endpoint | Project owner, 2026-10-26 |
+| Subject/session split | Subject-disjoint required for final claims; absent verified mapping means pilot-only | Project owner, 2026-10-26 |
+| Matching rule | Earliest unmatched alert in inclusive -1.0/+2.0-second window | Project owner, 2026-10-26 |
+| False-alarm denominator | Valid observed hours; also report eligible and unknown time | Project owner, 2026-10-26 |
+| Latency and miss handling | Signed media-time latency; misses excluded from latency and counted as FN | Project owner, 2026-10-26 |
+| System Accuracy | Fixed 1-second bins at 50% overlap; UNKNOWN incorrect in primary denominator | Project owner, 2026-10-26 |
+| Threshold selection/freeze | Validation only; one-way held-out test | Project owner, 2026-10-26 |
+| Volunteer ethics path | No volunteer collection authorized; public-data path only | Project owner, 2026-10-26 |
 
-Until every row is approved, this remains a draft. Synthetic metric implementation and
-tests must not be presented as approval, real-data evidence, or research results.
-
-The annotation validator and its synthetic tests are preparatory infrastructure only.
-They do not resolve the pending dataset, label guide, matching thresholds, or human
-approval fields above.
+This approval freezes the evaluation definitions; it does not certify that annotations,
+participant groups, split artifacts, thresholds, or results exist. T-139 remains the
+evidence gate for those inputs. Pilot output without participant mapping must be labelled
+pilot-only and cannot support a subject-independent generalization claim.

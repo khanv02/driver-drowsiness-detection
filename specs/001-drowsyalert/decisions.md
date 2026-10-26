@@ -41,3 +41,16 @@ Record approval here or in an equivalent supervisor review record:
 | Reviewer | Role | Decision/date | Notes |
 |---|---|---|---|
 | Chat user | Project owner | Approved 2026-10-26 | Directed work to proceed; G0-05–G0-09 remain owned blockers. Root-layout checkpoint `3f717de` preserves the approved starting state. |
+
+## Phase 6 protocol approval
+
+On 2026-10-26, the project owner approved temporal evaluation protocol
+`drowsyalert-video-eval-v1`: NITYMED HDTV720 is the public-data path; independently
+reviewed microsleep intervals are the primary endpoint and yawns are secondary; matching
+uses the earliest unmatched alert in the inclusive -1.0/+2.0-second window; false alarms
+use valid observed hours; signed latency excludes misses while misses remain FN; system
+Accuracy uses 1-second/50-percent bins with UNKNOWN retained as incorrect; thresholds
+are validation-selected and frozen before test; subject-disjoint grouping is required
+for final claims; and volunteer collection is not authorized. Missing participant
+mapping or temporal annotations blocks final scoring but may support an explicitly
+labelled, non-claim pilot.

@@ -1,11 +1,11 @@
 # Temporal Evaluation Metrics
 
-**Status:** Parameterized implementation verified with synthetic cases; protocol and
-real-data scoring remain unapproved.
+**Status:** Parameterized implementation verified; Protocol
+`drowsyalert-video-eval-v1` approved 2026-10-26; real-data scoring remains pending.
 
-`drowsyalert.experiments.metrics` provides data-independent primitives for the draft
-Phase 6 protocol. It deliberately has no default matching tolerances: callers must supply
-the early and late bounds from an approved, frozen protocol.
+`drowsyalert.experiments.metrics` provides data-independent primitives for frozen Phase 6
+Protocol v1. It deliberately has no default matching tolerances: callers must supply the
+approved early and late bounds so run provenance remains explicit.
 
 ## Matching
 
@@ -32,10 +32,9 @@ alerts exist but none match, precision, recall, and F1 are valid zeros. Invalid 
 duplicate intervals, negative/non-finite tolerances, negative durations, and impossible
 coverage totals are rejected.
 
-These functions do not load videos, select thresholds, define ground truth, approve the
-draft -1/+2 second proposal, or produce a research conclusion. T-025 remains pending
-until T-023 is approved; later integration must prove that the same approved clips,
-eligibility mask, labels, tolerances, and denominators are supplied for A/B/C.
+These functions do not load videos, select thresholds, define ground truth, or produce a
+research conclusion. Integration must prove that the same approved clips, eligibility
+mask, labels, frozen -1/+2-second tolerances, and denominators are supplied for A/B/C.
 
 ## Alert episodes and system Accuracy
 
@@ -55,9 +54,9 @@ TP/TN/FP/FN cover observed predictions, while `unknown_bins` preserves withheld
 evidence. The same calculation can be grouped by a declared condition value; absent tags
 form an explicit `unknown` group.
 
-The proposed 1-second/50-percent protocol is not embedded as a hidden decision. Bin size
-must be supplied by the caller, and the overlap fraction remains an explicit parameter
-to be frozen by the approved protocol.
+Protocol v1 freezes 1-second bins and a 50-percent overlap rule. The metric code still
+requires the bin size from the caller and keeps the positive fraction explicit so each
+run record proves which protocol values it used.
 
 ## Run-record evaluator
 

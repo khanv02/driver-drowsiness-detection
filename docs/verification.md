@@ -263,16 +263,17 @@ implementation and no visual/audio success is inferred from it.
 
 **Branch:** `phase/6-experimental-evaluation`
 
-**Status:** NITYMED acquired and preparation/evaluation tooling verified; protocol,
-independent labels, split, and real results pending.
+**Status:** NITYMED acquired, Protocol v1 approved, and preparation/evaluation tooling
+verified; independent labels, participant-safe split, and real results pending.
 
 Completed preparatory evidence:
 
 - Candidate temporal-video sources and current local inventory were audited without
   downloading or claiming a dataset.
-- The evaluation protocol defines proposed A/B/C controls, independent reference labels,
-  subject/session separation, matching, latency, false alarms, unknown coverage, system
-  Accuracy, conditions, privacy, and approval fields. It remains explicitly draft.
+- Evaluation Protocol `drowsyalert-video-eval-v1` freezes A/B/C controls, independent
+  microsleep reference labels, secondary yaw reporting, subject/session separation,
+  -1/+2-second matching, latency, false alarms, unknown coverage, 1-second system
+  Accuracy, conditions, privacy, validation-only selection, and no volunteer collection.
 - A strict annotation CSV loader validates finite media bounds, final adjudication,
   approved label/condition values, stable clip identities, duplicates, circular
   detector-derived labels, and subject/session leakage. It stores no frame pixels.
@@ -301,10 +302,10 @@ Verification commands:
 uv run ruff check src scripts demo tests
 ```
 
-Observed result after the expanded Phase 6 foundation: `210 passed` in 24.79 seconds and
+Observed result after Protocol v1 approval: `210 passed` in 27.31 seconds and
 Ruff reported `All checks passed!`.
 
-This is software and corpus-integrity evidence only. T-023 still requires human protocol
-approval. T-024/T-139 require a reviewed participant grouping, split, and independent
-temporal annotations. No A/B/C performance, alert latency, video Accuracy, or robustness
-result has been measured.
+This is software, corpus-integrity, and protocol-approval evidence only. T-024/T-139
+still require reviewed participant grouping, split, and independent temporal annotations.
+No A/B/C performance, alert latency, video Accuracy, or robustness result has been
+measured.

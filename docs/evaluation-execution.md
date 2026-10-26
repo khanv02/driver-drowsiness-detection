@@ -44,8 +44,7 @@ When final annotations and protocol values are approved, add:
   --reference-label microsleep
 ```
 
-Those numbers and the example `microsleep` endpoint are draft examples, not approval.
-Use the values frozen under T-126. The comparison exporter reloads all planned records,
-recalculates each method from the same clips and annotations, and writes one strict JSON
-comparison. Validation results may guide threshold selection; held-out test results must
-not be used for tuning.
+Those values are frozen by Protocol `drowsyalert-video-eval-v1`. The comparison exporter
+reloads all planned records, recalculates each method from the same clips and annotations,
+and writes one strict JSON comparison. Validation results may guide threshold selection;
+held-out test results must not be used for tuning.
