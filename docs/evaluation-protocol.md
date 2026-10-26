@@ -59,6 +59,24 @@ Annotations use video media time in seconds and this minimum schema:
 | `confidence` | Declared ordinal/continuous scale or `not_provided`; never silently inferred |
 | condition tags | `glasses`, `lighting`, and `head_movement` only when explicitly observed/available; otherwise `unknown` |
 
+The tracked header-only template is `docs/annotation-template.csv`. The loader in
+`drowsyalert.experiments.annotations` requires this exact column order, finite media
+times, valid media bounds, stable clip/group identity, approved labels and conditions,
+final adjudication, and subject/session-disjoint validation/test splits. It rejects
+duplicate rows and detector-derived reference sources. The validator operates only on
+metadata and never loads or stores video frames.
+
+Current draft controlled values are:
+
+- split: `validation` or `test`;
+- label: `drowsy_event`, `microsleep`, `prolonged_eye_closure`, `yawn`, or
+  `head_nod` unless the approved dataset guide replaces this set;
+- adjudication: `provider`, `agreed`, `resolved`, `single_reviewer`, or
+  `not_applicable`; `pending` may be loaded for work-in-progress but is rejected as
+  final evaluation evidence;
+- glasses/head movement: `present`, `absent`, or `unknown`;
+- lighting: `normal`, `low`, or `unknown`.
+
 Primary drowsy-event definitions must come from the selected dataset's authorized label
 guide or a supervisor-approved independent annotation guide. Algorithm outputs, EAR,
 PERCLOS, MAR, or pose values cannot define the reference label because that would make
@@ -167,3 +185,7 @@ DrowsyAlert remains a research prototype, not a safety or medical system.
 
 Until every row is approved, this remains a draft. Synthetic metric implementation and
 tests must not be presented as approval, real-data evidence, or research results.
+
+The annotation validator and its synthetic tests are preparatory infrastructure only.
+They do not resolve the pending dataset, label guide, matching thresholds, or human
+approval fields above.

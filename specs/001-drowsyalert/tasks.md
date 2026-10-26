@@ -525,7 +525,10 @@ T-023 before held-out evaluation; no comparative result is claimed.
 
 - [X] T-124 [Parent: T-023] Audit candidate public temporal-video sources and the current local data inventory for license, access, subject/session identity, event timing, and condition-label suitability without downloading or claiming a dataset.
 - [X] T-125 [Parent: T-023] Draft `docs/evaluation-protocol.md` with annotation units, onset/offset rules, validation/test separation, one-to-one alert matching, latency, false-alarm denominator, unknown coverage, condition analysis, A/B/C controls, and approval fields (depends on T-124).
-- [ ] T-126 [Parent: T-023] Obtain and record project-owner/supervisor approval of the selected data path, protocol version, event/matching definitions, threshold-freeze rule, and any volunteer ethics requirements; only then mark T-023 complete (depends on T-125; human approval required).
+- [ ] T-126 [Parent: T-023] Obtain and record project-owner/supervisor approval of the selected data path, protocol version, event/matching definitions, threshold-freeze rule, and any volunteer ethics requirements; only then mark T-023 complete (depends on T-129; human approval required).
+- [X] T-127 [Parent: T-023] Add synthetic tests for the draft annotation schema, media bounds, stable identities, final-adjudication state, circular-label rejection, and subject/session split leakage in `tests/test_annotations.py` (depends on T-125).
+- [X] T-128 [Parent: T-023] Implement a data-independent temporal annotation loader/validator and stable manifest identity in `src/drowsyalert/experiments/annotations.py` (depends on T-127; does not approve a dataset or protocol).
+- [X] T-129 [Parent: T-023] Publish the CSV template/field contract, run focused tests and Ruff, and record that real annotations remain blocked by T-126/T-024 (depends on T-128).
 
 - [ ] T-024 — Acquire/prepare annotated evaluation videos and condition labels (Research/Data)
 
