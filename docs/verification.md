@@ -336,5 +336,22 @@ The canonical split identity is
 `2e4e0ea7eb2e529ea2db2f692444768a4de91023d9ce29829bcbdab911cbd047`.
 No duplicate clip ID or content hash crosses the partitions. Exact membership, local
 artifact hashes, durations, counts, and leakage limitation are recorded in
-[evaluation-split-v1.1.md](evaluation-split-v1.1.md). Four rows are reviewed and 34
-remain scheduled in two validation batches followed by seven test batches.
+[evaluation-split-v1.1.md](evaluation-split-v1.1.md). Four reviewed rows were initially
+preserved from the pilot. All 12 validation rows have now been reviewed; 26 held-out
+test rows remain in seven batches.
+
+### Twelve-clip validation baseline
+
+The first complete validation replay used the tracked numeric-reference configuration
+at commit `c6d89884bfc3828d15a9951112d8735867a3339a`. All 36 planned headless/muted
+A/B/C records completed with no failures or skips. The shared comparison contains 19
+reviewed primary events across 939.72 eligible seconds. A/B/C all produced TP=5, FP=28,
+FN=14, and event F1=0.1923; A and C primary system accuracy was 0.2860, while B was
+0.2701. Observation coverage was only 0.6299 because the 30-second warm-up contributed
+about 335.24 seconds of UNKNOWN time.
+
+The run is retained as validation-only evidence and is not frozen for held-out testing.
+Exact metrics, identities, hashes, limitations, and the bounded retuning decision are in
+[validation-evaluation-v1.1.md](validation-evaluation-v1.1.md). T-157/T-158 must replay
+stored validation observations and freeze one configuration before the 26 test clips are
+reviewed or scored.
