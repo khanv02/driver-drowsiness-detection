@@ -2,8 +2,9 @@
 
 **Audit date:** 2026-10-26
 
-**Status:** Candidate review only. No Phase 6 video dataset has been selected,
-downloaded, approved, or evaluated.
+**Status:** NITYMED HDTV720 acquired and integrity-audited. It is selected for local
+Phase 6 preparation, but temporal annotation, participant grouping, split assignment,
+and protocol approval remain required before final evaluation.
 
 Phase 6 requires face videos with time-localized reference evidence. The CEW eye-image
 dataset used in Phase 3 cannot supply event onset/offset, alert latency, false alarms per
@@ -11,7 +12,13 @@ time, or a controlled A/B/C video comparison.
 
 ## Current local inventory
 
-- No approved temporally annotated drowsiness video corpus is present under `data/`.
+- The official grouped NITYMED HDTV720 download is present under ignored `data/` storage:
+  126 MP4 videos, 697,049,508 bytes, and 5,860.677 seconds of media.
+- All videos decode at 1280x720; 125 report 25 FPS and one reports 24 FPS.
+- The local manifest and exact discrepancies are documented in
+  [nitymed-dataset-card.md](nitymed-dataset-card.md).
+- The corpus is not temporally annotated and has no verified clip-to-participant map, so
+  it is not yet an approved held-out evaluation corpus.
 - No volunteer recording is authorized. The deferred webcam test is demonstration
   evidence and must not be repurposed as held-out research data.
 - The ignored MediaPipe face model and EyeCNN checkpoint are implementation assets, not
@@ -35,19 +42,13 @@ Primary pages reviewed:
 - DROZY ORBi record and archive: <https://orbi.uliege.be/handle/2268/191620>
 - DROZY license agreement: <https://orbi.uliege.be/bitstream/2268/191620/5/DROZY-LicenseAgreement-20180718.pdf>
 
-## Required owner action
+## Remaining owner/reviewer action
 
-Choose one of these paths before T-024:
+1. Retain evidence that the NITYMED access form and provider terms were followed.
+2. Obtain a provider participant mapping, if one exists, or record that a
+   participant-disjoint split cannot be guaranteed.
+3. Independently annotate event onset/offset in media time and review those labels.
+4. Approve/freeze the evaluation protocol before held-out scoring.
 
-1. Obtain NTHU-DDD from its original provider and supply the official license/terms,
-   archive, annotation guide, and subject/session layout for audit.
-2. Request NITYMED from the university portal, then supply the untouched archive and
-   access/license evidence. The project must create and review temporal annotations.
-3. Propose another public source with authoritative terms, subject/session grouping,
-   and time-localized labels.
-4. Use volunteer videos only after supervisor/ethics approval and a written consent,
-   access, retention, withdrawal, deletion, and publication procedure.
-
-No candidate is approved merely because it can be downloaded. T-024 must hash and
-inspect the actual owner-provided archive, verify the terms, establish subject-disjoint
-partitions, and assess label sufficiency before any evaluation run.
+Volunteer recording remains unauthorized and unnecessary while this public-data path is
+being evaluated. Acquisition alone does not approve final scoring.

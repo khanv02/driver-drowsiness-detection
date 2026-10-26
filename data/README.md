@@ -33,12 +33,11 @@ Do not redistribute CEW through this repository.
 
 ## Phase 6 temporal-video requirement
 
-Phase 6 needs an additional video dataset with subject/session grouping and time-localized
-drowsiness events. CEW cannot satisfy this requirement. Candidate suitability and owner
-actions are recorded in `docs/video-dataset-audit.md`; the evaluation definitions remain
-an unapproved draft in `docs/evaluation-protocol.md`.
+NITYMED HDTV720 is present under `data/raw/nitymed/DSM_Dataset-HDTV720/`. Its generated
+inventory is `data/processed/nitymed/video-manifest.csv`; both locations are ignored.
+See `docs/nitymed-dataset-card.md` for provenance, counts, integrity findings, and open
+annotation/grouping gates. The category folders are not temporal onset/offset labels.
 
-Do not place a video archive here until its original-provider terms and annotation guide
-have been supplied for review. Do not record volunteers until the supervisor/ethics and
-consent process is approved. When a source is approved, keep its untouched archive under
-`data/raw/<dataset-id>/` and record its SHA-256 before extraction.
+Do not record volunteers until the supervisor/ethics and consent process is approved.
+Any additional source archive must remain under `data/raw/<dataset-id>/` with its
+provenance and SHA-256 recorded before extraction when the archive is available.
