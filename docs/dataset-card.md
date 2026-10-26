@@ -1,6 +1,6 @@
 # Eye-State Dataset Card
 
-Status: **CEW extraction and split manifest verified; approved for academic research training**  
+Status: **CEW extraction and split manifest verified; approved for academic research training**
 Reviewed: 2026-10-26
 
 This document records dataset authority separately from code readiness. No dataset is

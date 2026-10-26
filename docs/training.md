@@ -1,7 +1,7 @@
 # EyeCNN training protocol
 
-Status: the code path and synthetic smoke test are complete. Real CEW training is blocked
-until T-075 verifies the owner-provided dataset. No real accuracy is currently claimed.
+Status: CEW training and the single frozen held-out evaluation are complete. The image
+classifier met the specified Accuracy target; this is not a video-level drowsiness result.
 
 ## Environment and inputs
 
@@ -18,19 +18,19 @@ from `dataset.json` before training.
 
 ## Reproducible command
 
-After T-075 confirms the actual CEW layout and the dataset has been prepared:
+Final training command:
 
 ```powershell
 uv run python scripts/train_model.py `
   --manifest data/processed/manifest.csv `
-  --checkpoint models/checkpoints/eye_cnn.pt `
-  --output outputs/results/eye_cnn-training `
-  --epochs 30 `
+  --checkpoint models/checkpoints/eye_cnn_50.pt `
+  --output outputs/results/eye_cnn-training-50 `
+  --epochs 50 `
   --batch-size 64 `
   --patience 5 `
   --learning-rate 0.001 `
   --seed 42 `
-  --device auto
+  --device cpu
 ```
 
 `models/checkpoints/` and `outputs/results/` are ignored artifact locations. Do not commit
@@ -75,6 +75,36 @@ records checkpoint/manifest hashes, counts, Accuracy, confusion matrix, per-clas
 Precision/Recall/F1, macro F1, and whether Accuracy >= 0.90. It refuses to overwrite an
 existing `metrics.json`. A successful synthetic smoke run proves wiring and checkpoint
 compatibility only; it is not evidence of model quality or real-world drowsiness performance.
+
+## CEW training and held-out result
+
+The first validation-only run requested 30 epochs. Its best checkpoint occurred at epoch 30,
+so the training budget was expanded before opening the test split. The deterministic 50-epoch
+candidate reproduced epochs 1-30 exactly, stopped after epoch 39, and selected epoch 34.
+
+- Final validation Accuracy: 0.877410.
+- Final validation macro F1: 0.877056.
+- Training behavior: loss continued to decrease after validation stopped improving; patience
+  5 restored the epoch-34 checkpoint and prevented additional fitting.
+- Frozen threshold: closed probability >= 0.5; no threshold search used the test split.
+- Held-out images: 728 (376 open, 352 closed).
+- Held-out Accuracy: **0.907967**; the >=0.90 target was met.
+- Held-out macro F1: **0.907904**.
+- Open Precision/Recall/F1: 0.916442 / 0.904255 / 0.910308.
+- Closed Precision/Recall/F1: 0.899160 / 0.911932 / 0.905501.
+- Confusion matrix (`actual` rows, `predicted` columns; open then closed):
+  `[[340, 36], [31, 321]]`.
+
+Artifact identities:
+
+- Manifest SHA-256: `42ebc450eba138301f13df4cd06736b31dab20b7d2fa55464251ed87c765c58f`.
+- Final checkpoint SHA-256: `40f39307be277e61201c303c85dc2542dc81ab6593958f06c85b1a9bf8befd85`.
+- Run config SHA-256: `80b3d53f7ec2d76e3202a4a06e69bd079789fe47b09a1eb114369ed0967e9dc5`.
+- Training history SHA-256: `e128a7d1cd23bb1f17ff1860dd04e243cbac70aff41610d693c8e8ee722d2bc7`.
+- Held-out metrics SHA-256: `ddc1fa1db6b91c9f2e23cd4e14daee6d475aa816c7b9adae06fe4ca72e9699bf`.
+
+The checkpoint and generated result files remain in ignored local artifact directories. CEW's
+source-domain confound and filename-based pair grouping still limit generalization claims.
 
 ## Runtime confidence policy
 

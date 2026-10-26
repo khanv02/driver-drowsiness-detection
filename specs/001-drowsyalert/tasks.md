@@ -259,7 +259,7 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - [X] T-078 [Parent: T-011] Update the preparation CLI and generated provenance report with source identity, transformations, hashes, split counts, and warnings (depends on T-077).
 - [X] T-079 [Parent: T-011] Run the synthetic preparation suite and Ruff checks, then document which real-data assertions remain pending T-075 (depends on T-078).
 
-- [ ] T-012 — Train and validate the eye-state CNN
+- [X] T-012 — Train and validate the eye-state CNN
 
 - **Phase:** 3 — CNN Eye Classification.
 - **Priority:** P1.
@@ -278,7 +278,7 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - [X] T-082 [Parent: T-012] Run a tiny synthetic training/checkpoint smoke test without making a performance claim (depends on T-081).
 - [X] T-083 [Parent: T-012] Document the reproducible training command, configuration, artifacts, selection rule, and real-data prerequisites in `docs/training.md` (depends on T-082).
 
-- [ ] T-013 — Evaluate eye classification on the held-out test split
+- [X] T-013 — Evaluate eye classification on the held-out test split
 
 - **Phase:** 3 — CNN Eye Classification.
 - **Priority:** P0.
@@ -294,9 +294,9 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 
 - [X] T-084 [Parent: T-013] Add known-confusion-matrix tests for counts, Accuracy, per-class Precision/Recall/F1, macro F1, and empty/invalid inputs in `tests/test_cnn_metrics.py` (depends on T-081).
 - [X] T-085 [Parent: T-013] Implement a one-way held-out evaluator with checkpoint/manifest identity, threshold policy, and machine-readable results (depends on T-084).
-- [ ] T-086 [Parent: T-013] Evaluate the frozen checkpoint once on the owner-approved real CEW test split and record whether Accuracy ≥0.90 was met (depends on T-075, T-083, T-085; blocked until dataset/model exist).
+- [X] T-086 [Parent: T-013] Evaluate the frozen checkpoint once on the owner-approved real CEW test split and record whether Accuracy ≥0.90 was met (depends on T-075, T-083, T-085; dataset and model verified).
 
-- [ ] T-014 — Integrate CNN inference as a distinct eye-state source
+- [X] T-014 — Integrate CNN inference as a distinct eye-state source
 
 - **Phase:** 3 — CNN Eye Classification.
 - **Priority:** P1.
@@ -319,7 +319,7 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 
 G3 passes when a licensed dataset/split is documented, data-loading and training paths are tested, a compatible trained model exists, held-out classification metrics are recorded, and CNN inference is integrated as distinct evidence. If dataset access/rights block the work, G3 is blocked and no accuracy result is claimed.
 
-**G3 status (2026-10-26): Blocked on real-data evidence.** The Phase 3 software path passes 78 automated tests and Ruff. Eighteen of twenty Phase 3 leaf tasks are complete. T-075 requires the owner-provided CEW eye-patch archive under `data/raw/cew/`; T-086 then requires one frozen held-out evaluation. No CEW checkpoint or accuracy result is claimed.
+**G3 status (2026-10-26): Passed.** All Phase 3 parent and leaf tasks are complete. The CEW manifest contains 3,392 training, 726 validation, and 728 held-out test images with paired eyes kept together. Validation-only selection restored epoch 34; the one-way held-out result achieved Accuracy 0.907967 and macro F1 0.907904, meeting the ≥0.90 image-classification target. This is not a video-level drowsiness-performance claim.
 
 ## Phase 4 — Real-Time Drowsiness Alert
 
@@ -609,7 +609,7 @@ Parallel work is allowed only after listed dependencies are complete and when se
 - **Verification**: Automated tests are scheduled alongside each behavior, beginning in Phase 2; regression is repeated in Phase 7.
 - **Data/research separation**: Dataset review, volunteer consent, labeling, protocol approval, and comparative evaluation are explicitly research/data tasks, separate from coding.
 - **No fabricated evidence**: Dataset availability, target attainment, and experimental outcomes remain unknown until measured; blocked paths are recorded as blocked.
-- **Current readiness**: G1 and G2 passed. The Phase 3 software path is complete and verified on `phase/3-cnn-eye-classification`; G3 remains blocked only on owner-provided CEW files (T-075), real training, and the frozen held-out evaluation (T-086). No dataset, trained CEW checkpoint, or performance result is committed or claimed.
+- **Current readiness**: G1, G2, and G3 passed. Phase 3 produced an ignored local CEW checkpoint and held-out classification record with full hashes and provenance. Phase 4 decision and alert work may proceed; later video-level research gates remain separate.
 
 ## Format and traceability summary
 

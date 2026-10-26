@@ -69,10 +69,10 @@ The deterministic landmark/PERCLOS baseline passes its automated normal, boundar
 
 | Area | Evidence | Result |
 |---|---|---|
-| Dataset authority | CEW research/non-commercial acquisition and no-redistribution procedure documented; unknown-license Kaggle source rejected | Code/documentation complete; local CEW files pending |
-| Dataset preparation | Synthetic tests cover labels, ambiguity, unreadable input, exact duplicates, group leakage, deterministic splits, manifest schema, hashes, and provenance | Passed |
-| Training | Tests cover deterministic seeds, strict manifest loading, validation-only selection, early checkpoint metadata, and a tiny synthetic training/checkpoint smoke path | Passed |
-| Held-out metrics | Known confusion matrices cover counts, Accuracy, per-class Precision/Recall/F1, macro F1, invalid inputs, frozen checkpoint/manifest identity, and overwrite prevention | Passed |
+| Dataset authority | Official CEW extraction, research/non-commercial terms, package layout, counts, pair groups, input tree hash, and manifest hash recorded; unknown-license Kaggle source rejected | Passed |
+| Dataset preparation | Tests cover labels, ambiguity, unreadable input, exact duplicates, CEW folder mapping/pairs, group leakage, deterministic splits, manifest schema, hashes, and provenance | Passed |
+| Training | Deterministic CEW run used train/validation only, expanded a boundary-limited 30-epoch pilot, stopped at epoch 39, and restored validation-selected epoch 34 | Passed |
+| Held-out metrics | Frozen checkpoint/manifest/threshold evaluated once on 728 images; Accuracy, confusion matrix, and per-class Precision/Recall/F1 recorded | Passed; Accuracy 0.907967 |
 | CNN inference | Tests cover per-eye probabilities, uncertainty band, bilateral policy, partial/invalid crops, checkpoint failures, explicit source identity, and runtime CSV provenance | Passed |
 
 Commands executed from the repository root:
@@ -84,9 +84,9 @@ Commands executed from the repository root:
 
 Observed result:
 
-- `78 passed` in the full automated suite.
+- `79 passed` in the full automated suite.
 - Ruff reported `All checks passed!`.
-- `data/raw/cew/` was not present.
+- CEW preparation verified 4,846 readable eye patches and 2,423 pair groups.
 - Git ignore checks confirmed raw data, checkpoints, and generated results remain excluded.
 
 ### Completed code paths
@@ -102,17 +102,19 @@ Observed result:
   withholds uncertain/unilateral-closed evidence, and records threshold, uncertainty margin,
   and checkpoint SHA-256. Landmark evidence remains separately named `landmark_ear`.
 
-### Dataset-dependent checks
+### Real-data evidence
 
-| Task | Status | Required follow-up |
-|---|---|---|
-| T-075 | Blocked | Owner downloads the CEW eye-patch archive from the official page and extracts it under `data/raw/cew/`; then record archive identity, actual layout, counts, duplicate/group statistics, and manifest hashes. |
-| Real-data T-012 | Blocked | Prepare verified CEW, train with the documented fixed protocol, and retain the ignored checkpoint/run artifacts. |
-| T-086 | Blocked | Freeze the checkpoint and threshold, evaluate the real held-out split once, and report actual metrics and whether Accuracy >=0.90. |
+| Evidence | Result |
+|---|---|
+| Manifest | SHA-256 `42ebc450eba138301f13df4cd06736b31dab20b7d2fa55464251ed87c765c58f`; train 3,392, validation 726, test 728 |
+| Selected checkpoint | Epoch 34; validation Accuracy 0.877410; macro F1 0.877056; SHA-256 `40f39307be277e61201c303c85dc2542dc81ab6593958f06c85b1a9bf8befd85` |
+| Held-out confusion matrix | `[[340, 36], [31, 321]]` for open/closed actual rows and predicted columns |
+| Held-out classification | Accuracy 0.907967; macro F1 0.907904; open F1 0.910308; closed F1 0.905501 |
+| Required Accuracy target | >=0.90 met |
 
 ### G3 conclusion
 
-The Phase 3 software path passes all automated checks, but G3 is **blocked on real-data
-evidence**. Eighteen of twenty Phase 3 leaf tasks are complete; T-075 and T-086 require the
-owner-provided CEW archive. No trained CEW checkpoint, held-out CEW metric, accuracy claim,
-or real-world drowsiness-performance claim exists yet.
+G3 **passed**. All Phase 3 parent and leaf tasks are complete, the reproducible CEW
+checkpoint exists locally, and the one-way held-out evaluation met the image Accuracy target.
+This establishes CEW open/closed eye classification performance only; it does not establish
+video-level drowsiness detection, alert latency, driver safety, or in-vehicle generalization.
