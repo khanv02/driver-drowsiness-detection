@@ -1,7 +1,7 @@
 # Temporal Evaluation Metrics
 
 **Status:** Parameterized implementation verified; Protocol
-`drowsyalert-video-eval-v1` approved 2026-10-26; real-data scoring remains pending.
+`drowsyalert-video-eval-v1.1` approved 2026-10-26; real-data scoring remains pending.
 
 `drowsyalert.experiments.metrics` provides data-independent primitives for frozen Phase 6
 Protocol v1. It deliberately has no default matching tolerances: callers must supply the

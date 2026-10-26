@@ -54,3 +54,11 @@ are validation-selected and frozen before test; subject-disjoint grouping is req
 for final claims; and volunteer collection is not authorized. Missing participant
 mapping or temporal annotations blocks final scoring but may support an explicitly
 labelled, non-claim pilot.
+
+The project owner amended the protocol to `drowsyalert-video-eval-v1.1` on 2026-10-26.
+The acquired NITYMED package lacks participant mapping, so the approved practical study
+uses a deterministic balanced 38-clip split: all 19 microsleep clips plus 19 seeded
+yawning clips; validation has 6+6, test has 13+13, and the four viewed pilot clips remain
+in validation. Results must disclose possible same-participant leakage and cannot claim
+subject-independent generalization. This replaces the earlier requirement that missing
+subject mapping restrict all results to pilot-only status.

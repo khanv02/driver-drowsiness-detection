@@ -44,7 +44,7 @@ When final annotations and protocol values are approved, add:
   --reference-label microsleep
 ```
 
-Those values are frozen by Protocol `drowsyalert-video-eval-v1`. The comparison exporter
+Those values are frozen by Protocol `drowsyalert-video-eval-v1.1`. The comparison exporter
 reloads all planned records, recalculates each method from the same clips and annotations,
 and writes one strict JSON comparison. Validation results may guide threshold selection;
 held-out test results must not be used for tuning.

@@ -1,10 +1,14 @@
 # DrowsyAlert Temporal Evaluation Protocol
 
-**Protocol ID:** `drowsyalert-video-eval-v1`
+**Protocol ID:** `drowsyalert-video-eval-v1.1`
 
 **Prepared:** 2026-10-26
 
 **Status:** APPROVED AND FROZEN by the project owner on 2026-10-26
+
+**v1.1 amendment:** The owner approved a disclosed clip-disjoint NITYMED evaluation
+because the acquired provider package has no participant-to-clip mapping. This amendment
+does not claim subject-independent generalization.
 
 This document fixes the definitions approved under T-126. Data-artifact fields that
 depend on completed annotations and grouping remain T-139 evidence gates; their absence
@@ -38,10 +42,19 @@ is a separately labelled secondary ablation.
   reviewed grouping still required**
 - Validation/test split manifest and SHA-256: **[PENDING AUDIT]**
 
-Partition by participant first, or by recording session/source group if participant IDs
-are genuinely unavailable. No subject, session, adjacent frames, derived clips, or
-near-duplicate source may cross validation and held-out test. Missing identity metadata
-must be disclosed and constrains generalization claims.
+The v1.1 corpus contains all 19 available microsleep clips and a deterministic seeded
+selection of 19 yawning clips. It is balanced and clip-disjoint:
+
+- validation: 6 microsleep + 6 yawning clips;
+- held-out test: 13 microsleep + 13 yawning clips;
+- the four already viewed pilot clips are locked to validation;
+- selection seed: 42; exact membership and hashes are stored before further annotation.
+
+No clip, derived frame, or content hash may cross validation and test. Participant IDs
+remain unavailable, so the split cannot prove subject independence. All results must say
+"clip-disjoint" and disclose possible same-participant leakage. A later authoritative
+provider mapping may upgrade the split under a new protocol version, but test membership
+must not be rearranged after test labels/results are inspected.
 
 Validation data selects EAR/PERCLOS/yawn/pose thresholds, durations, pose reference
 procedure, and any matching tolerance. Once selected, save the resolved configuration
@@ -187,7 +200,7 @@ DrowsyAlert remains a research prototype, not a safety or medical system.
 |---|---|---|
 | Dataset path and rights | Official-path NITYMED HDTV720 under provider-declared CC BY; access evidence stays outside Git | Project owner, 2026-10-26 |
 | Primary event-label guide | Independently reviewed microsleep intervals; yawn is a separate secondary endpoint | Project owner, 2026-10-26 |
-| Subject/session split | Subject-disjoint required for final claims; absent verified mapping means pilot-only | Project owner, 2026-10-26 |
+| Data split | Balanced 38-clip split: validation 6+6, test 13+13; pilot clips locked to validation; possible participant leakage disclosed | Project owner, v1.1 amendment 2026-10-26 |
 | Matching rule | Earliest unmatched alert in inclusive -1.0/+2.0-second window | Project owner, 2026-10-26 |
 | False-alarm denominator | Valid observed hours; also report eligible and unknown time | Project owner, 2026-10-26 |
 | Latency and miss handling | Signed media-time latency; misses excluded from latency and counted as FN | Project owner, 2026-10-26 |
@@ -195,7 +208,7 @@ DrowsyAlert remains a research prototype, not a safety or medical system.
 | Threshold selection/freeze | Validation only; one-way held-out test | Project owner, 2026-10-26 |
 | Volunteer ethics path | No volunteer collection authorized; public-data path only | Project owner, 2026-10-26 |
 
-This approval freezes the evaluation definitions; it does not certify that annotations,
-participant groups, split artifacts, thresholds, or results exist. T-139 remains the
-evidence gate for those inputs. Pilot output without participant mapping must be labelled
-pilot-only and cannot support a subject-independent generalization claim.
+This approval freezes the evaluation definitions; it does not certify that complete
+annotations, split artifacts, thresholds, or results exist. T-139 remains the evidence
+gate for those inputs. Final results may support only a clip-disjoint NITYMED claim, not
+a subject-independent generalization claim.
