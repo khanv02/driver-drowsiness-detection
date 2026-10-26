@@ -88,11 +88,22 @@ def test_headless_replay_records_source_unknown_and_temporal_metadata(monkeypatc
     monkeypatch.setattr(realtime, "FaceDetector", FakeDetector)
     monkeypatch.setattr(realtime, "AlertManager", FakeAlert)
     log_path = tmp_path / "replay.csv"
+    record_path = tmp_path / "replay.json"
     video = tmp_path / "fixture.mp4"
     video.touch()
     config = Config(window_seconds=1.0, min_valid_seconds=0.1, min_coverage=0.5)
 
-    result = realtime.run(config, video=video, headless=True, log_path=log_path)
+    result = realtime.run(
+        config,
+        video=video,
+        headless=True,
+        log_path=log_path,
+        record_path=record_path,
+        dataset_id="fixture-v1",
+        split_id="test-v1",
+        random_seed=42,
+        code_revision="abc123",
+    )
 
     with log_path.open(newline="", encoding="utf-8") as source:
         rows = list(csv.DictReader(source))
@@ -113,6 +124,15 @@ def test_headless_replay_records_source_unknown_and_temporal_metadata(monkeypatc
     assert result["audio"]["policy"] == "replay_silent"
     assert result["audio"]["enabled"] is False
     assert result["audio"]["play_count"] == 0
+    assert result["run_id"].startswith("run-")
+    assert result["provenance_complete"]
+    assert result["record_path"] == str(record_path)
+    record = __import__("json").loads(record_path.read_text(encoding="utf-8"))
+    assert record["status"] == "completed"
+    assert record["summary"]["frames"] == 3
+    assert record["data"] == {"dataset_id": "fixture-v1", "split_id": "test-v1"}
+    assert record["source"]["sha256"] is not None
+    assert "image" not in record["frames"][0]
     assert [row["timestamp"] for row in rows] == ["0.0", "0.1", "0.2"]
     assert {row["input_kind"] for row in rows} == {"video_media"}
     assert {row["eye_source"] for row in rows} == {"landmark_ear"}
@@ -275,7 +295,7 @@ def test_live_flow_transitions_unknown_normal_alert_and_cleans_up(monkeypatch, t
     assert TrackingAlert.instances[-1].closed
 
 
-def test_live_mute_and_camera_failure_still_cleanup(monkeypatch):
+def test_live_mute_and_camera_failure_still_cleanup(monkeypatch, tmp_path):
     frame = np.zeros((20, 20, 3), dtype=np.uint8)
 
     class FailingSource:
@@ -304,9 +324,14 @@ def test_live_mute_and_camera_failure_still_cleanup(monkeypatch):
     monkeypatch.setattr(realtime, "FaceDetector", FakeDetector)
     monkeypatch.setattr(realtime, "AlertManager", FakeAlert)
 
+    record_path = tmp_path / "failed-run.json"
     with np.testing.assert_raises_regex(OSError, "Camera disconnected"):
-        realtime.run(Config(), headless=True, mute=True)
+        realtime.run(Config(), headless=True, mute=True, record_path=record_path)
 
     assert FailingSource.instances[-1].closed
     assert FakeAlert.instances[-1].enabled is False
     assert FakeAlert.instances[-1].closed
+    record = __import__("json").loads(record_path.read_text(encoding="utf-8"))
+    assert record["status"] == "error"
+    assert record["summary"]["frames"] == 1
+    assert record["error"] == "OSError: Camera disconnected"

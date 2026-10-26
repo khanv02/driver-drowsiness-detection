@@ -482,10 +482,15 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 
 ### T-022 leaf tasks — Reproducible experiment records
 
-- [ ] T-119 [Parent: T-022] Add schema, validation, deterministic identity, JSON round-trip, CSV export, and raw-frame-exclusion tests in `tests/test_experiments.py`.
-- [ ] T-120 [Parent: T-022] Implement versioned run metadata and frame-record export contracts in `src/drowsyalert/experiments/records.py` (depends on T-119).
-- [ ] T-121 [Parent: T-022] Integrate stable run/config/source/model/audio/evidence provenance with headless runtime exports and document the schema (depends on T-120).
+- [X] T-119 [Parent: T-022] Add schema, validation, deterministic identity, JSON round-trip, CSV export, and raw-frame-exclusion tests in `tests/test_experiments.py`.
+- [X] T-120 [Parent: T-022] Implement versioned run metadata and frame-record export contracts in `src/drowsyalert/experiments/records.py` (depends on T-119).
+- [X] T-121 [Parent: T-022] Integrate stable run/config/source/model/audio/evidence provenance with headless runtime exports and document the schema (depends on T-120).
 - [ ] T-122 [Parent: Phase 5] Run the full automated suite and Ruff, audit ignored output/privacy boundaries, and record G5 status without claiming the deferred Phase 4 physical webcam/audio check passed (depends on T-112, T-115, T-118, T-121).
+
+T-022 implementation is complete through T-121. Its parent remains open because its
+declared T-018 dependency includes the deferred physical webcam/audio acceptance check.
+The experiment record contract itself is automated and can be verified without camera
+hardware; G5 must report this dependency honestly.
 
 ### Phase 5 acceptance gate
 
