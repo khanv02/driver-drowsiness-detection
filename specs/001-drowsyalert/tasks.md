@@ -221,7 +221,7 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 
 - [X] T-071 [Parent: Phase 3] Decompose T-010–T-014 into independently reviewable dataset, preparation, training, evaluation, and inference tasks in `specs/001-drowsyalert/tasks.md`.
 
-- [ ] T-010 — Select and document eye-state dataset and split (Research/Data)
+- [X] T-010 — Select and document eye-state dataset and split (Research/Data)
 
 - **Phase:** 3 — CNN Eye Classification.
 - **Priority:** P0.
@@ -238,9 +238,9 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - [X] T-072 [Parent: T-010] Audit candidate datasets, access terms, provenance, labels, identity metadata, and leakage risks in `docs/dataset-card.md`; reject sources without usable rights evidence.
 - [X] T-073 [Parent: T-010] Replace the automatic unknown-license Kaggle downloader with a safe acquisition verifier that never downloads or redistributes data implicitly (depends on T-072).
 - [X] T-074 [Parent: T-010] Document the selected CEW acquisition, local layout, labels, split, provenance, and no-redistribution procedure in `data/README.md` and `docs/dataset-card.md` (depends on T-072).
-- [ ] T-075 [Parent: T-010] Inspect the owner-provided CEW extraction, record source/version/file hashes and actual counts, and approve the real-data manifest before training (depends on T-074; owner must provide dataset).
+- [X] T-075 [Parent: T-010] Inspect the owner-provided CEW extraction, record source/version/file hashes and actual counts, and approve the real-data manifest before training (depends on T-074; owner must provide dataset).
 
-- [ ] T-011 — Prepare eye-image labels and dataset loading
+- [X] T-011 — Prepare eye-image labels and dataset loading
 
 - **Phase:** 3 — CNN Eye Classification.
 - **Priority:** P1.

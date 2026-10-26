@@ -3,6 +3,7 @@
 import argparse
 import csv
 import json
+import re
 from hashlib import sha256
 from pathlib import Path, PurePosixPath
 
@@ -10,7 +11,16 @@ import cv2
 import numpy as np
 from sklearn.model_selection import GroupShuffleSplit
 
-LABELS = {"open": 0, "openeyes": 0, "closed": 1, "closedeyes": 1}
+LABELS = {
+    "open": 0,
+    "openeyes": 0,
+    "openlefteyes": 0,
+    "openrighteyes": 0,
+    "closed": 1,
+    "closedeyes": 1,
+    "closedlefteyes": 1,
+    "closedrighteyes": 1,
+}
 CLASS_NAMES = {0: "open", 1: "closed"}
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp"}
 MANIFEST_FIELDS = [
@@ -109,6 +119,25 @@ def _normalise_source(value: str) -> str:
     return PurePosixPath(source).as_posix()
 
 
+def _cew_pair_group(source: str, label: int) -> str:
+    """Group the left/right CEW patches cropped from the same face."""
+    stem = Path(source).stem
+    paired_stem = re.sub(r"_[LR]$", "", stem, flags=re.IGNORECASE)
+    if paired_stem == stem:
+        raise ValueError(f"CEW eye filename does not end in _L or _R: {source}")
+    return f"cew-pair:{label}:{paired_stem}"
+
+
+def _tree_sha256(source_hashes: dict[str, str]) -> str:
+    digest = sha256()
+    for source, source_digest in sorted(source_hashes.items()):
+        digest.update(source.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(source_digest.encode("ascii"))
+        digest.update(b"\n")
+    return digest.hexdigest()
+
+
 def _load_groups(group_csv: Path | None) -> dict[str, str]:
     if group_csv is None:
         return {}
@@ -161,6 +190,7 @@ def prepare(
     face_model: Path | None = None,
     dataset_name: str = "unspecified",
     source_url: str | None = None,
+    group_strategy: str = "source",
 ):
     from drowsyalert.models.eye_cnn import IMAGE_SIZE
 
@@ -168,6 +198,10 @@ def prepare(
         raise FileNotFoundError(f"Dataset directory not found: {input_dir}")
     if not dataset_name.strip():
         raise ValueError("dataset_name must not be empty")
+    if group_strategy not in {"source", "cew-paired-eyes"}:
+        raise ValueError(f"Unknown group strategy: {group_strategy}")
+    if group_csv and group_strategy != "source":
+        raise ValueError("Use either group_csv or a built-in group strategy, not both")
     output.mkdir(parents=True, exist_ok=True)
     image_dir = output / "images"
     image_dir.mkdir(exist_ok=True)
@@ -179,6 +213,7 @@ def prepare(
         detector = FaceDetector(face_model, image_mode=True)
     records: list[dict] = []
     hashes: dict[str, dict] = {}
+    source_hashes: dict[str, str] = {}
     parent: dict[str, str] = {}
     perceptual: list[tuple[int, str]] = []
     candidates = unlabeled = unreadable = duplicates_removed = 0
@@ -204,11 +239,14 @@ def prepare(
             source = image_path.relative_to(input_dir).as_posix()
             if group_csv and source not in declared_groups:
                 raise ValueError(f"Missing group_id for {source}")
-            raw_group = (
-                "subject:" + declared_groups[source]
-                if group_csv
-                else "source:" + source
-            )
+            if group_csv:
+                raw_group = "subject:" + declared_groups[source]
+            elif group_strategy == "cew-paired-eyes":
+                raw_group = _cew_pair_group(source, label)
+            else:
+                raw_group = "source:" + source
+            source_digest = _file_sha256(image_path)
+            source_hashes[source] = source_digest
             image = cv2.imread(str(image_path))
             if image is None:
                 unreadable += 1
@@ -223,7 +261,6 @@ def prepare(
                 if not crops:
                     unreadable += 1
                     continue
-            source_digest = _file_sha256(image_path)
             for eye_index, crop in enumerate(crops):
                 resized = cv2.resize(crop, (IMAGE_SIZE, IMAGE_SIZE))
                 digest = sha256(resized.tobytes()).hexdigest()
@@ -282,15 +319,21 @@ def prepare(
             "closed": sum(row["label"] == 1 for row in rows),
         }
     warnings = []
-    if not group_csv:
+    if not group_csv and group_strategy == "source":
         warnings.append(
             "No subject/session metadata: source and duplicate groups do not prove "
             "identity-disjoint splits."
+        )
+    if group_strategy == "cew-paired-eyes":
+        warnings.append(
+            "CEW left/right patches are grouped by filename; identities beyond each "
+            "published one-subject pair cannot be independently verified."
         )
     report = {
         "schema_version": 1,
         "dataset": dataset_name,
         "source_url": source_url,
+        "input_tree_sha256": _tree_sha256(source_hashes),
         "seed": seed,
         "input": str(input_dir.resolve()),
         "image_size": IMAGE_SIZE,
@@ -305,10 +348,16 @@ def prepare(
         "duplicates_removed": duplicates_removed,
         "group_metadata": bool(group_csv),
         "identity_separation": bool(group_csv),
+        "paired_eye_separation": group_strategy == "cew-paired-eyes",
+        "group_strategy": group_strategy,
         "grouping": (
             "subject/session plus exact/dHash duplicate linkage"
             if group_csv
-            else "source plus exact/dHash duplicate linkage"
+            else (
+                "CEW filename pair plus exact/dHash duplicate linkage"
+                if group_strategy == "cew-paired-eyes"
+                else "source plus exact/dHash duplicate linkage"
+            )
         ),
         "splits": split_report,
         "manifest_sha256": _file_sha256(manifest),
@@ -328,6 +377,12 @@ def main() -> None:
     parser.add_argument("--dataset-name", required=True)
     parser.add_argument("--source-url")
     parser.add_argument(
+        "--group-strategy",
+        choices=("source", "cew-paired-eyes"),
+        default="source",
+        help="Built-in grouping when no --groups CSV is available",
+    )
+    parser.add_argument(
         "--groups", type=Path, help="CSV with source,group_id; paths relative to input"
     )
     parser.add_argument("--face-model", type=Path, help="Use only for full-face images")
@@ -342,6 +397,7 @@ def main() -> None:
                 args.face_model,
                 args.dataset_name,
                 args.source_url,
+                args.group_strategy,
             ),
             indent=2,
         )

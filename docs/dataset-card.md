@@ -1,6 +1,6 @@
 # Eye-State Dataset Card
 
-Status: **CEW selected for academic research, pending owner-provided files and local verification**  
+Status: **CEW extraction and split manifest verified; approved for academic research training**  
 Reviewed: 2026-10-26
 
 This document records dataset authority separately from code readiness. No dataset is
@@ -27,15 +27,16 @@ count is not treated as a local-data measurement.
 - `open` maps to class `0`; `closed` maps to class `1`.
 - Ambiguous, unreadable, or unlabeled files are excluded and counted.
 - The original relative path and content hash remain in the generated manifest.
-- CEW's public description does not provide reusable subject/session identifiers for the
-  eye-patch package. Each source image is therefore treated as an independent group,
-  with exact and near-duplicate images forced into the same group.
+- CEW left/right filenames share the source-face stem. Both eye patches from one published
+  subject are placed in one group, with exact and near-duplicate images also linked.
 - The deterministic seed is `42`. Splits target 70% train, 15% validation, and 15% test;
   all splits must contain both classes.
 - Model/checkpoint selection uses train and validation only. The test split is evaluated
   once after the model and decision rule are frozen.
-- Because identity separation cannot be proved without identity metadata, this limitation
-  must accompany every CEW result. No subject-independent claim may be made.
+- The official description says the 2,423 examples are subjects, but the package contains no
+  separate identity table. Pair grouping prevents direct left/right leakage; identities
+  beyond the filename pair cannot be independently audited and this limitation must accompany
+  every result.
 
 ### Known domain limitations
 
@@ -65,15 +66,29 @@ by itself proof of in-vehicle generalization or temporal drowsiness detection.
 
 ## T-075 local acceptance record
 
-Pending. After the owner provides CEW, record:
+Accepted on 2026-10-26 after the project owner supplied the official CEW extraction and
+the research-only/non-commercial/no-redistribution conditions were recorded.
 
-- official retrieval date and page;
-- original archive filename, byte size, and SHA-256;
-- extraction layout and label-folder mapping;
-- readable, unreadable, excluded, open, and closed counts;
-- duplicate/group statistics and final split counts;
-- generated `dataset.json` and `manifest.csv` SHA-256 values;
-- reviewer approval for the research-only/non-commercial restriction.
+- Source page: the official CEW page above; published dataset version has no explicit
+  numeric version, so the retrieval identity is the verified extraction tree hash.
+- Original archive: not retained in `data/raw/cew/`; archive filename, byte size, and hash
+  are unavailable. This limitation is recorded rather than inferred.
+- Selected package: `data/raw/cew/dataset_B_Eye_Images/`.
+- Label folders: `openLeftEyes` and `openRightEyes` map to open (0);
+  `closedLeftEyes` and `closedRightEyes` map to closed (1).
+- Input tree SHA-256: `4e9ebee01647d80f9679f8b71d3d5a32b3ebb4968c6bce0ca51491db13883a53`.
+- Actual input: 4,846 readable patches, 0 unreadable, 0 unlabeled, 0 exact duplicates
+  removed; 2,462 open patches and 2,384 closed patches.
+- Grouping: 2,423 filename-paired source-face groups; left/right patches stay together.
+- Train: 3,392 images / 1,696 groups (1,700 open, 1,692 closed).
+- Validation: 726 images / 363 groups (386 open, 340 closed).
+- Test: 728 images / 364 groups (376 open, 352 closed).
+- `manifest.csv` SHA-256:
+  `42ebc450eba138301f13df4cd06736b31dab20b7d2fa55464251ed87c765c58f`.
+- `dataset.json` SHA-256:
+  `1e7ade37a93f42005a0cdc30d679500269f06666744919fcfc1555bcc6344649`.
+- The manifest passed schema, binary-label, hash, group-disjointness, and both-classes-per-split
+  validation. It is approved for the documented university research use.
 
-Until this section is complete, T-010, real-data T-012, T-013, T-086, and G3 remain
-blocked. Synthetic tests and smoke runs are not performance evidence.
+T-075 is complete. Real training may proceed. Synthetic checks remain engineering evidence
+only and are not included in the final CEW accuracy claim.

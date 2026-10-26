@@ -92,7 +92,7 @@ Kiểm tra nguồn, điều khoản sử dụng, nhãn và cấu trúc dataset t
 ```powershell
 uv sync --extra train
 uv run python scripts/download_dataset.py --archive C:\path\to\CEW-eye-patches.rar
-uv run python scripts/prepare_dataset.py --input data/raw/cew --output data/processed --dataset-name CEW --source-url "https://parnec.nuaa.edu.cn/_upload/tpl/02/db/731/template731/pages/xtan/ClosedEyeDatabases.html" --seed 42
+uv run python scripts/prepare_dataset.py --input data/raw/cew/dataset_B_Eye_Images --output data/processed --dataset-name CEW --source-url "https://parnec.nuaa.edu.cn/_upload/tpl/02/db/731/template731/pages/xtan/ClosedEyeDatabases.html" --group-strategy cew-paired-eyes --seed 42
 uv run python scripts/train_model.py --manifest data/processed/manifest.csv --checkpoint models/checkpoints/eye_cnn.pt --output outputs/results/eye_cnn-training
 ```
 

@@ -161,3 +161,40 @@ def test_group_manifest_is_strict_and_preserves_identity_groups(tmp_path):
     result = prepare(raw, tmp_path / "good", group_csv=groups)
     assert result["identity_separation"] is True
     assert not result["warnings"]
+
+
+def test_cew_folders_are_labeled_and_paired_eyes_stay_in_one_split(tmp_path):
+    pytest.importorskip("sklearn")
+    from drowsyalert.models.dataset import prepare
+
+    raw = tmp_path / "dataset_B_Eye_Images"
+    folders = {
+        "openLeftEyes": (0, "L"),
+        "openRightEyes": (0, "R"),
+        "closedLeftEyes": (1, "L"),
+        "closedRightEyes": (1, "R"),
+    }
+    for folder, (label, side) in folders.items():
+        (raw / folder).mkdir(parents=True)
+        for index in range(20):
+            seed = index + label * 100
+            image = np.random.default_rng(seed).integers(0, 256, (24, 24, 3), dtype=np.uint8)
+            cv2.imwrite(str(raw / folder / f"subject_{label}_{index:02d}_{side}.jpg"), image)
+
+    result = prepare(
+        raw,
+        tmp_path / "processed",
+        dataset_name="CEW",
+        group_strategy="cew-paired-eyes",
+    )
+    with (tmp_path / "processed/manifest.csv").open(encoding="utf-8", newline="") as source:
+        rows = list(csv.DictReader(source))
+    by_group = {}
+    for row in rows:
+        by_group.setdefault(row["group_id"], set()).add(row["split"])
+    assert len(rows) == 40  # Exact left/right synthetic copies are deduplicated.
+    assert all(len(splits) == 1 for splits in by_group.values())
+    assert {row["label"] for row in rows} == {"0", "1"}
+    assert result["paired_eye_separation"] is True
+    assert result["identity_separation"] is False
+    assert len(result["input_tree_sha256"]) == 64
