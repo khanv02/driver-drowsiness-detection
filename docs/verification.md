@@ -118,3 +118,89 @@ G3 **passed**. All Phase 3 parent and leaf tasks are complete, the reproducible 
 checkpoint exists locally, and the one-way held-out evaluation met the image Accuracy target.
 This establishes CEW open/closed eye classification performance only; it does not establish
 video-level drowsiness detection, alert latency, driver safety, or in-vehicle generalization.
+
+## Phase 4 - Real-time drowsiness alert
+
+**Date:** 2026-10-26
+
+**Branch:** `phase/4-realtime-alert`
+
+**Scope:** T-015-T-018 / G4
+
+### Automated and headless evidence
+
+| Area | Evidence | Result |
+|---|---|---|
+| Decision policy | Boundary, warm-up, unknown-evidence, sustained-closure, PERCLOS, and invalid-input tests | Passed |
+| Overlay contract | Pure line-generation tests verify status, reason, observation/source identity, readiness/coverage, advisory, and controls | Passed |
+| Audio controller | Injected tests cover first alert, cooldown boundary, recovery, re-alert, mute, missing sound, playback failure, and cleanup | Passed |
+| Live integration | Fake live input traverses unknown, normal, alert, mute, camera-read failure, and cleanup paths | Passed |
+| CLI integration | Tests verify argument forwarding/rejection and source, checkpoint, and audio metadata | Passed |
+| Face model | MediaPipe loaded the ignored model asset and produced the expected `No face` observation for a blank frame | Passed |
+| Physical camera smoke | Camera 0 processed five live CNN frames in muted/headless mode; input kind, checkpoint hash, and audio policy were reported | Passed (capture only) |
+
+Physical camera smoke command:
+
+```powershell
+uv run drowsyalert --camera 0 --eye-backend cnn --checkpoint models/checkpoints/eye_cnn.pt --headless --mute --max-frames 5
+```
+
+Observed metadata: 5 frames, `live_monotonic`, `cnn_eye_classifier`, checkpoint SHA-256
+`40f39307be277e61201c303c85dc2542dc81ab6593958f06c85b1a9bf8befd85`, audio policy
+`muted`, zero playback failures. No frames or video were saved.
+
+Full verification commands:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -p no:cacheprovider -q
+uv run ruff check src scripts demo tests
+```
+
+Observed result: `112 passed` and `All checks passed!`. A concurrent `uv run pytest` launch first
+encountered a Windows `uv trampoline failed to canonicalize script path` launcher error; executing
+the same suite directly with the project virtual environment completed successfully.
+
+### Real webcam and audio acceptance checklist
+
+Run from the repository root in a stationary, safe indoor setting. This is a research prototype;
+do not test it while driving. The display may show personal imagery, but the application does not
+save webcam frames. Close unrelated camera applications first.
+
+1. Start the visible but muted CNN flow:
+   `uv run drowsyalert --camera 0 --eye-backend cnn --checkpoint models/checkpoints/eye_cnn.pt --mute`.
+2. Confirm the window shows status and reason, eye source/state, closure time, PERCLOS readiness or
+   value, the prototype advisory, and `Q/Esc` controls.
+3. Keep both eyes visibly open and record the observed state. During the initial evidence window,
+   `UNKNOWN` is valid; after sufficient valid coverage, the expected steady state is `NORMAL`.
+4. Close both eyes for at least the configured 2 seconds while seated safely. Confirm `ALERT` and
+   a sustained-closure reason. Reopen them and confirm recovery.
+5. Press `Q` or `Esc` and confirm a clean exit.
+6. Start the same command without `--mute`, lower the system volume first, and repeat step 4.
+   Confirm one audible warning and that sound does not block or freeze the video.
+7. Optional camera-loss check: with the muted command running, disable or disconnect the selected
+   camera only if doing so is safe for the device. Confirm an explicit read error and clean exit;
+   do not claim this item if it was not performed.
+
+Evidence template (fill only from direct observation):
+
+| Field | Observation |
+|---|---|
+| Date / reviewer | Pending |
+| Camera index and description | Pending |
+| Backend and checkpoint hash | `cnn_eye_classifier`; `40f39307be277e61201c303c85dc2542dc81ab6593958f06c85b1a9bf8befd85` |
+| Visible `UNKNOWN` / reason | Pending |
+| Visible `NORMAL` / reason | Pending |
+| Visible `ALERT` / reason | Pending |
+| Recovery to non-alert | Pending |
+| Audible warning and nonblocking video | Pending |
+| `Q` / `Esc` clean exit | Pending |
+| Camera-loss result (optional) | Not performed |
+| Notes / failures | Pending |
+
+### G4 status
+
+Automated decision, overlay, audio-controller, live-flow, CLI, asset-loading, and physical camera
+capture checks pass. Final G4 reviewer acceptance remains **pending** because visible state changes
+and real speaker playback require direct human observation. The headless smoke test is not described
+as evidence of either display correctness or audible output. Generated/private boundary checks also
+pass: the downloaded face model, trained checkpoint, CEW data, and result artifacts remain ignored.

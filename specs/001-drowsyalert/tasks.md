@@ -398,11 +398,11 @@ G3 passes when a licensed dataset/split is documented, data-loading and training
 
 ### T-018 leaf tasks — Complete local live flow
 
-- [ ] T-104 [Parent: T-018] Extend fake live/replay integration tests across normal, alert, unknown, mute, cleanup, logging, and camera-read failure in `tests/test_pipeline.py` (depends on T-095, T-099, T-103).
-- [ ] T-105 [Parent: T-018] Verify CLI exit behavior, resolved configuration, backend/source identity, checkpoint identity, and audio metadata in automated runs (depends on T-104).
-- [ ] T-106 [Parent: T-018] Add a concise real-webcam/audio acceptance checklist and evidence template to `docs/verification.md` (depends on T-105).
-- [ ] T-107 [Parent: T-018] Acquire or verify the configured MediaPipe face model asset and record its provenance/hash without committing it (depends on T-106).
-- [ ] T-108 [Parent: Phase 4] Run the full automated suite and Ruff, preserve generated/private boundaries, and record G4 status plus any physical webcam/speaker blocker (depends on T-104–T-107).
+- [X] T-104 [Parent: T-018] Extend fake live/replay integration tests across normal, alert, unknown, mute, cleanup, logging, and camera-read failure in `tests/test_pipeline.py` (depends on T-095, T-099, T-103).
+- [X] T-105 [Parent: T-018] Verify CLI exit behavior, resolved configuration, backend/source identity, checkpoint identity, and audio metadata in automated runs (depends on T-104).
+- [X] T-106 [Parent: T-018] Add a concise real-webcam/audio acceptance checklist and evidence template to `docs/verification.md` (depends on T-105).
+- [X] T-107 [Parent: T-018] Acquire or verify the configured MediaPipe face model asset and record its provenance/hash without committing it (depends on T-106).
+- [X] T-108 [Parent: Phase 4] Run the full automated suite and Ruff, preserve generated/private boundaries, and record G4 status plus any physical webcam/speaker blocker (depends on T-104–T-107).
 
 ### Phase 4 acceptance gate
 
