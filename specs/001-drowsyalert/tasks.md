@@ -450,7 +450,7 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 - [X] T-114 [Parent: T-020] Implement explicit pose validity, neutral-reference metadata, relative-pitch convention, and robust temporal reset behavior in `src/drowsyalert/features/extra.py` and `src/drowsyalert/types.py` (depends on T-113).
 - [X] T-115 [Parent: T-020] Document the configurable provisional head-pose rule, run focused tests and Ruff, and record T-020 completion (depends on T-114).
 
-- [ ] T-021 — Normalize method A/B/C configuration and evidence provenance
+- [X] T-021 — Normalize method A/B/C configuration and evidence provenance
 
 - **Phase:** 5 — Additional Research Features.
 - **Priority:** P0.
@@ -464,9 +464,9 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 
 ### T-021 leaf tasks — Controlled A/B/C method identity
 
-- [ ] T-116 [Parent: T-021] Add decision and integration tests proving A ignores auxiliary cues, B consumes only valid yawn evidence, C consumes only valid pose evidence, and all methods share base PERCLOS settings.
-- [ ] T-117 [Parent: T-021] Normalize method identifiers, auxiliary evidence validity/reasons, configuration snapshots, and per-frame provenance across decision and runtime records (depends on T-116).
-- [ ] T-118 [Parent: T-021] Document the A/B/C configuration matrix, run focused tests and Ruff, and record T-021 completion (depends on T-117).
+- [X] T-116 [Parent: T-021] Add decision and integration tests proving A ignores auxiliary cues, B consumes only valid yawn evidence, C consumes only valid pose evidence, and all methods share base PERCLOS settings.
+- [X] T-117 [Parent: T-021] Normalize method identifiers, auxiliary evidence validity/reasons, configuration snapshots, and per-frame provenance across decision and runtime records (depends on T-116).
+- [X] T-118 [Parent: T-021] Document the A/B/C configuration matrix, run focused tests and Ruff, and record T-021 completion (depends on T-117).
 
 - [ ] T-022 — Add experiment execution and result-recording contract
 

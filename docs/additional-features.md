@@ -52,3 +52,20 @@ are inclusive. A below-threshold sample, invalid pose, missing face, or gap long
 Pose from a monocular landmark model depends on camera geometry and is not a physical
 measurement of fatigue. Method C's thresholds and reference procedure require
 validation before research comparison.
+
+## Controlled method matrix
+
+| ID | CLI method | Shared evidence | Additional evidence |
+| --- | --- | --- | --- |
+| A | `perclos` | Eye source, sustained closure, PERCLOS window/readiness and primary threshold | None; auxiliary cues are ignored |
+| B | `perclos-yawn` | The unchanged Method A settings | Valid rolling yawn count in the combined-PERCLOS band |
+| C | `perclos-head-pose` | The unchanged Method A settings | Valid sustained relative head-down evidence in the combined-PERCLOS band |
+
+All methods alert on the same prolonged-closure or primary-PERCLOS rule. Between
+`combined_perclos_threshold` and `perclos_threshold`, B or C requires its named valid
+cue. If that required cue is unavailable, the decision is `UNKNOWN`, not `NORMAL`.
+Below the combined threshold, unavailable auxiliary evidence does not affect the normal
+base decision. Each runtime result contains a method ID, eye source, shared settings,
+auxiliary cue name, and that cue's resolved settings. Per-frame CSV rows contain only
+the active method identity plus both cue validity fields so missing evidence remains
+auditable.

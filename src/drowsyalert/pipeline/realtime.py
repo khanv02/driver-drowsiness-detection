@@ -13,7 +13,7 @@ from drowsyalert.features.extra import ExtraTracker
 from drowsyalert.features.temporal import TemporalTracker
 from drowsyalert.models.ear import EARBackend
 from drowsyalert.pipeline.alerts import AlertManager
-from drowsyalert.pipeline.decision import DecisionEngine
+from drowsyalert.pipeline.decision import DecisionEngine, method_metadata
 from drowsyalert.pipeline.source import VideoSource
 from drowsyalert.types import AlertState
 from drowsyalert.utils.config import Config
@@ -25,6 +25,8 @@ LOG_FIELDS = [
     "timestamp",
     "input_kind",
     "method",
+    "method_id",
+    "auxiliary_cue",
     "eye_source",
     "eye_threshold",
     "eye_uncertainty_margin",
@@ -47,8 +49,16 @@ LOG_FIELDS = [
     "window_end",
     "yawns",
     "mar",
+    "yawn_valid",
+    "yawn_event",
+    "yawn_active_seconds",
+    "yawn_reason",
     "pitch",
     "head_down_seconds",
+    "head_down",
+    "head_pose_valid",
+    "pose_reference_pitch",
+    "head_pose_reason",
     "state",
     "reason",
     "processing_ms",
@@ -93,6 +103,7 @@ def run(
     )
     extra_tracker = ExtraTracker(config, method)
     engine = DecisionEngine(config, method)
+    resolved_method = method_metadata(config, method, eye_source)
     # Video replay uses video time for features but is silent unless used live.
     audio = AlertManager(config.cooldown_seconds, enabled=not mute and video is None)
     log_file, writer, frame_count = None, None, 0
@@ -126,6 +137,8 @@ def run(
                             timestamp=sample.timestamp,
                             input_kind=sample.source_kind,
                             method=method,
+                            method_id=resolved_method["method_id"],
+                            auxiliary_cue=resolved_method["auxiliary_cue"],
                             eye_source=eyes.source,
                             eye_threshold=eye_threshold,
                             eye_uncertainty_margin=eye_uncertainty_margin,
@@ -144,8 +157,16 @@ def run(
                             window_end=temporal.window_end,
                             yawns=extra.yawns,
                             mar=extra.mar,
+                            yawn_valid=extra.yawn_valid,
+                            yawn_event=extra.yawn_event,
+                            yawn_active_seconds=extra.yawn_active_seconds,
+                            yawn_reason=extra.yawn_reason,
                             pitch=extra.angles[0] if extra.angles else None,
                             head_down_seconds=extra.head_down_seconds,
+                            head_down=extra.head_down,
+                            head_pose_valid=extra.head_pose_valid,
+                            pose_reference_pitch=extra.pose_reference_pitch,
+                            head_pose_reason=extra.head_pose_reason,
                             state=decision.state,
                             reason=decision.reason,
                             processing_ms=elapsed * 1000,
@@ -191,6 +212,7 @@ def run(
         "eye_uncertainty_margin": eye_uncertainty_margin,
         "checkpoint_sha256": checkpoint_sha256,
         "method": method,
+        "method_metadata": resolved_method,
         "audio": audio_metadata,
         "config": asdict(config),
     }

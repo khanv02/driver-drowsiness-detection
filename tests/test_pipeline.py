@@ -103,6 +103,9 @@ def test_headless_replay_records_source_unknown_and_temporal_metadata(monkeypatc
     assert result["eye_uncertainty_margin"] is None
     assert result["checkpoint_sha256"] is None
     assert result["method"] == "perclos"
+    assert result["method_metadata"]["method_id"] == "A"
+    assert result["method_metadata"]["auxiliary_cue"] is None
+    assert result["method_metadata"]["common_settings"]["window_seconds"] == 1.0
     assert result["config"]["closed_seconds"] == config.closed_seconds
     assert result["config"]["perclos_threshold"] == config.perclos_threshold
     assert result["config"]["window_seconds"] == config.window_seconds
@@ -113,6 +116,10 @@ def test_headless_replay_records_source_unknown_and_temporal_metadata(monkeypatc
     assert [row["timestamp"] for row in rows] == ["0.0", "0.1", "0.2"]
     assert {row["input_kind"] for row in rows} == {"video_media"}
     assert {row["eye_source"] for row in rows} == {"landmark_ear"}
+    assert {row["method_id"] for row in rows} == {"A"}
+    assert {row["auxiliary_cue"] for row in rows} == {""}
+    assert {row["yawn_valid"] for row in rows} == {"False"}
+    assert {row["head_pose_valid"] for row in rows} == {"False"}
     assert {row["eye_threshold"] for row in rows} == {str(config.ear_threshold)}
     assert {row["checkpoint_sha256"] for row in rows} == {""}
     assert {row["window_seconds"] for row in rows} == {"1.0"}
