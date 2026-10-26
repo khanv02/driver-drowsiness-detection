@@ -302,10 +302,24 @@ Verification commands:
 uv run ruff check src scripts demo tests
 ```
 
-Observed result after Protocol v1 approval: `210 passed` in 27.31 seconds and
+Observed result after the annotation playback fix and pilot: `211 passed` in 24.60 seconds and
 Ruff reported `All checks passed!`.
 
 This is software, corpus-integrity, and protocol-approval evidence only. T-024/T-139
 still require reviewed participant grouping, split, and independent temporal annotations.
-No A/B/C performance, alert latency, video Accuracy, or robustness result has been
-measured.
+At that foundation checkpoint, no A/B/C performance, alert latency, video Accuracy, or
+robustness result had been measured. The later pilot below is explicitly non-final.
+
+### Four-clip pilot checkpoint
+
+After independent project-owner review, the ignored pilot annotation manifest contained
+nine intervals across four validation-only clips. Twelve headless/muted A/B/C replays
+completed without runner failures, and the evaluator recalculated a comparison from all
+raw records. The exact artifact hashes, counts, pilot measurements, annotation cleanup,
+unknown/failure durations, and limitations are recorded in
+[pilot-evaluation.md](pilot-evaluation.md).
+
+This closes the synthetic-plus-pilot evaluator task T-145 and latency/failure work package
+T-026. It does not close T-024/T-139 or T-027: participant-safe grouping, a larger
+independently reviewed annotation corpus, validation threshold selection, and one-way
+held-out testing remain absent.

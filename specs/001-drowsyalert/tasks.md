@@ -578,7 +578,7 @@ protocol, complete T-025, or authorize held-out scoring.
 - [X] T-141 [Parent: T-025] Implement the protocol-parameterized episode, system-Accuracy, and grouped metric functions without embedding unapproved thresholds (depends on T-140).
 - [X] T-142 [Parent: T-025] Reconcile metric documentation with the approved protocol, run focused/full verification, and mark T-025 complete only after T-126 freezes definitions (depends on T-126, T-141).
 
-- [ ] T-026 — Measure alert latency and failure scenarios
+- [X] T-026 — Measure alert latency and failure scenarios
 
 - **Phase:** 6 — Experimental Evaluation.
 - **Priority:** P1.
@@ -594,7 +594,7 @@ protocol, complete T-025, or authorize held-out scoring.
 
 - [X] T-143 [Parent: T-026] Add synthetic tests for joining annotations with run records, media-time latency/event summaries, common eligibility, observation-loss reasons, processing conditions, and missing-condition disclosure.
 - [X] T-144 [Parent: T-026] Implement a deterministic evaluator that derives alert episodes from frame records, applies the parameterized matcher, summarizes latency/coverage/failures, and emits machine-readable results (depends on T-141, T-143).
-- [ ] T-145 [Parent: T-026] Verify the evaluator on synthetic fixtures and an explicitly labelled pilot only; document which NITYMED conditions remain unavailable and keep real claims blocked until T-139 (depends on T-144).
+- [X] T-145 [Parent: T-026] Verify the evaluator on synthetic fixtures and an explicitly labelled pilot only; document which NITYMED conditions remain unavailable and keep real claims blocked until T-139 (depends on T-144).
 
 - [ ] T-027 — Run the controlled A/B/C evaluation and compare results (Research)
 
