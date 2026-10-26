@@ -9,6 +9,7 @@ from drowsyalert.experiments.annotation_review import (
     add_draft_event,
     finalize_annotations,
     load_worklist,
+    review_wait_delay_ms,
     write_draft_events,
     write_worklist,
 )
@@ -36,6 +37,14 @@ def test_worklist_is_stable_and_contains_review_gates(tmp_path):
     assert loaded[0].subject_group == "unknown"
     assert loaded[0].split == "unassigned"
     assert loaded[0].review_status == "pending"
+
+
+def test_review_playback_starts_blocking_and_uses_real_video_fps():
+    assert review_wait_delay_ms(25.0, paused=True) == 0
+    assert review_wait_delay_ms(25.0, paused=False) == 40
+    assert review_wait_delay_ms(24.0, paused=False) == 42
+    with pytest.raises(ValueError, match="FPS"):
+        review_wait_delay_ms(0.0, paused=False)
 
 
 def test_draft_events_enforce_labels_media_bounds_and_duplicates(tmp_path):

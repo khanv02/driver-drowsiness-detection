@@ -36,6 +36,8 @@ uv run python scripts/annotate_video_events.py review `
 
 Controls shown in the review window:
 
+- The first frame opens paused; press `Space` when ready. Playback then uses the video's
+  actual FPS instead of processing frames as fast as the computer permits.
 - `Space`: pause/resume.
 - `A` / `D`: seek backward/forward one second.
 - `1`–`5`: first press starts the displayed event type; pressing the same key later

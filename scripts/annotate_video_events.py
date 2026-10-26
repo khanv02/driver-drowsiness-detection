@@ -11,6 +11,7 @@ from drowsyalert.experiments.annotation_review import (
     load_draft_events,
     load_manifest_worklist,
     load_worklist,
+    review_wait_delay_ms,
     worklist_summary,
     write_annotations,
     write_draft_events,
@@ -113,8 +114,9 @@ def _review_clip(root: Path, worklist_path: Path, draft_path: Path, clip_id: str
     events = load_draft_events(draft_path)
     active_label = None
     active_start = None
-    paused = False
+    paused = True
     frame = None
+    fps = float(capture.get(cv2.CAP_PROP_FPS))
     window = f"DrowsyAlert independent review - {clip_id}"
     try:
         while True:
@@ -145,7 +147,7 @@ def _review_clip(root: Path, worklist_path: Path, draft_path: Path, clip_id: str
                     cv2.LINE_AA,
                 )
             cv2.imshow(window, display)
-            key = cv2.waitKey(0 if paused else 1) & 0xFF
+            key = cv2.waitKey(review_wait_delay_ms(fps, paused=paused)) & 0xFF
             if key == ord("q"):
                 break
             if key == ord(" "):

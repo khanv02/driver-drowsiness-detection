@@ -33,6 +33,15 @@ DRAFT_EVENT_FIELDS = ("clip_id", "start_seconds", "end_seconds", "label")
 REVIEW_STATUSES = {"pending", "in_progress", "reviewed"}
 
 
+def review_wait_delay_ms(fps: float, *, paused: bool) -> int:
+    """Return OpenCV's blocking delay when paused or real-time frame delay when playing."""
+    if paused:
+        return 0
+    if not math.isfinite(fps) or fps <= 0:
+        raise ValueError("Review playback FPS must be finite and positive")
+    return max(1, round(1000 / fps))
+
+
 @dataclass(frozen=True)
 class ReviewClip:
     clip_id: str
