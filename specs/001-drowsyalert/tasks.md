@@ -552,7 +552,7 @@ T-023 before held-out evaluation; no comparative result is claimed.
 - [X] T-138 [Parent: T-024] Add a local human-review annotation worklist/tool that records independent media-time intervals using the approved annotation schema and never promotes detector output to reference truth (depends on T-137).
 - [X] T-150 [Parent: T-024] Fix the annotation reviewer to open paused on its first frame and pace playback from the video's actual FPS so a reviewer can see and label the media reliably.
 - [X] T-151 [Parent: T-024] Record the owner-approved Protocol v1.1 amendment for a deterministic balanced 38-clip split, lock all viewed pilot clips to validation, and require explicit possible participant-leakage disclosure.
-- [ ] T-152 [Parent: T-024] Add tests for deterministic balanced category selection, locked validation membership, exact 6+6/13+13 counts, clip/hash isolation, and stable split identity.
+- [X] T-152 [Parent: T-024] Add tests for deterministic balanced category selection, locked validation membership, exact 6+6/13+13 counts, clip/hash isolation, and stable split identity.
 - [ ] T-153 [Parent: T-024] Implement the versioned clip-split builder and local CLI against the NITYMED manifest (depends on T-152).
 - [ ] T-154 [Parent: T-024] Generate and audit the ignored 38-clip split, annotation worklist, review batches, and stable hashes; preserve the four reviewed pilot rows (depends on T-153).
 - [ ] T-139 [Parent: T-024] Validate final annotations, clip-disjoint validation/test isolation, condition tags, disclosed unavailable participant mapping, and manifest hashes; keep T-024 blocked if independently reviewed event timing remains incomplete (depends on T-126, T-154; human review required).
