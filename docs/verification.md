@@ -263,7 +263,8 @@ implementation and no visual/audio success is inferred from it.
 
 **Branch:** `phase/6-experimental-evaluation`
 
-**Status:** Data-independent preparation verified; protocol/data/results pending.
+**Status:** NITYMED acquired and preparation/evaluation tooling verified; protocol,
+independent labels, split, and real results pending.
 
 Completed preparatory evidence:
 
@@ -278,6 +279,20 @@ Completed preparatory evidence:
 - Parameterized metrics validate intervals and compute chronological one-to-one matches,
   event TP/FP/FN, precision/recall/F1, false alarms per valid hour, signed latency
   distributions, misses, and observation coverage. Matching tolerances have no defaults.
+- The acquired NITYMED HDTV720 tree contains 126 decode-verified videos and an ignored
+  per-video hash/metadata manifest. The provider count discrepancy, 24 FPS outlier, lack
+  of temporal labels, and missing participant mapping are recorded.
+- A local annotation worklist/review tool records human-observed media-time intervals,
+  refuses circular detector labels, and blocks final export until review/split metadata
+  satisfies the strict annotation contract.
+- Fixed-bin system Accuracy retains UNKNOWN in the primary denominator and reports
+  observed-only Accuracy/coverage separately. Alert episode extraction and grouped
+  condition calculations use explicit parameters.
+- The evaluator joins annotations and run records into separate event, latency,
+  coverage, failure, condition, and processing summaries.
+- The resumable batch runner fixes a common clip set, landmark-EAR source, shared config,
+  data/split/config/code identities, and forced headless/muted execution across A/B/C.
+  It rejects incompatible existing outputs and requires a numeric frozen pose reference.
 
 Verification commands:
 
@@ -286,8 +301,10 @@ Verification commands:
 uv run ruff check src scripts demo tests
 ```
 
-Observed result: `176 passed` in 30.39 seconds and Ruff reported `All checks passed!`.
+Observed result after the expanded Phase 6 foundation: `210 passed` in 24.79 seconds and
+Ruff reported `All checks passed!`.
 
-This is synthetic software evidence only. T-023 still requires human protocol/data-path
-approval, T-024 requires an authorized temporally annotated video corpus, and no A/B/C
-performance, alert latency, video Accuracy, or robustness result has been measured.
+This is software and corpus-integrity evidence only. T-023 still requires human protocol
+approval. T-024/T-139 require a reviewed participant grouping, split, and independent
+temporal annotations. No A/B/C performance, alert latency, video Accuracy, or robustness
+result has been measured.

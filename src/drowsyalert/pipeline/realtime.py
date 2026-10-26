@@ -46,6 +46,7 @@ def run(
     random_seed: int | None = None,
     code_revision: str | None = None,
     mute: bool = False,
+    source_id: str | None = None,
 ):
     predictor = EARBackend(config.ear_threshold)
     eye_source = "landmark_ear"
@@ -78,7 +79,9 @@ def run(
     audio = AlertManager(config.cooldown_seconds, enabled=not mute and video is None)
     source_kind = "video_media" if video is not None else "live_monotonic"
     source_hash = file_sha256(video) if video is not None else None
-    source_id = f"video:{source_hash[:16]}" if source_hash else f"camera:{camera}"
+    source_id = source_id or (
+        f"video:{source_hash[:16]}" if source_hash else f"camera:{camera}"
+    )
     record = build_run_record(
         source_id=source_id,
         source_kind=source_kind,

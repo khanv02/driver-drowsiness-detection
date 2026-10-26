@@ -26,11 +26,15 @@ is a separately labelled secondary ablation.
 
 ## 2. Dataset and partition (approval blocker)
 
-- Selected source/version: **[PENDING OWNER/SUPERVISOR DECISION]**
-- License/terms evidence and retrieval date: **[PENDING]**
-- Dataset/archive SHA-256: **[PENDING ACTUAL FILE]**
+- Selected source/version: **NITYMED HDTV720 local inventory candidate, provider page
+  last updated 2022-05-25; final protocol approval pending**
+- License/terms evidence and retrieval date: **Provider-declared CC BY; retrieved
+  2026-10-26 through the official grouped access page; owner must retain access evidence**
+- Dataset/archive SHA-256: **No archive retained. Per-video hashes are recorded in local
+  manifest `bb654b8c5f7104d23268503f02935d3c30974a0199fa4c64d3b8fe4985816307`.**
 - Annotation source/version: **[PENDING]**
-- Subject/session identifiers: **[PENDING AUDIT]**
+- Subject/session identifiers: **Absent from acquired layout; provider mapping or
+  reviewed grouping still required**
 - Validation/test split manifest and SHA-256: **[PENDING AUDIT]**
 
 Partition by participant first, or by recording session/source group if participant IDs
@@ -173,7 +177,7 @@ DrowsyAlert remains a research prototype, not a safety or medical system.
 
 | Decision | Proposed value/status | Reviewer/date |
 |---|---|---|
-| Dataset path and rights | Pending; see `docs/video-dataset-audit.md` | Pending |
+| Dataset path and rights | NITYMED HDTV720 acquired and integrity-audited; final rights/access evidence review pending | Pending |
 | Primary event-label guide | Pending selected dataset/annotation guide | Pending |
 | Subject/session split | Subject-disjoint; exact manifest pending | Pending |
 | Matching rule | Earliest unmatched alert; proposed -1.0/+2.0 s validation-selected window | Pending |

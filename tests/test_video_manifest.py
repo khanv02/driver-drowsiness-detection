@@ -7,6 +7,7 @@ from drowsyalert.experiments.video_manifest import (
     VIDEO_MANIFEST_FIELDS,
     VideoMetadata,
     build_nitymed_manifest,
+    load_video_manifest,
     video_manifest_sha256,
     write_video_manifest,
 )
@@ -91,6 +92,7 @@ def test_manifest_identity_and_csv_are_stable(tmp_path):
     assert video_manifest_sha256(rows) == video_manifest_sha256(reversed(rows))
     destination = tmp_path / "manifest.csv"
     write_video_manifest(destination, rows)
+    assert load_video_manifest(destination) == rows
     with destination.open(newline="", encoding="utf-8") as source:
         reader = csv.DictReader(source)
         assert tuple(reader.fieldnames or ()) == VIDEO_MANIFEST_FIELDS

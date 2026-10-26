@@ -167,6 +167,37 @@ def write_video_manifest(
             writer.writerow(row.as_dict())
 
 
+def load_video_manifest(path: Path) -> list[VideoManifestRow]:
+    with path.open(newline="", encoding="utf-8-sig") as source:
+        reader = csv.DictReader(source)
+        if tuple(reader.fieldnames or ()) != VIDEO_MANIFEST_FIELDS:
+            raise ValueError("Video manifest columns do not match the versioned contract")
+        rows = []
+        for line_number, row in enumerate(reader, start=2):
+            try:
+                rows.append(
+                    VideoManifestRow(
+                        **{
+                            **row,
+                            "duration_seconds": float(row["duration_seconds"]),
+                            "fps": float(row["fps"]),
+                            "width": int(row["width"]),
+                            "height": int(row["height"]),
+                            "frame_count": int(row["frame_count"]),
+                            "size_bytes": int(row["size_bytes"]),
+                            "decodable": row["decodable"].casefold() == "true",
+                        }
+                    )
+                )
+            except (TypeError, ValueError) as error:
+                raise ValueError(
+                    f"Invalid video manifest at CSV line {line_number}: {error}"
+                ) from error
+    if not rows:
+        raise ValueError("Video manifest is empty")
+    return sorted(rows, key=lambda item: item.clip_id)
+
+
 def manifest_summary(rows: Iterable[VideoManifestRow]) -> dict:
     values = list(rows)
     category_counts: dict[str, int] = {}
