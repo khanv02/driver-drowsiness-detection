@@ -485,7 +485,7 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 - [X] T-119 [Parent: T-022] Add schema, validation, deterministic identity, JSON round-trip, CSV export, and raw-frame-exclusion tests in `tests/test_experiments.py`.
 - [X] T-120 [Parent: T-022] Implement versioned run metadata and frame-record export contracts in `src/drowsyalert/experiments/records.py` (depends on T-119).
 - [X] T-121 [Parent: T-022] Integrate stable run/config/source/model/audio/evidence provenance with headless runtime exports and document the schema (depends on T-120).
-- [ ] T-122 [Parent: Phase 5] Run the full automated suite and Ruff, audit ignored output/privacy boundaries, and record G5 status without claiming the deferred Phase 4 physical webcam/audio check passed (depends on T-112, T-115, T-118, T-121).
+- [X] T-122 [Parent: Phase 5] Run the full automated suite and Ruff, audit ignored output/privacy boundaries, and record G5 status without claiming the deferred Phase 4 physical webcam/audio check passed (depends on T-112, T-115, T-118, T-121).
 
 T-022 implementation is complete through T-121. Its parent remains open because its
 declared T-018 dependency includes the deferred physical webcam/audio acceptance check.
@@ -495,6 +495,13 @@ hardware; G5 must report this dependency honestly.
 ### Phase 5 acceptance gate
 
 G5 passes when B and C indicators are tested, method A/B/C behavior is isolated, common settings are verifiable, and run records capture required provenance. No comparative conclusion is permitted before held-out evaluation.
+
+**G5 status (2026-10-26): Software verification passed; formal closure pending.** The
+Phase 5 implementation and all automated checks pass (`143 passed`; Ruff clean), but
+T-022 remains open solely because its declared T-018 dependency still awaits the deferred
+human-visible webcam and real-speaker acceptance check. Yawn/pose thresholds and the
+controlled pose-reference procedure also remain validation-only inputs to freeze under
+T-023 before held-out evaluation; no comparative result is claimed.
 
 ## Phase 6 — Experimental Evaluation
 

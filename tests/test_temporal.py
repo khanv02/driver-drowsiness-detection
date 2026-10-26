@@ -101,7 +101,13 @@ def test_window_must_be_ready_and_unknown_overrides_history():
 def test_combined_methods_share_same_base_rule():
     config = Config()
     features = TemporalFeatures(0, 0.12, 1, 60, True, True)
-    extra = ExtraFeatures(yawns=2, head_down_seconds=2)
+    extra = ExtraFeatures(
+        yawns=2,
+        yawn_valid=True,
+        head_down_seconds=2,
+        head_down=True,
+        head_pose_valid=True,
+    )
     assert DecisionEngine(config).decide(EyeState.OPEN, features, extra).state == AlertState.NORMAL
     for method in ("perclos-yawn", "perclos-head-pose"):
         assert (

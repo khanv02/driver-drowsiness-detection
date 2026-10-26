@@ -204,3 +204,55 @@ capture checks pass. Final G4 reviewer acceptance remains **pending** because vi
 and real speaker playback require direct human observation. The headless smoke test is not described
 as evidence of either display correctness or audible output. Generated/private boundary checks also
 pass: the downloaded face model, trained checkpoint, CEW data, and result artifacts remain ignored.
+
+## Phase 5 - Additional research features
+
+**Date:** 2026-10-26
+
+**Branch:** `phase/5-additional-research-features`
+
+**Scope:** T-019-T-022 / G5
+
+### Automated evidence
+
+| Area | Evidence | Result |
+|---|---|---|
+| Yawn evidence | MAR shape/finite/width validation; exact ratio and duration boundaries; one event per continuous opening; closure, gap, invalid-observation and rolling-expiry behavior | Passed |
+| Head-pose evidence | PnP input validation; positive-pitch convention; fixed and first-valid reference records; exact angle/duration boundaries; invalid-pose and gap resets | Passed |
+| Method isolation | A ignores auxiliary cues; B consumes only valid yaw evidence; C consumes only valid pose evidence; shared PERCLOS settings have equal serialized values | Passed |
+| Unknown handling | A required-but-unavailable Method B/C cue in the combined-PERCLOS band produces `UNKNOWN`, never unsupported normality | Passed |
+| Experiment records | Versioned/deterministic identities, config hash, JSON round-trip, stable CSV fields, completion/error states, and overwrite refusal | Passed |
+| Privacy/provenance | Raw-frame fields are rejected; video identity defaults to content hash; missing dataset/split/code IDs are explicit; private/generated paths remain ignored | Passed |
+
+Verification commands:
+
+```powershell
+uv sync --extra train
+.\.venv\Scripts\python.exe -m pytest -p no:cacheprovider -q
+uv run ruff check src scripts demo tests
+git check-ignore -v outputs/results/phase5-run.json outputs/logs/phase5.csv `
+  data/private/participant.mp4 models/checkpoints/private.pt
+```
+
+Observed result: `143 passed` in 26.56 seconds and Ruff reported `All checks passed!`.
+The first full-suite collection attempt found that the local environment no longer had
+the declared training extra installed (`scikit-learn`). `uv sync --extra train` restored
+the locked dependencies. The next run exposed one old fixture that supplied auxiliary
+counts without validity flags; the fixture was corrected to represent valid evidence,
+and the final full suite passed.
+
+Ignore checks matched all four representative private/generated paths. The tracked
+entries under `data/`, `models/`, and `outputs/` are documentation or empty directory
+placeholders; no raw recording, trained checkpoint, or generated result was added.
+
+### G5 status
+
+Phase 5 software behavior and automated acceptance evidence **pass**. T-019, T-020,
+T-021, and all T-022 implementation leaves are complete. Numerical yawn/pose values
+remain provisional configuration defaults and must be selected on validation material
+and frozen under the Phase 6 protocol before any held-out comparison.
+
+Formal G5 closure remains **pending** only because parent T-022 declares T-018 as a
+dependency, while T-018/G4 still awaits the deferred human-visible webcam and real-speaker
+acceptance check. This hardware limitation does not invalidate the automated Phase 5
+implementation and no visual/audio success is inferred from it.
