@@ -19,6 +19,12 @@ def eye_aspect_ratio(points: np.ndarray) -> float:
 
 
 def mouth_aspect_ratio(points: np.ndarray) -> float:
+    points = np.asarray(points, dtype=float)
+    if points.ndim != 2 or points.shape[0] <= 317 or points.shape[1] != 2:
+        raise ValueError("MAR requires at least 318 2D landmarks")
+    indices = (61, 291, 82, 87, 312, 317)
+    if not np.isfinite(points[list(indices)]).all():
+        raise ValueError("MAR requires finite mouth landmarks")
     width = np.linalg.norm(points[61] - points[291])
     if width < 1e-6:
         raise ValueError("Degenerate mouth width")

@@ -2,8 +2,8 @@ import math
 
 import pytest
 
-from drowsyalert.pipeline.decision import DecisionEngine
-from drowsyalert.types import AlertState, EyeState, TemporalFeatures
+from drowsyalert.pipeline.decision import DecisionEngine, method_metadata
+from drowsyalert.types import AlertState, ExtraFeatures, EyeState, TemporalFeatures
 from drowsyalert.utils.config import Config
 
 
@@ -126,3 +126,108 @@ def test_invalid_temporal_evidence_becomes_unknown(temporal):
 def test_engine_rejects_invalid_configuration():
     with pytest.raises(ValueError, match="perclos_threshold"):
         DecisionEngine(Config(perclos_threshold=2.0))
+
+
+def test_method_a_ignores_all_auxiliary_evidence():
+    extra = ExtraFeatures(
+        yawns=99,
+        yawn_valid=True,
+        head_down_seconds=99.0,
+        head_down=True,
+        head_pose_valid=True,
+    )
+    result = DecisionEngine(Config(), "perclos").decide(
+        EyeState.OPEN, features(perclos=0.15), extra
+    )
+    assert result.state == AlertState.NORMAL
+
+
+def test_method_b_consumes_only_valid_yawn_evidence_in_combined_band():
+    engine = DecisionEngine(Config(yawn_count=2), "perclos-yawn")
+    invalid = engine.decide(
+        EyeState.OPEN,
+        features(perclos=0.15),
+        ExtraFeatures(yawns=2, yawn_valid=False, yawn_reason="Mouth unavailable"),
+    )
+    insufficient = engine.decide(
+        EyeState.OPEN,
+        features(perclos=0.15),
+        ExtraFeatures(
+            yawns=1,
+            yawn_valid=True,
+            head_down=True,
+            head_pose_valid=True,
+            head_down_seconds=99,
+        ),
+    )
+    alert = engine.decide(
+        EyeState.OPEN,
+        features(perclos=0.15),
+        ExtraFeatures(yawns=2, yawn_valid=True),
+    )
+    assert (invalid.state, invalid.reason) == (
+        AlertState.UNKNOWN,
+        "Yawn evidence unavailable: Mouth unavailable",
+    )
+    assert insufficient.state == AlertState.NORMAL
+    assert (alert.state, alert.reason) == (AlertState.ALERT, "PERCLOS + yawns")
+
+
+def test_method_c_consumes_only_valid_pose_evidence_in_combined_band():
+    engine = DecisionEngine(Config(head_down_seconds=1.5), "perclos-head-pose")
+    invalid = engine.decide(
+        EyeState.OPEN,
+        features(perclos=0.15),
+        ExtraFeatures(
+            head_down_seconds=2.0,
+            head_pose_valid=False,
+            head_pose_reason="Pose unavailable",
+        ),
+    )
+    insufficient = engine.decide(
+        EyeState.OPEN,
+        features(perclos=0.15),
+        ExtraFeatures(
+            yawns=99,
+            yawn_valid=True,
+            head_down_seconds=1.4,
+            head_pose_valid=True,
+        ),
+    )
+    alert = engine.decide(
+        EyeState.OPEN,
+        features(perclos=0.15),
+        ExtraFeatures(head_down_seconds=1.5, head_down=True, head_pose_valid=True),
+    )
+    assert (invalid.state, invalid.reason) == (
+        AlertState.UNKNOWN,
+        "Head-pose evidence unavailable: Pose unavailable",
+    )
+    assert insufficient.state == AlertState.NORMAL
+    assert (alert.state, alert.reason) == (AlertState.ALERT, "PERCLOS + head down")
+
+
+@pytest.mark.parametrize("method", ["perclos-yawn", "perclos-head-pose"])
+def test_primary_perclos_alert_does_not_require_auxiliary_evidence(method):
+    result = DecisionEngine(Config(), method).decide(
+        EyeState.OPEN, features(perclos=0.2), ExtraFeatures()
+    )
+    assert (result.state, result.reason) == (AlertState.ALERT, "High estimated PERCLOS")
+
+
+def test_method_metadata_keeps_common_perclos_settings_equal():
+    config = Config()
+    records = [
+        method_metadata(config, method, "landmark_ear")
+        for method in ("perclos", "perclos-yawn", "perclos-head-pose")
+    ]
+    assert [record["method_id"] for record in records] == ["A", "B", "C"]
+    assert {record["eye_source"] for record in records} == {"landmark_ear"}
+    assert len({tuple(record["common_settings"].items()) for record in records}) == 1
+    assert [record["auxiliary_cue"] for record in records] == [None, "yawn", "head_pose"]
+    assert records[0]["auxiliary_settings"] == {}
+    assert records[1]["auxiliary_settings"]["yawn_count"] == config.yawn_count
+    assert (
+        records[2]["auxiliary_settings"]["head_pose_reference_degrees"]
+        == config.head_pose_reference_degrees
+    )

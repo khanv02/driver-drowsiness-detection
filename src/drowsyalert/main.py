@@ -29,6 +29,11 @@ def build_parser():
     parser.add_argument("--headless", action="store_true", help="Process without opening a window")
     parser.add_argument("--max-frames", type=int)
     parser.add_argument("--log", type=Path, help="Write per-frame CSV")
+    parser.add_argument("--record", type=Path, help="Write a versioned experiment JSON record")
+    parser.add_argument("--dataset-id", help="Dataset/version identity for experiment provenance")
+    parser.add_argument("--split-id", help="Split-manifest identity for experiment provenance")
+    parser.add_argument("--seed", type=int, help="Random seed used by the experiment protocol")
+    parser.add_argument("--code-revision", help="Source revision or commit identity")
     parser.add_argument("--mute", action="store_true")
     return parser
 
@@ -65,6 +70,11 @@ def main(argv=None):
             headless=args.headless,
             max_frames=args.max_frames,
             log_path=args.log,
+            record_path=args.record,
+            dataset_id=args.dataset_id,
+            split_id=args.split_id,
+            random_seed=args.seed,
+            code_revision=args.code_revision,
             mute=args.mute,
         )
         print(json.dumps(result, indent=2))

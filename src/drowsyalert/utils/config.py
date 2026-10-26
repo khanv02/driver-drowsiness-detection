@@ -27,6 +27,7 @@ class Config:
     yawn_threshold: float = 0.6
     yawn_seconds: float = 1.5
     yawn_count: int = 2
+    head_pose_reference_degrees: float | None = None
     head_down_degrees: float = 20.0
     head_down_seconds: float = 1.5
     width: int = 640
@@ -35,6 +36,10 @@ class Config:
     def validate(self) -> None:
         for key, value in asdict(self).items():
             if isinstance(value, (int, float)):
+                if key == "head_pose_reference_degrees":
+                    if isinstance(value, bool) or not math.isfinite(value):
+                        raise ValueError(f"{key} must be finite when supplied")
+                    continue
                 if isinstance(value, bool) or not math.isfinite(value) or value <= 0:
                     raise ValueError(f"{key} must be finite and greater than zero")
         for key in (

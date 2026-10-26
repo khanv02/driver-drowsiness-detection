@@ -412,7 +412,9 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 
 **Milestone outcome**: optional indicators are valid/unknown-aware, and A/B/C share controlled baseline settings and traceable method identities.
 
-- [ ] T-019 — Implement and test yawning feature extraction (Coding)
+- [X] T-109 [Parent: Phase 5] Decompose T-019–T-022 into focused yawn, pose, method-isolation, experiment-record, documentation, and verification tasks in `specs/001-drowsyalert/tasks.md`.
+
+- [X] T-019 — Implement and test yawning feature extraction (Coding)
 
 - **Phase:** 5 — Additional Research Features.
 - **Priority:** P1.
@@ -424,7 +426,13 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 - **Verification:** Tests cover below/at/above definition boundary, one event per continuous interval, tracking gap, invalid landmarks, and rolling count expiration.
 - **Definition of Done:** Yawn feature returns reproducible event/time evidence and never invents events from invalid mouth data.
 
-- [ ] T-020 — Implement and test head-pose feature extraction (Coding)
+### T-019 leaf tasks — Valid, deduplicated yawn evidence
+
+- [X] T-110 [Parent: T-019] Add focused MAR validation and yawn boundary, de-duplication, close/reset, invalid-observation, timestamp, gap, and rolling-expiry tests in `tests/test_yawn.py`.
+- [X] T-111 [Parent: T-019] Implement explicit valid/unknown yawn evidence and robust temporal state in `src/drowsyalert/features/geometry.py`, `src/drowsyalert/features/extra.py`, and `src/drowsyalert/types.py` (depends on T-110).
+- [X] T-112 [Parent: T-019] Document the configurable provisional yawn rule, run focused tests and Ruff, and record T-019 completion (depends on T-111).
+
+- [X] T-020 — Implement and test head-pose feature extraction (Coding)
 
 - **Phase:** 5 — Additional Research Features.
 - **Priority:** P1.
@@ -436,7 +444,13 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 - **Verification:** Deterministic projected/synthetic cases validate sign and threshold behavior; invalid landmarks/pose and tracking gaps reset or mark unknown as specified.
 - **Definition of Done:** Pose evidence is reproducible, interpretable, and recorded with its reference/threshold.
 
-- [ ] T-021 — Normalize method A/B/C configuration and evidence provenance
+### T-020 leaf tasks — Relative head-pose evidence
+
+- [X] T-113 [Parent: T-020] Add deterministic pose validation, sign/reference, threshold, sustained-duration, invalid-observation, timestamp, and gap-reset tests in `tests/test_head_pose.py`.
+- [X] T-114 [Parent: T-020] Implement explicit pose validity, neutral-reference metadata, relative-pitch convention, and robust temporal reset behavior in `src/drowsyalert/features/extra.py` and `src/drowsyalert/types.py` (depends on T-113).
+- [X] T-115 [Parent: T-020] Document the configurable provisional head-pose rule, run focused tests and Ruff, and record T-020 completion (depends on T-114).
+
+- [X] T-021 — Normalize method A/B/C configuration and evidence provenance
 
 - **Phase:** 5 — Additional Research Features.
 - **Priority:** P0.
@@ -447,6 +461,12 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 - **Expected Artifacts:** Method configuration/decision updates; `tests/test_experiments.py`; documented configuration matrix.
 - **Verification:** Same input/configuration produces method-labelled records; common PERCLOS settings match across methods; any difference is explicit and justified.
 - **Definition of Done:** A/B/C are selectable and traceable without hidden parameter drift.
+
+### T-021 leaf tasks — Controlled A/B/C method identity
+
+- [X] T-116 [Parent: T-021] Add decision and integration tests proving A ignores auxiliary cues, B consumes only valid yawn evidence, C consumes only valid pose evidence, and all methods share base PERCLOS settings.
+- [X] T-117 [Parent: T-021] Normalize method identifiers, auxiliary evidence validity/reasons, configuration snapshots, and per-frame provenance across decision and runtime records (depends on T-116).
+- [X] T-118 [Parent: T-021] Document the A/B/C configuration matrix, run focused tests and Ruff, and record T-021 completion (depends on T-117).
 
 - [ ] T-022 — Add experiment execution and result-recording contract
 
@@ -460,9 +480,28 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 - **Verification:** Schema test confirms required provenance fields; round-trip/export has stable column names and does not include raw frame data by default.
 - **Definition of Done:** A researcher can map every reported value to a run and its declared inputs/configuration.
 
+### T-022 leaf tasks — Reproducible experiment records
+
+- [X] T-119 [Parent: T-022] Add schema, validation, deterministic identity, JSON round-trip, CSV export, and raw-frame-exclusion tests in `tests/test_experiments.py`.
+- [X] T-120 [Parent: T-022] Implement versioned run metadata and frame-record export contracts in `src/drowsyalert/experiments/records.py` (depends on T-119).
+- [X] T-121 [Parent: T-022] Integrate stable run/config/source/model/audio/evidence provenance with headless runtime exports and document the schema (depends on T-120).
+- [X] T-122 [Parent: Phase 5] Run the full automated suite and Ruff, audit ignored output/privacy boundaries, and record G5 status without claiming the deferred Phase 4 physical webcam/audio check passed (depends on T-112, T-115, T-118, T-121).
+
+T-022 implementation is complete through T-121. Its parent remains open because its
+declared T-018 dependency includes the deferred physical webcam/audio acceptance check.
+The experiment record contract itself is automated and can be verified without camera
+hardware; G5 must report this dependency honestly.
+
 ### Phase 5 acceptance gate
 
 G5 passes when B and C indicators are tested, method A/B/C behavior is isolated, common settings are verifiable, and run records capture required provenance. No comparative conclusion is permitted before held-out evaluation.
+
+**G5 status (2026-10-26): Software verification passed; formal closure pending.** The
+Phase 5 implementation and all automated checks pass (`143 passed`; Ruff clean), but
+T-022 remains open solely because its declared T-018 dependency still awaits the deferred
+human-visible webcam and real-speaker acceptance check. Yawn/pose thresholds and the
+controlled pose-reference procedure also remain validation-only inputs to freeze under
+T-023 before held-out evaluation; no comparative result is claimed.
 
 ## Phase 6 — Experimental Evaluation
 
