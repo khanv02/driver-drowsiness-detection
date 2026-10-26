@@ -346,7 +346,7 @@ G3 passes when a licensed dataset/split is documented, data-loading and training
 - [X] T-094 [Parent: T-015] Verify decision threshold/window configuration validation and resolved-run serialization in `src/drowsyalert/utils/config.py` and focused tests (depends on T-093).
 - [X] T-095 [Parent: T-015] Run focused decision/config tests and Ruff, then document Method A while keeping Method B/C fusion deferred to T-021 (depends on T-094).
 
-- [ ] T-016 — Verify visible status and alert presentation
+- [X] T-016 — Verify visible status and alert presentation
 
 - **Phase:** 4 — Real-Time Drowsiness Alert.
 - **Priority:** P1.
@@ -360,10 +360,10 @@ G3 passes when a licensed dataset/split is documented, data-loading and training
 
 ### T-016 leaf tasks — Visible state and advisory presentation
 
-- [ ] T-096 [Parent: T-016] Add presentation tests for normal, alert, unknown, warm-up, unavailable evidence, source identity, controls, and advisory wording in `tests/test_overlay.py` (depends on T-095).
-- [ ] T-097 [Parent: T-016] Refactor overlay text generation into a testable state summary and render distinct status/reason/advisory lines in `src/drowsyalert/utils/overlay.py` (depends on T-096).
-- [ ] T-098 [Parent: T-016] Update `README.md` with status meanings, stop/mute controls, webcam privacy, and research-prototype limitations (depends on T-097).
-- [ ] T-099 [Parent: T-016] Run focused overlay tests and Ruff, then record presentation verification (depends on T-098).
+- [X] T-096 [Parent: T-016] Add presentation tests for normal, alert, unknown, warm-up, unavailable evidence, source identity, controls, and advisory wording in `tests/test_overlay.py` (depends on T-095).
+- [X] T-097 [Parent: T-016] Refactor overlay text generation into a testable state summary and render distinct status/reason/advisory lines in `src/drowsyalert/utils/overlay.py` (depends on T-096).
+- [X] T-098 [Parent: T-016] Update `README.md` with status meanings, stop/mute controls, webcam privacy, and research-prototype limitations (depends on T-097).
+- [X] T-099 [Parent: T-016] Run focused overlay tests and Ruff, then record presentation verification (depends on T-098).
 
 - [ ] T-017 — Verify audio warning and repeat control
 

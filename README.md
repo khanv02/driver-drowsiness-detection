@@ -85,6 +85,16 @@ uv run drowsyalert --camera 0 --method perclos-head-pose
 
 Cấu hình mặc định nằm ở [`configs/config.yaml`](configs/config.yaml). Các ngưỡng trong file là giá trị cấu hình ban đầu, chưa được xác nhận là ngưỡng an toàn cho tài xế. Xem `uv run drowsyalert --help` để biết các tùy chọn khác.
 
+### Trạng thái và điều khiển webcam
+
+- `NORMAL`: quan sát hợp lệ, cửa sổ PERCLOS đã sẵn sàng và chưa đạt ngưỡng cảnh báo.
+- `ALERT`: nhắm mắt liên tục đủ lâu hoặc PERCLOS đạt ngưỡng; lý do cụ thể hiển thị trên cửa sổ.
+- `UNKNOWN`: không thấy khuôn mặt/mắt, dự đoán không chắc chắn, dữ liệu thời gian không hợp lệ hoặc cửa sổ vẫn đang khởi động. `UNKNOWN` không được coi là `NORMAL`.
+- Nhấn `Q` hoặc `Esc` để dừng. Thêm `--mute` để tắt âm thanh mà không thay đổi quyết định.
+- Khung hình webcam được xử lý cục bộ và không được lưu bởi luồng demo. `--log` chỉ ghi số đo/trạng thái CSV, không ghi video.
+
+Overlay luôn hiển thị nguồn trạng thái mắt, trạng thái/lý do, PERCLOS/coverage, điều khiển dừng và thông báo đây là prototype nghiên cứu, không phải hệ thống an toàn được chứng nhận.
+
 ## Chuẩn bị dữ liệu và huấn luyện CNN
 
 Kiểm tra nguồn, điều khoản sử dụng, nhãn và cấu trúc dataset trước khi huấn luyện. Dự án không tự động tải dataset. Tải thủ công bộ eye-patch CEW từ trang chính thức, tuân thủ điều khoản nghiên cứu/phi thương mại/không phân phối lại, rồi giải nén vào `data/raw/cew/`. Không đưa dataset hoặc dữ liệu cá nhân vào Git.
