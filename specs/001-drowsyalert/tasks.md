@@ -554,6 +554,16 @@ T-023 before held-out evaluation; no comparative result is claimed.
 - **Verification:** Hand-calculated fixtures match expected values; tests ensure image classification counts are not reused as temporal alert counts.
 - **Definition of Done:** Metrics and denominators are documented, tested, and traceable to protocol.
 
+### T-025 preparatory leaf tasks — Parameterized event-metric primitives
+
+These leaves may be built against synthetic inputs before T-023 approval because they
+require tolerances and denominators as explicit arguments. They do not freeze the draft
+protocol, complete T-025, or authorize held-out scoring.
+
+- [X] T-130 [Parent: T-025] Add hand-calculated synthetic tests for chronological one-to-one matching, early/late boundaries, false alerts, misses, signed latency, zero denominators, and observation coverage in `tests/test_experiment_metrics.py`.
+- [X] T-131 [Parent: T-025] Implement parameterized interval validation, event matching, event metrics, latency summaries, and coverage summaries in `src/drowsyalert/experiments/metrics.py` (depends on T-130).
+- [X] T-132 [Parent: T-025] Document the draft metric primitives, run focused tests and Ruff, and preserve T-025 as pending T-023 approval (depends on T-131).
+
 - [ ] T-026 — Measure alert latency and failure scenarios
 
 - **Phase:** 6 — Experimental Evaluation.
