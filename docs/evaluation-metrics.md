@@ -36,3 +36,25 @@ These functions do not load videos, select thresholds, define ground truth, appr
 draft -1/+2 second proposal, or produce a research conclusion. T-025 remains pending
 until T-023 is approved; later integration must prove that the same approved clips,
 eligibility mask, labels, tolerances, and denominators are supplied for A/B/C.
+
+## Alert episodes and system Accuracy
+
+Frame statuses are converted to half-open media-time intervals using the earlier
+sample's state. A transition from `ALERT` to either `NORMAL` or `UNKNOWN` ends an alert
+episode; consecutive alert samples remain one episode. Missing time before the first
+status is `UNKNOWN`. Samples must be finite, strictly increasing, and inside the clip.
+
+System Accuracy divides each declared clip timeline into caller-supplied fixed bins.
+Reference-event overlap and predicted-state duration use an explicit positive-fraction
+parameter. If ALERT and NORMAL both meet that fraction in a tie, the bin is conservatively
+`UNKNOWN` instead of silently choosing one outcome.
+
+Primary Accuracy is `correct_bins / all_bins`: UNKNOWN remains in `all_bins` and never
+counts as correct normal. Observed-only Accuracy and coverage are separate diagnostics.
+TP/TN/FP/FN cover observed predictions, while `unknown_bins` preserves withheld
+evidence. The same calculation can be grouped by a declared condition value; absent tags
+form an explicit `unknown` group.
+
+The proposed 1-second/50-percent protocol is not embedded as a hidden decision. Bin size
+must be supplied by the caller, and the overlap fraction remains an explicit parameter
+to be frozen by the approved protocol.

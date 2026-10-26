@@ -574,7 +574,7 @@ protocol, complete T-025, or authorize held-out scoring.
 - [X] T-131 [Parent: T-025] Implement parameterized interval validation, event matching, event metrics, latency summaries, and coverage summaries in `src/drowsyalert/experiments/metrics.py` (depends on T-130).
 - [X] T-132 [Parent: T-025] Document the draft metric primitives, run focused tests and Ruff, and preserve T-025 as pending T-023 approval (depends on T-131).
 - [X] T-140 [Parent: T-025] Add hand-calculated tests for alert-episode extraction, fixed-bin system Accuracy with UNKNOWN retained in the primary denominator, observed-only diagnostics, and condition-group aggregation.
-- [ ] T-141 [Parent: T-025] Implement the protocol-parameterized episode, system-Accuracy, and grouped metric functions without embedding unapproved thresholds (depends on T-140).
+- [X] T-141 [Parent: T-025] Implement the protocol-parameterized episode, system-Accuracy, and grouped metric functions without embedding unapproved thresholds (depends on T-140).
 - [ ] T-142 [Parent: T-025] Reconcile metric documentation with the approved protocol, run focused/full verification, and mark T-025 complete only after T-126 freezes definitions (depends on T-126, T-141).
 
 - [ ] T-026 — Measure alert latency and failure scenarios

@@ -23,6 +23,26 @@ class AlertEpisode:
 
 
 @dataclass(frozen=True)
+class ClipTimeline:
+    clip_id: str
+    duration_seconds: float
+
+
+@dataclass(frozen=True)
+class StatusSample:
+    timestamp_seconds: float
+    state: str
+
+
+@dataclass(frozen=True)
+class StatusInterval:
+    clip_id: str
+    start_seconds: float
+    end_seconds: float
+    state: str
+
+
+@dataclass(frozen=True)
 class EventMatch:
     reference_id: str
     alert_id: str
@@ -161,6 +181,234 @@ def coverage_summary(
         "eligible_hours": eligible_seconds / 3600,
         "valid_hours": valid_seconds / 3600,
     }
+
+
+def status_intervals(
+    clip_id: str, samples: Iterable[StatusSample], *, end_seconds: float
+) -> tuple[StatusInterval, ...]:
+    """Convert ordered frame states to earlier-sample media-time intervals."""
+    values = list(samples)
+    if not clip_id or not math.isfinite(end_seconds) or end_seconds <= 0:
+        raise ValueError("Invalid status sample clip or media duration")
+    previous = None
+    for sample in values:
+        if (
+            not math.isfinite(sample.timestamp_seconds)
+            or sample.timestamp_seconds < 0
+            or sample.timestamp_seconds >= end_seconds
+            or sample.state not in {"ALERT", "NORMAL", "UNKNOWN"}
+            or (previous is not None and sample.timestamp_seconds <= previous)
+        ):
+            raise ValueError("Invalid or non-increasing status sample")
+        previous = sample.timestamp_seconds
+
+    intervals = []
+    if not values:
+        return (StatusInterval(clip_id, 0.0, end_seconds, "UNKNOWN"),)
+    if values[0].timestamp_seconds > 0:
+        intervals.append(StatusInterval(clip_id, 0.0, values[0].timestamp_seconds, "UNKNOWN"))
+    for index, sample in enumerate(values):
+        end = values[index + 1].timestamp_seconds if index + 1 < len(values) else end_seconds
+        if end > sample.timestamp_seconds:
+            intervals.append(StatusInterval(clip_id, sample.timestamp_seconds, end, sample.state))
+    return tuple(intervals)
+
+
+def extract_alert_episodes(
+    clip_id: str, samples: Iterable[StatusSample], *, end_seconds: float
+) -> tuple[AlertEpisode, ...]:
+    intervals = status_intervals(clip_id, samples, end_seconds=end_seconds)
+    episodes = []
+    active_start = None
+    for interval in intervals:
+        if interval.state == "ALERT" and active_start is None:
+            active_start = interval.start_seconds
+        elif interval.state != "ALERT" and active_start is not None:
+            episodes.append((active_start, interval.start_seconds))
+            active_start = None
+    if active_start is not None:
+        episodes.append((active_start, end_seconds))
+    return tuple(
+        AlertEpisode(f"{clip_id}-alert-{index:04d}", clip_id, start, end)
+        for index, (start, end) in enumerate(episodes, start=1)
+        if end > start
+    )
+
+
+def system_accuracy(
+    timelines: Iterable[ClipTimeline],
+    references: Iterable[ReferenceEvent],
+    states: Iterable[StatusInterval],
+    *,
+    bin_seconds: float,
+    positive_fraction: float = 0.5,
+) -> dict:
+    """Score fixed media-time bins while counting UNKNOWN as primary errors."""
+    timelines = list(timelines)
+    references = list(references)
+    states = list(states)
+    _validate_system_inputs(timelines, references, states, bin_seconds, positive_fraction)
+    outcomes = []
+    references_by_clip = _group_intervals(references)
+    states_by_clip = _group_intervals(states)
+    for timeline in timelines:
+        start = 0.0
+        while start < timeline.duration_seconds:
+            end = min(start + bin_seconds, timeline.duration_seconds)
+            width = end - start
+            reference_overlap = _union_overlap(
+                references_by_clip.get(timeline.clip_id, []), start, end
+            )
+            reference_positive = reference_overlap >= positive_fraction * width
+            state_durations = {"ALERT": 0.0, "NORMAL": 0.0, "UNKNOWN": 0.0}
+            for interval in states_by_clip.get(timeline.clip_id, []):
+                overlap = max(
+                    0.0,
+                    min(end, interval.end_seconds) - max(start, interval.start_seconds),
+                )
+                state_durations[interval.state] += overlap
+            alert_qualified = state_durations["ALERT"] >= positive_fraction * width
+            normal_qualified = state_durations["NORMAL"] >= positive_fraction * width
+            if alert_qualified == normal_qualified:
+                predicted = "unknown"
+            elif alert_qualified:
+                predicted = "positive"
+            else:
+                predicted = "negative"
+            outcomes.append((reference_positive, predicted))
+            start = end
+    return _summarize_system_outcomes(outcomes)
+
+
+def grouped_system_accuracy(
+    timelines: Iterable[ClipTimeline],
+    references: Iterable[ReferenceEvent],
+    states: Iterable[StatusInterval],
+    *,
+    conditions: dict[str, str],
+    bin_seconds: float,
+    positive_fraction: float = 0.5,
+) -> dict[str, dict]:
+    """Apply the identical bin definition to each declared clip-level condition."""
+    timeline_values = list(timelines)
+    reference_values = list(references)
+    state_values = list(states)
+    groups = sorted({conditions.get(item.clip_id, "unknown") for item in timeline_values})
+    result = {}
+    for group in groups:
+        selected = [
+            item for item in timeline_values if conditions.get(item.clip_id, "unknown") == group
+        ]
+        clip_ids = {item.clip_id for item in selected}
+        result[group] = system_accuracy(
+            selected,
+            [item for item in reference_values if item.clip_id in clip_ids],
+            [item for item in state_values if item.clip_id in clip_ids],
+            bin_seconds=bin_seconds,
+            positive_fraction=positive_fraction,
+        )
+    return result
+
+
+def _summarize_system_outcomes(outcomes: list[tuple[bool, str]]) -> dict:
+    tp = sum(reference and predicted == "positive" for reference, predicted in outcomes)
+    tn = sum(not reference and predicted == "negative" for reference, predicted in outcomes)
+    fp = sum(not reference and predicted == "positive" for reference, predicted in outcomes)
+    fn = sum(reference and predicted == "negative" for reference, predicted in outcomes)
+    unknown = sum(predicted == "unknown" for _reference, predicted in outcomes)
+    total = len(outcomes)
+    observed = total - unknown
+    correct = tp + tn
+    return {
+        "bins": total,
+        "observed_bins": observed,
+        "unknown_bins": unknown,
+        "correct_bins": correct,
+        "tp": tp,
+        "tn": tn,
+        "fp": fp,
+        "fn": fn,
+        "accuracy": _ratio(correct, total),
+        "observed_only_accuracy": _ratio(correct, observed),
+        "observation_coverage": _ratio(observed, total),
+    }
+
+
+def _validate_system_inputs(
+    timelines: list[ClipTimeline],
+    references: list[ReferenceEvent],
+    states: list[StatusInterval],
+    bin_seconds: float,
+    positive_fraction: float,
+) -> None:
+    if not math.isfinite(bin_seconds) or bin_seconds <= 0:
+        raise ValueError("bin_seconds must be finite and positive")
+    if not math.isfinite(positive_fraction) or not 0 < positive_fraction <= 1:
+        raise ValueError("positive_fraction must be in (0, 1]")
+    durations = {}
+    for timeline in timelines:
+        if (
+            not timeline.clip_id
+            or timeline.clip_id in durations
+            or not math.isfinite(timeline.duration_seconds)
+            or timeline.duration_seconds <= 0
+        ):
+            raise ValueError(f"Invalid or duplicate clip timeline: {timeline.clip_id}")
+        durations[timeline.clip_id] = timeline.duration_seconds
+    _validate_intervals(references, "reference")
+    _validate_status_intervals(states)
+    for interval in [*references, *states]:
+        duration = durations.get(interval.clip_id)
+        if duration is None or interval.end_seconds > duration:
+            raise ValueError(f"Interval is outside declared timeline: {interval.clip_id}")
+
+
+def _validate_status_intervals(states: list[StatusInterval]) -> None:
+    previous_end: dict[str, float] = {}
+    for interval in sorted(states, key=lambda item: (item.clip_id, item.start_seconds)):
+        if (
+            not interval.clip_id
+            or interval.state not in {"ALERT", "NORMAL", "UNKNOWN"}
+            or any(
+                not math.isfinite(value)
+                for value in (interval.start_seconds, interval.end_seconds)
+            )
+            or not 0 <= interval.start_seconds < interval.end_seconds
+            or interval.start_seconds < previous_end.get(interval.clip_id, 0.0)
+        ):
+            raise ValueError(f"Invalid or overlapping status interval: {interval.clip_id}")
+        previous_end[interval.clip_id] = interval.end_seconds
+
+
+def _group_intervals(intervals: Iterable) -> dict[str, list]:
+    result: dict[str, list] = {}
+    for interval in intervals:
+        result.setdefault(interval.clip_id, []).append(interval)
+    return result
+
+
+def _union_overlap(intervals: Iterable, start: float, end: float) -> float:
+    clipped = sorted(
+        (
+            max(start, item.start_seconds),
+            min(end, item.end_seconds),
+        )
+        for item in intervals
+        if item.end_seconds > start and item.start_seconds < end
+    )
+    total = 0.0
+    current_start = current_end = None
+    for item_start, item_end in clipped:
+        if current_start is None:
+            current_start, current_end = item_start, item_end
+        elif item_start <= current_end:
+            current_end = max(current_end, item_end)
+        else:
+            total += current_end - current_start
+            current_start, current_end = item_start, item_end
+    if current_start is not None:
+        total += current_end - current_start
+    return total
 
 
 def _validate_tolerance(value: float, name: str) -> None:
