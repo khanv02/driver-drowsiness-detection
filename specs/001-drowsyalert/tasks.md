@@ -325,6 +325,8 @@ G3 passes when a licensed dataset/split is documented, data-loading and training
 
 **Milestone outcome**: configurable sustained-closure and PERCLOS decisions, visible status, controlled audio warning, and tested live-flow behavior.
 
+- [X] T-091 [Parent: Phase 4] Decompose T-015–T-018 into independently reviewable decision, presentation, audio, integration, asset, and manual-verification tasks in `specs/001-drowsyalert/tasks.md`.
+
 - [ ] T-015 — Finalize and test configurable decision rules
 
 - **Phase:** 4 — Real-Time Drowsiness Alert.
@@ -336,6 +338,13 @@ G3 passes when a licensed dataset/split is documented, data-loading and training
 - **Expected Artifacts:** Decision/config changes; `tests/test_decision.py`; documented configuration fields.
 - **Verification:** Tests cover below/at/above thresholds, short closure, prolonged closure, insufficient window coverage, and unknown observations; parameters are serialized per run.
 - **Definition of Done:** Method A decisions are explainable from recorded evidence/settings and unknown cannot produce normal by default; B/C remain explicitly deferred to T-021.
+
+### T-015 leaf tasks — Method A decision contract
+
+- [ ] T-092 [Parent: T-015] Add focused Method A tests for unknown eyes, warm-up/coverage, missing PERCLOS, below/at/above thresholds, short closure, prolonged closure, and non-finite evidence in `tests/test_decision.py`.
+- [ ] T-093 [Parent: T-015] Implement explicit `NORMAL`/`ALERT`/`UNKNOWN` Method A precedence and reason semantics in `src/drowsyalert/pipeline/decision.py` (depends on T-092).
+- [ ] T-094 [Parent: T-015] Verify decision threshold/window configuration validation and resolved-run serialization in `src/drowsyalert/utils/config.py` and focused tests (depends on T-093).
+- [ ] T-095 [Parent: T-015] Run focused decision/config tests and Ruff, then document Method A while keeping Method B/C fusion deferred to T-021 (depends on T-094).
 
 - [ ] T-016 — Verify visible status and alert presentation
 
@@ -349,6 +358,13 @@ G3 passes when a licensed dataset/split is documented, data-loading and training
 - **Verification:** A reviewer can distinguish each state/reason in a controlled run; warning is not presented as guaranteed safety detection.
 - **Definition of Done:** User can identify source/status/reason and stop/mute controls as required by approved UI scope.
 
+### T-016 leaf tasks — Visible state and advisory presentation
+
+- [ ] T-096 [Parent: T-016] Add presentation tests for normal, alert, unknown, warm-up, unavailable evidence, source identity, controls, and advisory wording in `tests/test_overlay.py` (depends on T-095).
+- [ ] T-097 [Parent: T-016] Refactor overlay text generation into a testable state summary and render distinct status/reason/advisory lines in `src/drowsyalert/utils/overlay.py` (depends on T-096).
+- [ ] T-098 [Parent: T-016] Update `README.md` with status meanings, stop/mute controls, webcam privacy, and research-prototype limitations (depends on T-097).
+- [ ] T-099 [Parent: T-016] Run focused overlay tests and Ruff, then record presentation verification (depends on T-098).
+
 - [ ] T-017 — Verify audio warning and repeat control
 
 - **Phase:** 4 — Real-Time Drowsiness Alert.
@@ -361,6 +377,13 @@ G3 passes when a licensed dataset/split is documented, data-loading and training
 - **Verification:** Injected alert-state sequences prove first alert, sustained warning, cooldown, recovery, and mute behavior; manual sound check is marked hardware-dependent.
 - **Definition of Done:** Repeated alerts follow approved repeat policy and audio failure does not corrupt detection status.
 
+### T-017 leaf tasks — Bounded and observable audio behavior
+
+- [ ] T-100 [Parent: T-017] Add injected audio tests for first alert, sustained alert before/at cooldown, recovery stop, re-alert, mute, missing sound, playback failure, and close in `tests/test_alerts.py` (depends on T-095).
+- [ ] T-101 [Parent: T-017] Implement explicit audio availability/enabled/active/playback-result state with nonblocking cooldown behavior in `src/drowsyalert/pipeline/alerts.py` (depends on T-100).
+- [ ] T-102 [Parent: T-017] Record audio enabled/available/play count/failure metadata in pipeline results and document the repeat policy (depends on T-101).
+- [ ] T-103 [Parent: T-017] Run focused alert tests and Ruff; record that actual speaker output remains a manual hardware check (depends on T-102).
+
 - [ ] T-018 — Verify the complete live webcam alert flow
 
 - **Phase:** 4 — Real-Time Drowsiness Alert.
@@ -372,6 +395,14 @@ G3 passes when a licensed dataset/split is documented, data-loading and training
 - **Expected Artifacts:** Integration tests; `docs/verification.md`; non-personal demo evidence.
 - **Verification:** Automated tests pass; manual checklist records actual hardware and outcome; no staged or simulated outcome is described as a real webcam result.
 - **Definition of Done:** G4 reviewer observes normal, warning, unavailable, audible, and stop behavior or explicitly records unavailable hardware as a blocker.
+
+### T-018 leaf tasks — Complete local live flow
+
+- [ ] T-104 [Parent: T-018] Extend fake live/replay integration tests across normal, alert, unknown, mute, cleanup, logging, and camera-read failure in `tests/test_pipeline.py` (depends on T-095, T-099, T-103).
+- [ ] T-105 [Parent: T-018] Verify CLI exit behavior, resolved configuration, backend/source identity, checkpoint identity, and audio metadata in automated runs (depends on T-104).
+- [ ] T-106 [Parent: T-018] Add a concise real-webcam/audio acceptance checklist and evidence template to `docs/verification.md` (depends on T-105).
+- [ ] T-107 [Parent: T-018] Acquire or verify the configured MediaPipe face model asset and record its provenance/hash without committing it (depends on T-106).
+- [ ] T-108 [Parent: Phase 4] Run the full automated suite and Ruff, preserve generated/private boundaries, and record G4 status plus any physical webcam/speaker blocker (depends on T-104–T-107).
 
 ### Phase 4 acceptance gate
 
@@ -613,7 +644,7 @@ Parallel work is allowed only after listed dependencies are complete and when se
 
 ## Format and traceability summary
 
-- Task list currently contains **31 parent work packages plus 59 leaf tasks** (90 numbered items). Create leaf tasks for the active work package before implementation; the leaf count will grow as approved work is decomposed.
+- Task list currently contains **31 parent work packages plus 77 leaf tasks** (108 numbered items). Create leaf tasks for the active work package before implementation; the leaf count will grow as approved work is decomposed.
 - By phase: Phase 1 **4**; Phase 2 **5**; Phase 3 **5**; Phase 4 **4**; Phase 5 **4**; Phase 6 **5**; Phase 7 **4**.
 - Research/data tasks: T-001, T-010, T-023, T-024, T-027; implementation/environment tasks are otherwise separated as labelled.
 - T-001–T-031 are parent work packages, not the intended smallest execution units. Add focused leaf tasks with stable IDs before starting each parent; avoid speculative leaf tasks where dataset/protocol approvals may change the work.
