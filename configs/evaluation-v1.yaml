@@ -1,0 +1,26 @@
+# Frozen starting configuration for the NITYMED validation A/B/C comparison.
+# Values may be changed only from validation evidence; held-out test results
+# must never be used for tuning.
+face_model: models/pretrained/face_landmarker.task
+checkpoint: models/checkpoints/eye_cnn.pt
+ear_threshold: 0.21
+closed_seconds: 2.0
+cooldown_seconds: 5.0
+max_gap_seconds: 0.25
+window_seconds: 60.0
+min_valid_seconds: 30.0
+min_coverage: 0.8
+perclos_threshold: 0.20
+combined_perclos_threshold: 0.10
+cnn_threshold: 0.5
+cnn_uncertainty_margin: 0.1
+yawn_threshold: 0.6
+yawn_seconds: 1.5
+yawn_count: 2
+# A numeric reference is mandatory for reproducible method-C replay. Zero is
+# the pilot starting point; validation may select a replacement before test.
+head_pose_reference_degrees: 0.0
+head_down_degrees: 20.0
+head_down_seconds: 1.5
+width: 640
+height: 480
