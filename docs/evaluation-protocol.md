@@ -38,9 +38,11 @@ is a separately labelled secondary ablation.
   manifest `bb654b8c5f7104d23268503f02935d3c30974a0199fa4c64d3b8fe4985816307`.**
 - Annotation source/version: **Independent human media-time review using
   `docs/annotation-review.md`; exact final annotation manifest pending T-139**
-- Subject/session identifiers: **Absent from acquired layout; provider mapping or
-  reviewed grouping still required**
-- Validation/test split manifest and SHA-256: **[PENDING AUDIT]**
+- Subject/session identifiers: **Absent from acquired layout; limitation disclosed and
+  no identity is inferred from appearance or filenames**
+- Validation/test split manifest identity:
+  **`2e4e0ea7eb2e529ea2db2f692444768a4de91023d9ce29829bcbdab911cbd047`;
+  audited membership in `docs/evaluation-split-v1.1.md`**
 
 The v1.1 corpus contains all 19 available microsleep clips and a deterministic seeded
 selection of 19 yawning clips. It is balanced and clip-disjoint:

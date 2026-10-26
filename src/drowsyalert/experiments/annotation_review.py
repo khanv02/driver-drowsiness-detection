@@ -13,7 +13,8 @@ from drowsyalert.experiments.annotations import (
     Annotation,
     validate_annotations,
 )
-from drowsyalert.experiments.video_manifest import VIDEO_MANIFEST_FIELDS
+from drowsyalert.experiments.split import SplitAssignment
+from drowsyalert.experiments.video_manifest import VIDEO_MANIFEST_FIELDS, VideoManifestRow
 
 WORKLIST_FIELDS = (
     "clip_id",
@@ -31,6 +32,16 @@ WORKLIST_FIELDS = (
 )
 DRAFT_EVENT_FIELDS = ("clip_id", "start_seconds", "end_seconds", "label")
 REVIEW_STATUSES = {"pending", "in_progress", "reviewed"}
+REVIEW_SCHEDULE_FIELDS = (
+    "stage",
+    "batch_id",
+    "batch_order",
+    "clip_id",
+    "source_category",
+    "relative_path",
+    "duration_seconds",
+    "review_status",
+)
 
 
 def review_wait_delay_ms(fps: float, *, paused: bool) -> int:
@@ -67,6 +78,21 @@ class DraftEvent:
     start_seconds: float
     end_seconds: float
     label: str
+
+    def as_dict(self) -> dict:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
+class ReviewScheduleRow:
+    stage: str
+    batch_id: str
+    batch_order: int
+    clip_id: str
+    source_category: str
+    relative_path: str
+    duration_seconds: float
+    review_status: str
 
     def as_dict(self) -> dict:
         return asdict(self)
@@ -120,6 +146,93 @@ def write_worklist(path: Path, rows: Iterable[ReviewClip], *, overwrite: bool = 
         writer = csv.DictWriter(destination, fieldnames=WORKLIST_FIELDS)
         writer.writeheader()
         for row in values:
+            writer.writerow(row.as_dict())
+
+
+def build_evaluation_worklist(
+    manifest: Iterable[VideoManifestRow],
+    split: Iterable[SplitAssignment],
+    *,
+    preserved_reviews: Iterable[ReviewClip] = (),
+) -> list[ReviewClip]:
+    manifest_by_id = {row.clip_id: row for row in manifest}
+    preserved_by_id = {row.clip_id: row for row in preserved_reviews}
+    rows = []
+    seen = set()
+    for assignment in split:
+        if assignment.clip_id in seen:
+            raise ValueError(f"Duplicate split assignment: {assignment.clip_id}")
+        seen.add(assignment.clip_id)
+        source = manifest_by_id.get(assignment.clip_id)
+        if (
+            source is None
+            or source.relative_path != assignment.relative_path
+            or source.sha256 != assignment.sha256
+            or source.source_category != assignment.source_category
+        ):
+            raise ValueError(f"Split/manifest mismatch: {assignment.clip_id}")
+        preserved = preserved_by_id.get(assignment.clip_id)
+        if preserved is not None and preserved.split != assignment.split:
+            raise ValueError(f"Preserved review changed split: {assignment.clip_id}")
+        rows.append(
+            ReviewClip(
+                clip_id=source.clip_id,
+                relative_path=source.relative_path,
+                duration_seconds=source.duration_seconds,
+                source_category=source.source_category,
+                sex_group=source.sex_group,
+                subject_group=preserved.subject_group if preserved else "unknown",
+                session_group=preserved.session_group if preserved else "unknown",
+                split=assignment.split,
+                glasses=preserved.glasses if preserved else "unknown",
+                lighting=preserved.lighting if preserved else "unknown",
+                head_movement=preserved.head_movement if preserved else "unknown",
+                review_status=preserved.review_status if preserved else "pending",
+            )
+        )
+    _validate_worklist(rows)
+    return sorted(rows, key=lambda row: (row.split, row.source_category, row.clip_id))
+
+
+def build_review_schedule(
+    worklist: Iterable[ReviewClip], *, batch_size: int = 4
+) -> list[ReviewScheduleRow]:
+    if batch_size <= 0:
+        raise ValueError("Review batch size must be positive")
+    rows = list(worklist)
+    _validate_worklist(rows)
+    schedule = []
+    for stage in ("validation", "test"):
+        pending = [
+            row for row in rows if row.split == stage and row.review_status != "reviewed"
+        ]
+        ordered = _interleave_categories(pending)
+        for batch_index, offset in enumerate(range(0, len(ordered), batch_size), start=1):
+            batch_id = f"{stage}-{batch_index:02d}"
+            for batch_order, row in enumerate(ordered[offset : offset + batch_size], start=1):
+                schedule.append(
+                    ReviewScheduleRow(
+                        stage=stage,
+                        batch_id=batch_id,
+                        batch_order=batch_order,
+                        clip_id=row.clip_id,
+                        source_category=row.source_category,
+                        relative_path=row.relative_path,
+                        duration_seconds=row.duration_seconds,
+                        review_status=row.review_status,
+                    )
+                )
+    return schedule
+
+
+def write_review_schedule(
+    path: Path, rows: Iterable[ReviewScheduleRow], *, overwrite: bool = False
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w" if overwrite else "x", newline="", encoding="utf-8") as destination:
+        writer = csv.DictWriter(destination, fieldnames=REVIEW_SCHEDULE_FIELDS)
+        writer.writeheader()
+        for row in rows:
             writer.writerow(row.as_dict())
 
 
@@ -250,3 +363,21 @@ def _validate_worklist(rows: Iterable[ReviewClip]) -> None:
             raise ValueError(f"Invalid worklist duration: {row.clip_id}")
         if row.review_status not in REVIEW_STATUSES:
             raise ValueError(f"Unsupported review status: {row.review_status}")
+
+
+def _interleave_categories(rows: list[ReviewClip]) -> list[ReviewClip]:
+    queues = {
+        category: sorted(
+            (row for row in rows if row.source_category == category),
+            key=lambda row: row.clip_id,
+        )
+        for category in ("microsleep", "yawning")
+    }
+    if sum(len(queue) for queue in queues.values()) != len(rows):
+        raise ValueError("Review schedule contains an unsupported source category")
+    ordered = []
+    while any(queues.values()):
+        for category in ("microsleep", "yawning"):
+            if queues[category]:
+                ordered.append(queues[category].pop(0))
+    return ordered

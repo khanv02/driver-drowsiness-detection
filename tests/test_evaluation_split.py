@@ -88,6 +88,20 @@ def test_balanced_split_has_exact_counts_and_locks_viewed_clips_to_validation():
     assert {row.clip_id for row in rows if row.source_category == "microsleep"} == {
         f"microsleep-{index:03d}" for index in range(19)
     }
+    for category in ("microsleep", "yawning"):
+        validation_sexes = [
+            row.sex_group
+            for row in rows
+            if row.source_category == category and row.split == "validation"
+        ]
+        assert validation_sexes.count("male") == 3
+        assert validation_sexes.count("female") == 3
+    yawning_test_sexes = [
+        row.sex_group
+        for row in rows
+        if row.source_category == "yawning" and row.split == "test"
+    ]
+    assert abs(yawning_test_sexes.count("male") - yawning_test_sexes.count("female")) == 1
 
 
 def test_split_is_deterministic_under_input_reordering_and_has_stable_identity():

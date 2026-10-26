@@ -554,7 +554,7 @@ T-023 before held-out evaluation; no comparative result is claimed.
 - [X] T-151 [Parent: T-024] Record the owner-approved Protocol v1.1 amendment for a deterministic balanced 38-clip split, lock all viewed pilot clips to validation, and require explicit possible participant-leakage disclosure.
 - [X] T-152 [Parent: T-024] Add tests for deterministic balanced category selection, locked validation membership, exact 6+6/13+13 counts, clip/hash isolation, and stable split identity.
 - [X] T-153 [Parent: T-024] Implement the versioned clip-split builder and local CLI against the NITYMED manifest (depends on T-152).
-- [ ] T-154 [Parent: T-024] Generate and audit the ignored 38-clip split, annotation worklist, review batches, and stable hashes; preserve the four reviewed pilot rows (depends on T-153).
+- [X] T-154 [Parent: T-024] Generate and audit the ignored 38-clip split, annotation worklist, review batches, and stable hashes; preserve the four reviewed pilot rows (depends on T-153).
 - [ ] T-139 [Parent: T-024] Validate final annotations, clip-disjoint validation/test isolation, condition tags, disclosed unavailable participant mapping, and manifest hashes; keep T-024 blocked if independently reviewed event timing remains incomplete (depends on T-126, T-154; human review required).
 
 - [X] T-025 — Implement and unit-test temporal/video evaluation metrics

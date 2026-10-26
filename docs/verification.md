@@ -270,7 +270,7 @@ Completed preparatory evidence:
 
 - Candidate temporal-video sources and current local inventory were audited without
   downloading or claiming a dataset.
-- Evaluation Protocol `drowsyalert-video-eval-v1` freezes A/B/C controls, independent
+- Evaluation Protocol `drowsyalert-video-eval-v1.1` freezes A/B/C controls, independent
   microsleep reference labels, secondary yaw reporting, subject/session separation,
   -1/+2-second matching, latency, false alarms, unknown coverage, 1-second system
   Accuracy, conditions, privacy, validation-only selection, and no volunteer collection.
@@ -302,7 +302,7 @@ Verification commands:
 uv run ruff check src scripts demo tests
 ```
 
-Observed result after the annotation playback fix and pilot: `211 passed` in 24.60 seconds and
+Observed result after the v1.1 split/worklist implementation: `219 passed` in 26.27 seconds and
 Ruff reported `All checks passed!`.
 
 This is software, corpus-integrity, and protocol-approval evidence only. T-024/T-139
@@ -320,6 +320,21 @@ unknown/failure durations, and limitations are recorded in
 [pilot-evaluation.md](pilot-evaluation.md).
 
 This closes the synthetic-plus-pilot evaluator task T-145 and latency/failure work package
-T-026. It does not close T-024/T-139 or T-027: participant-safe grouping, a larger
-independently reviewed annotation corpus, validation threshold selection, and one-way
-held-out testing remain absent.
+T-026. It does not close T-024/T-139 or T-027: the full independently reviewed annotation
+corpus, validation threshold selection, and one-way held-out testing remain absent.
+
+### Frozen 38-clip split
+
+The approved v1.1 amendment replaces the unavailable subject-disjoint gate with a
+disclosed clip-disjoint study. The deterministic seed-42 split contains all 19
+microsleep clips and 19 selected yawning clips: validation 6+6 and test 13+13. The four
+viewed pilot clips are locked to validation. Validation is sex-balanced within each
+category; yawning test selection is 7 female/6 male, while microsleep test retains the
+unavoidable 5 female/8 male remainder.
+
+The canonical split identity is
+`2e4e0ea7eb2e529ea2db2f692444768a4de91023d9ce29829bcbdab911cbd047`.
+No duplicate clip ID or content hash crosses the partitions. Exact membership, local
+artifact hashes, durations, counts, and leakage limitation are recorded in
+[evaluation-split-v1.1.md](evaluation-split-v1.1.md). Four rows are reviewed and 34
+remain scheduled in two validation batches followed by seven test batches.

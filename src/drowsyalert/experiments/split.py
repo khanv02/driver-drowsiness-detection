@@ -68,13 +68,19 @@ def build_balanced_clip_split(
         if len(locked) > validation_per_category:
             raise ValueError(f"Too many locked validation clips for {category}")
         locked = sorted(locked, key=lambda row: row.clip_id)
-        candidates = sorted(
-            (row for row in category_rows if row.clip_id not in locked_validation_ids),
-            key=lambda row: _selection_key(row, seed),
+        candidates = [
+            row for row in category_rows if row.clip_id not in locked_validation_ids
+        ]
+        validation_additions = _balanced_selection(
+            candidates,
+            validation_per_category - len(locked),
+            seed=seed,
+            initial=locked,
         )
-        validation = [*locked, *candidates[: validation_per_category - len(locked)]]
-        remaining = candidates[validation_per_category - len(locked) :]
-        test = remaining[:test_per_category]
+        validation = [*locked, *validation_additions]
+        validation_ids = {row.clip_id for row in validation}
+        remaining = [row for row in candidates if row.clip_id not in validation_ids]
+        test = _balanced_selection(remaining, test_per_category, seed=seed)
         selected = [*validation, *test]
         for rank, row in enumerate(selected, start=1):
             assignments.append(
@@ -180,3 +186,43 @@ def _validate_manifest_identity(rows: list[VideoManifestRow]) -> None:
 def _selection_key(row: VideoManifestRow, seed: int) -> tuple[str, str]:
     value = f"{seed}:{row.source_category}:{row.clip_id}:{row.sha256}"
     return hashlib.sha256(value.encode("utf-8")).hexdigest(), row.clip_id
+
+
+def _balanced_selection(
+    rows: list[VideoManifestRow],
+    count: int,
+    *,
+    seed: int,
+    initial: list[VideoManifestRow] | None = None,
+) -> list[VideoManifestRow]:
+    if count == 0:
+        return []
+    queues = {
+        sex: sorted(
+            (row for row in rows if row.sex_group == sex),
+            key=lambda row: _selection_key(row, seed),
+        )
+        for sex in ("female", "male")
+    }
+    if sum(len(queue) for queue in queues.values()) != len(rows):
+        raise ValueError("Balanced split requires male/female source groups")
+    selected = []
+    selected_counts = {
+        sex: sum(row.sex_group == sex for row in (initial or []))
+        for sex in queues
+    }
+    for _index in range(count):
+        available = [sex for sex, queue in queues.items() if queue]
+        if not available:
+            raise ValueError("Insufficient clips for balanced selection")
+        sex = min(
+            available,
+            key=lambda value: (
+                selected_counts[value],
+                -len(queues[value]),
+                value,
+            ),
+        )
+        selected.append(queues[sex].pop(0))
+        selected_counts[sex] += 1
+    return selected

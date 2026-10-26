@@ -7,12 +7,16 @@ from drowsyalert.experiments.annotation_review import (
     DraftEvent,
     ReviewClip,
     add_draft_event,
+    build_evaluation_worklist,
+    build_review_schedule,
     finalize_annotations,
     load_worklist,
     review_wait_delay_ms,
     write_draft_events,
     write_worklist,
 )
+from drowsyalert.experiments.split import SplitAssignment
+from drowsyalert.experiments.video_manifest import VideoManifestRow
 
 
 def clip(**overrides):
@@ -149,3 +153,92 @@ def test_final_export_uses_strict_annotation_contract_and_detects_group_leakage(
             adjudication="single_reviewer",
             confidence="high",
         )
+
+
+def manifest_row(clip_id, category, digest):
+    return VideoManifestRow(
+        clip_id=clip_id,
+        relative_path=f"{category}/Male/HDTV720/{clip_id}.mp4",
+        sha256=digest,
+        source_id="nitymed-hdtv720",
+        source_category=category,
+        sex_group="male",
+        subject_group="unknown",
+        session_group="unknown",
+        split="unassigned",
+        temporal_ground_truth="absent",
+        duration_seconds=10.0,
+        fps=25.0,
+        width=1280,
+        height=720,
+        frame_count=250,
+        size_bytes=100,
+        decodable=True,
+        license_id="CC-BY",
+        retrieval_date="2026-10-26",
+    )
+
+
+def split_row(source, split):
+    return SplitAssignment(
+        source.clip_id,
+        source.relative_path,
+        source.sha256,
+        source.source_category,
+        source.sex_group,
+        split,
+        False,
+        42,
+        1,
+    )
+
+
+def test_evaluation_worklist_preserves_reviewed_pilot_and_frozen_split():
+    first = manifest_row("micro-reviewed", "microsleep", "a" * 64)
+    second = manifest_row("yawn-pending", "yawning", "b" * 64)
+    preserved = ReviewClip(
+        first.clip_id,
+        first.relative_path,
+        first.duration_seconds,
+        first.source_category,
+        first.sex_group,
+        split="validation",
+        review_status="reviewed",
+    )
+    rows = build_evaluation_worklist(
+        [first, second],
+        [split_row(first, "validation"), split_row(second, "test")],
+        preserved_reviews=[preserved],
+    )
+    by_id = {row.clip_id: row for row in rows}
+    assert by_id["micro-reviewed"].review_status == "reviewed"
+    assert by_id["micro-reviewed"].split == "validation"
+    assert by_id["yawn-pending"].review_status == "pending"
+    assert by_id["yawn-pending"].split == "test"
+
+
+def test_review_schedule_puts_validation_first_and_balances_four_clip_batches():
+    rows = []
+    for split in ("validation", "test"):
+        for category in ("microsleep", "yawning"):
+            for index in range(3):
+                rows.append(
+                    ReviewClip(
+                        f"{split}-{category}-{index}",
+                        f"{category}/Male/HDTV720/{index}.mp4",
+                        10.0,
+                        category,
+                        "male",
+                        split=split,
+                    )
+                )
+    schedule = build_review_schedule(rows, batch_size=4)
+    assert [row.stage for row in schedule[:6]] == ["validation"] * 6
+    assert [row.source_category for row in schedule[:4]] == [
+        "microsleep",
+        "yawning",
+        "microsleep",
+        "yawning",
+    ]
+    assert {row.batch_id for row in schedule[:4]} == {"validation-01"}
+    assert schedule[6].stage == "test"
