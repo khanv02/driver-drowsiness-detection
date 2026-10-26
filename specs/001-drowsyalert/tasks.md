@@ -523,8 +523,8 @@ T-023 before held-out evaluation; no comparative result is claimed.
 
 ### T-023 leaf tasks — Frozen evaluation protocol
 
-- [ ] T-124 [Parent: T-023] Audit candidate public temporal-video sources and the current local data inventory for license, access, subject/session identity, event timing, and condition-label suitability without downloading or claiming a dataset.
-- [ ] T-125 [Parent: T-023] Draft `docs/evaluation-protocol.md` with annotation units, onset/offset rules, validation/test separation, one-to-one alert matching, latency, false-alarm denominator, unknown coverage, condition analysis, A/B/C controls, and approval fields (depends on T-124).
+- [X] T-124 [Parent: T-023] Audit candidate public temporal-video sources and the current local data inventory for license, access, subject/session identity, event timing, and condition-label suitability without downloading or claiming a dataset.
+- [X] T-125 [Parent: T-023] Draft `docs/evaluation-protocol.md` with annotation units, onset/offset rules, validation/test separation, one-to-one alert matching, latency, false-alarm denominator, unknown coverage, condition analysis, A/B/C controls, and approval fields (depends on T-124).
 - [ ] T-126 [Parent: T-023] Obtain and record project-owner/supervisor approval of the selected data path, protocol version, event/matching definitions, threshold-freeze rule, and any volunteer ethics requirements; only then mark T-023 complete (depends on T-125; human approval required).
 
 - [ ] T-024 — Acquire/prepare annotated evaluation videos and condition labels (Research/Data)

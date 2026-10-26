@@ -30,3 +30,15 @@ folder mapping must be recorded in `docs/dataset-card.md` after inspection.
 
 Never commit downloaded datasets, participant footage, checkpoints, or generated results.
 Do not redistribute CEW through this repository.
+
+## Phase 6 temporal-video requirement
+
+Phase 6 needs an additional video dataset with subject/session grouping and time-localized
+drowsiness events. CEW cannot satisfy this requirement. Candidate suitability and owner
+actions are recorded in `docs/video-dataset-audit.md`; the evaluation definitions remain
+an unapproved draft in `docs/evaluation-protocol.md`.
+
+Do not place a video archive here until its original-provider terms and annotation guide
+have been supplied for review. Do not record volunteers until the supervisor/ethics and
+consent process is approved. When a source is approved, keep its untouched archive under
+`data/raw/<dataset-id>/` and record its SHA-256 before extraction.
