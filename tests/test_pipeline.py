@@ -89,6 +89,10 @@ def test_headless_replay_records_source_unknown_and_temporal_metadata(monkeypatc
     assert result["eye_uncertainty_margin"] is None
     assert result["checkpoint_sha256"] is None
     assert result["method"] == "perclos"
+    assert result["config"]["closed_seconds"] == config.closed_seconds
+    assert result["config"]["perclos_threshold"] == config.perclos_threshold
+    assert result["config"]["window_seconds"] == config.window_seconds
+    assert result["config"]["min_coverage"] == config.min_coverage
     assert [row["timestamp"] for row in rows] == ["0.0", "0.1", "0.2"]
     assert {row["input_kind"] for row in rows} == {"video_media"}
     assert {row["eye_source"] for row in rows} == {"landmark_ear"}

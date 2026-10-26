@@ -327,7 +327,7 @@ G3 passes when a licensed dataset/split is documented, data-loading and training
 
 - [X] T-091 [Parent: Phase 4] Decompose T-015–T-018 into independently reviewable decision, presentation, audio, integration, asset, and manual-verification tasks in `specs/001-drowsyalert/tasks.md`.
 
-- [ ] T-015 — Finalize and test configurable decision rules
+- [X] T-015 — Finalize and test configurable decision rules
 
 - **Phase:** 4 — Real-Time Drowsiness Alert.
 - **Priority:** P0.
@@ -341,10 +341,10 @@ G3 passes when a licensed dataset/split is documented, data-loading and training
 
 ### T-015 leaf tasks — Method A decision contract
 
-- [ ] T-092 [Parent: T-015] Add focused Method A tests for unknown eyes, warm-up/coverage, missing PERCLOS, below/at/above thresholds, short closure, prolonged closure, and non-finite evidence in `tests/test_decision.py`.
-- [ ] T-093 [Parent: T-015] Implement explicit `NORMAL`/`ALERT`/`UNKNOWN` Method A precedence and reason semantics in `src/drowsyalert/pipeline/decision.py` (depends on T-092).
-- [ ] T-094 [Parent: T-015] Verify decision threshold/window configuration validation and resolved-run serialization in `src/drowsyalert/utils/config.py` and focused tests (depends on T-093).
-- [ ] T-095 [Parent: T-015] Run focused decision/config tests and Ruff, then document Method A while keeping Method B/C fusion deferred to T-021 (depends on T-094).
+- [X] T-092 [Parent: T-015] Add focused Method A tests for unknown eyes, warm-up/coverage, missing PERCLOS, below/at/above thresholds, short closure, prolonged closure, and non-finite evidence in `tests/test_decision.py`.
+- [X] T-093 [Parent: T-015] Implement explicit `NORMAL`/`ALERT`/`UNKNOWN` Method A precedence and reason semantics in `src/drowsyalert/pipeline/decision.py` (depends on T-092).
+- [X] T-094 [Parent: T-015] Verify decision threshold/window configuration validation and resolved-run serialization in `src/drowsyalert/utils/config.py` and focused tests (depends on T-093).
+- [X] T-095 [Parent: T-015] Run focused decision/config tests and Ruff, then document Method A while keeping Method B/C fusion deferred to T-021 (depends on T-094).
 
 - [ ] T-016 — Verify visible status and alert presentation
 
