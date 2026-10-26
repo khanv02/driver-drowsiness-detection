@@ -609,7 +609,7 @@ protocol, complete T-025, or authorize held-out scoring.
 
 ### T-027 leaf tasks — Controlled A/B/C execution
 
-- [ ] T-146 [Parent: T-027] Add tests for a batch-run plan that enforces identical clip membership, annotation/split IDs, landmark-EAR source, base temporal settings, eligibility, and frozen thresholds across A/B/C.
+- [X] T-146 [Parent: T-027] Add tests for a batch-run plan that enforces identical clip membership, annotation/split IDs, landmark-EAR source, base temporal settings, eligibility, and frozen thresholds across A/B/C.
 - [ ] T-147 [Parent: T-027] Implement a resumable headless batch runner and comparison exporter with per-clip failures, collision-safe outputs, run/config/data hashes, and no audio/UI side effects (depends on T-121, T-146).
 - [ ] T-148 [Parent: T-027] Execute and inspect a non-claim pilot on approved validation clips to confirm replay/export/evaluator integration; do not tune or score held-out test data (depends on T-139, T-145, T-147).
 - [ ] T-149 [Parent: T-027] Freeze validation-selected configuration, run A/B/C once on the common held-out test set, recalculate summaries from raw records, audit comparability, and publish limitations (depends on T-013, T-022, T-026, T-148; research approval required).
