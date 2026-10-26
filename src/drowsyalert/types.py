@@ -63,5 +63,9 @@ class Decision:
 class ExtraFeatures:
     yawns: int = 0
     mar: float | None = None
+    yawn_valid: bool = False
+    yawn_event: bool = False
+    yawn_active_seconds: float = 0.0
+    yawn_reason: str = "Yawn cue inactive for method"
     head_down_seconds: float = 0.0
     angles: tuple[float, float, float] | None = None

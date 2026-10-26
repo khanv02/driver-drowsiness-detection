@@ -1,5 +1,6 @@
 """Yawn events and relative head pose, independent of display and alerts."""
 
+import math
 from collections import deque
 
 import cv2
@@ -52,6 +53,10 @@ class ExtraTracker:
     def update(
         self, observation: FaceObservation, timestamp: float, width: int, height: int
     ) -> ExtraFeatures:
+        if not math.isfinite(timestamp):
+            raise ValueError("Extra-feature timestamp must be finite")
+        if self.last_time is not None and timestamp <= self.last_time:
+            raise ValueError("Extra-feature timestamp must be strictly increasing")
         gap = (
             self.last_time is not None and timestamp - self.last_time > self.config.max_gap_seconds
         )
@@ -61,22 +66,11 @@ class ExtraTracker:
         if gap or not observation.valid:
             self.yawn_start = self.head_start = None
             self.yawn_counted = False
+        if self.method == "perclos-yawn":
+            return self._update_yawn(observation, timestamp)
         if not observation.valid or observation.landmarks is None:
             return ExtraFeatures(yawns=len(self.yawns))
         mar, angles, head_seconds = None, None, 0.0
-        if self.method == "perclos-yawn":
-            mar = mouth_aspect_ratio(observation.landmarks)
-            if mar >= self.config.yawn_threshold:
-                if self.yawn_start is None:
-                    self.yawn_start = timestamp
-                if (
-                    not self.yawn_counted
-                    and timestamp - self.yawn_start >= self.config.yawn_seconds
-                ):
-                    self.yawns.append(timestamp)
-                    self.yawn_counted = True
-            else:
-                self.yawn_start, self.yawn_counted = None, False
         if self.method == "perclos-head-pose":
             angles = estimate_pose(observation.landmarks, width, height)
             if angles is not None:
@@ -92,4 +86,41 @@ class ExtraTracker:
                     self.head_start = None
             else:
                 self.head_start = None
-        return ExtraFeatures(len(self.yawns), mar, head_seconds, angles)
+        return ExtraFeatures(
+            yawns=len(self.yawns),
+            mar=mar,
+            head_down_seconds=head_seconds,
+            angles=angles,
+        )
+
+    def _update_yawn(self, observation: FaceObservation, timestamp: float) -> ExtraFeatures:
+        if not observation.valid or observation.landmarks is None:
+            reason = observation.reason or "Mouth landmarks unavailable"
+            return ExtraFeatures(yawns=len(self.yawns), yawn_reason=reason)
+        try:
+            mar = mouth_aspect_ratio(observation.landmarks)
+        except (IndexError, TypeError, ValueError) as error:
+            self.yawn_start = None
+            self.yawn_counted = False
+            return ExtraFeatures(yawns=len(self.yawns), yawn_reason=str(error))
+
+        event = False
+        active_seconds = 0.0
+        if mar >= self.config.yawn_threshold:
+            if self.yawn_start is None:
+                self.yawn_start = timestamp
+            active_seconds = timestamp - self.yawn_start
+            if not self.yawn_counted and active_seconds >= self.config.yawn_seconds - 1e-9:
+                self.yawns.append(timestamp)
+                self.yawn_counted = True
+                event = True
+        else:
+            self.yawn_start, self.yawn_counted = None, False
+        return ExtraFeatures(
+            yawns=len(self.yawns),
+            mar=mar,
+            yawn_valid=True,
+            yawn_event=event,
+            yawn_active_seconds=active_seconds,
+            yawn_reason="Mouth observation valid",
+        )

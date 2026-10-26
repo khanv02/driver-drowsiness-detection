@@ -414,7 +414,7 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 
 - [X] T-109 [Parent: Phase 5] Decompose T-019–T-022 into focused yawn, pose, method-isolation, experiment-record, documentation, and verification tasks in `specs/001-drowsyalert/tasks.md`.
 
-- [ ] T-019 — Implement and test yawning feature extraction (Coding)
+- [X] T-019 — Implement and test yawning feature extraction (Coding)
 
 - **Phase:** 5 — Additional Research Features.
 - **Priority:** P1.
@@ -428,9 +428,9 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 
 ### T-019 leaf tasks — Valid, deduplicated yawn evidence
 
-- [ ] T-110 [Parent: T-019] Add focused MAR validation and yawn boundary, de-duplication, close/reset, invalid-observation, timestamp, gap, and rolling-expiry tests in `tests/test_yawn.py`.
-- [ ] T-111 [Parent: T-019] Implement explicit valid/unknown yawn evidence and robust temporal state in `src/drowsyalert/features/geometry.py`, `src/drowsyalert/features/extra.py`, and `src/drowsyalert/types.py` (depends on T-110).
-- [ ] T-112 [Parent: T-019] Document the configurable provisional yawn rule, run focused tests and Ruff, and record T-019 completion (depends on T-111).
+- [X] T-110 [Parent: T-019] Add focused MAR validation and yawn boundary, de-duplication, close/reset, invalid-observation, timestamp, gap, and rolling-expiry tests in `tests/test_yawn.py`.
+- [X] T-111 [Parent: T-019] Implement explicit valid/unknown yawn evidence and robust temporal state in `src/drowsyalert/features/geometry.py`, `src/drowsyalert/features/extra.py`, and `src/drowsyalert/types.py` (depends on T-110).
+- [X] T-112 [Parent: T-019] Document the configurable provisional yawn rule, run focused tests and Ruff, and record T-019 completion (depends on T-111).
 
 - [ ] T-020 — Implement and test head-pose feature extraction (Coding)
 
