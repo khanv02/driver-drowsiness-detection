@@ -547,7 +547,7 @@ T-023 before held-out evaluation; no comparative result is claimed.
 ### T-024 leaf tasks — NITYMED corpus preparation
 
 - [X] T-135 [Parent: T-024] Add synthetic tests for a privacy-safe video-manifest contract, deterministic hashes/identities, media metadata, supported category paths, duplicate detection, and explicit unknown subject/split values.
-- [ ] T-136 [Parent: T-024] Implement a read-only NITYMED inventory/manifest builder and CLI that validates MP4 decoding and records relative paths, source categories, duration/FPS/resolution, content hashes, provenance, and unresolved grouping without copying video frames (depends on T-135).
+- [X] T-136 [Parent: T-024] Implement a read-only NITYMED inventory/manifest builder and CLI that validates MP4 decoding and records relative paths, source categories, duration/FPS/resolution, content hashes, provenance, and unresolved grouping without copying video frames (depends on T-135).
 - [ ] T-137 [Parent: T-024] Run the inventory against the acquired HDTV720 corpus, save local ignored manifests/worklists, and publish a tracked dataset card with actual counts, integrity findings, license/source evidence, retrieval date, and the provider-count discrepancy (depends on T-136).
 - [ ] T-138 [Parent: T-024] Add a local human-review annotation worklist/tool that records independent media-time intervals using the approved annotation schema and never promotes detector output to reference truth (depends on T-137).
 - [ ] T-139 [Parent: T-024] Validate final annotations, participant/session grouping, validation/test isolation, condition tags, and manifest hashes; keep T-024 blocked if subject mapping or independently reviewed event timing remains incomplete (depends on T-126, T-138; human review required).
