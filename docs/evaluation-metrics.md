@@ -58,3 +58,18 @@ form an explicit `unknown` group.
 The proposed 1-second/50-percent protocol is not embedded as a hidden decision. Bin size
 must be supplied by the caller, and the overlap fraction remains an explicit parameter
 to be frozen by the approved protocol.
+
+## Run-record evaluator
+
+`drowsyalert.experiments.evaluation` joins strict annotations to completed headless run
+records by clip ID. It requires the run clips to exactly match the declared corpus and
+the method ID to match the requested method. It derives alert episodes from media-time
+status transitions, then reports event matching, signed latency, fixed-bin Accuracy,
+valid/unknown coverage, observation-loss reasons, condition-tag counts, and processing
+time as separate sections. Incomplete runs, missing clips, empty frame evidence,
+negative processing times, or annotations outside the corpus are rejected.
+
+The evaluator accepts a protocol object containing the reference labels, early/late
+tolerances, bin size, and positive fraction. It does not decide which NITYMED behaviors
+are the primary endpoint. Results can be written as strict JSON with non-finite values
+rejected.

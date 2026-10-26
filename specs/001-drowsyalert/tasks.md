@@ -592,7 +592,7 @@ protocol, complete T-025, or authorize held-out scoring.
 ### T-026 leaf tasks — Evaluation aggregation and failures
 
 - [X] T-143 [Parent: T-026] Add synthetic tests for joining annotations with run records, media-time latency/event summaries, common eligibility, observation-loss reasons, processing conditions, and missing-condition disclosure.
-- [ ] T-144 [Parent: T-026] Implement a deterministic evaluator that derives alert episodes from frame records, applies the parameterized matcher, summarizes latency/coverage/failures, and emits machine-readable results (depends on T-141, T-143).
+- [X] T-144 [Parent: T-026] Implement a deterministic evaluator that derives alert episodes from frame records, applies the parameterized matcher, summarizes latency/coverage/failures, and emits machine-readable results (depends on T-141, T-143).
 - [ ] T-145 [Parent: T-026] Verify the evaluator on synthetic fixtures and an explicitly labelled pilot only; document which NITYMED conditions remain unavailable and keep real claims blocked until T-139 (depends on T-144).
 
 - [ ] T-027 — Run the controlled A/B/C evaluation and compare results (Research)

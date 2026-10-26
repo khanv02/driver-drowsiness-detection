@@ -28,10 +28,25 @@ def annotation(**overrides):
 def run_record(clip_id="clip-1", method_id="A", frames=None, status="completed"):
     if frames is None:
         frames = [
-            {"timestamp": 0.0, "state": "NORMAL", "reason": "below_threshold", "processing_ms": 10.0},
-            {"timestamp": 1.0, "state": "ALERT", "reason": "prolonged_closure", "processing_ms": 20.0},
+            {
+                "timestamp": 0.0,
+                "state": "NORMAL",
+                "reason": "below_threshold",
+                "processing_ms": 10.0,
+            },
+            {
+                "timestamp": 1.0,
+                "state": "ALERT",
+                "reason": "prolonged_closure",
+                "processing_ms": 20.0,
+            },
             {"timestamp": 2.0, "state": "UNKNOWN", "reason": "no_face", "processing_ms": 30.0},
-            {"timestamp": 3.0, "state": "NORMAL", "reason": "below_threshold", "processing_ms": 40.0},
+            {
+                "timestamp": 3.0,
+                "state": "NORMAL",
+                "reason": "below_threshold",
+                "processing_ms": 40.0,
+            },
         ]
     return {
         "schema_version": 1,
