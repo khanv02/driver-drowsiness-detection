@@ -1,4 +1,6 @@
 import csv
+import sys
+from types import ModuleType
 
 import numpy as np
 
@@ -102,8 +104,6 @@ def test_headless_replay_records_source_unknown_and_temporal_metadata(monkeypatc
 
 
 def test_cnn_runtime_records_checkpoint_and_confidence_policy(monkeypatch, tmp_path):
-    import drowsyalert.models.eye_cnn as eye_cnn
-
     class FakeCNN:
         source = "cnn_eye_classifier"
 
@@ -122,7 +122,11 @@ def test_cnn_runtime_records_checkpoint_and_confidence_policy(monkeypatch, tmp_p
     monkeypatch.setattr(realtime, "VideoSource", FakeSource)
     monkeypatch.setattr(realtime, "FaceDetector", FakeDetector)
     monkeypatch.setattr(realtime, "AlertManager", FakeAlert)
-    monkeypatch.setattr(eye_cnn, "CNNBackend", FakeCNN)
+    # The integration boundary imports this module lazily. Stub that import so
+    # this pipeline contract test does not require PyTorch or a checkpoint.
+    eye_cnn = ModuleType("drowsyalert.models.eye_cnn")
+    eye_cnn.CNNBackend = FakeCNN
+    monkeypatch.setitem(sys.modules, eye_cnn.__name__, eye_cnn)
     log_path = tmp_path / "cnn.csv"
     video = tmp_path / "fixture.mp4"
     video.touch()
