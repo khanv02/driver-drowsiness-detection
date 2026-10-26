@@ -1,9 +1,21 @@
 import numpy as np
 import pytest
 
-from drowsyalert.features.geometry import eye_aspect_ratio
+from drowsyalert.detection.face import observation_from_face_landmarks, observation_from_landmarks
+from drowsyalert.features.geometry import EYE_INDICES, eye_aspect_ratio
 from drowsyalert.models.ear import EARBackend
 from drowsyalert.types import EyeState, FaceObservation
+
+
+def valid_landmarks():
+    points = np.full((468, 2), 50.0)
+    shapes = (
+        np.array([(20, 20), (22, 18), (26, 18), (28, 20), (26, 22), (22, 22)]),
+        np.array([(60, 20), (62, 18), (66, 18), (68, 20), (66, 22), (62, 22)]),
+    )
+    for indices, shape in zip(EYE_INDICES, shapes, strict=True):
+        points[list(indices)] = shape
+    return points
 
 
 def test_ear_known_geometry():
@@ -18,6 +30,45 @@ def test_wink_is_not_bilateral_closure():
     assert backend.predict(FaceObservation(True, ears=(0.1, 0.3))).state == EyeState.OPEN
     assert backend.predict(FaceObservation(True, ears=(0.1, 0.1))).state == EyeState.CLOSED
     assert backend.predict(FaceObservation(False)).state == EyeState.UNKNOWN
+
+
+def test_landmarks_keep_independent_eye_validity():
+    frame = np.zeros((100, 100, 3), dtype=np.uint8)
+    points = valid_landmarks()
+    points[EYE_INDICES[0][0], 0] = -1
+
+    observation = observation_from_landmarks(frame, points)
+
+    assert observation.valid
+    assert observation.eye_valid == (False, True)
+    assert observation.eye_crops[0] is None and observation.eye_crops[1] is not None
+    assert observation.eye_boxes[0] is None and observation.eye_boxes[1] is not None
+    assert observation.ears[0] is None and observation.ears[1] == pytest.approx(0.5)
+    assert "left eye outside frame" in observation.reason.lower()
+
+
+def test_invalid_face_geometry_and_face_count_are_explicit():
+    frame = np.zeros((100, 100, 3), dtype=np.uint8)
+    malformed = observation_from_landmarks(frame, np.zeros((12, 2)))
+    no_face = observation_from_face_landmarks(frame, [])
+    multiple = observation_from_face_landmarks(frame, [object(), object()])
+
+    assert not malformed.valid and malformed.reason == "Invalid landmarks"
+    assert not no_face.valid and no_face.reason == "No face"
+    assert not multiple.valid and multiple.reason == "Multiple faces"
+
+
+def test_degenerate_eye_does_not_discard_other_eye():
+    frame = np.zeros((100, 100, 3), dtype=np.uint8)
+    points = valid_landmarks()
+    points[list(EYE_INDICES[1])] = (65, 20)
+
+    observation = observation_from_landmarks(frame, points)
+
+    assert observation.valid
+    assert observation.eye_valid == (True, False)
+    assert observation.ears[0] == pytest.approx(0.5) and observation.ears[1] is None
+    assert "right eye" in observation.reason.lower()
 
 
 def test_head_pose_recovers_projected_pitch():

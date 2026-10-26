@@ -10,7 +10,10 @@ def draw_overlay(frame, face, eyes, temporal, extra, decision, fps):
         AlertState.UNKNOWN: (0, 200, 255),
     }[decision.state]
     if face.eye_boxes:
-        for x1, y1, x2, y2 in face.eye_boxes:
+        for box in face.eye_boxes:
+            if box is None:
+                continue
+            x1, y1, x2, y2 = box
             cv2.rectangle(frame, (x1, y1), (x2, y2), color, 1)
     perclos = (
         f"{temporal.perclos:.1%}"
@@ -23,9 +26,14 @@ def draw_overlay(frame, face, eyes, temporal, extra, decision, fps):
         f"Estimated PERCLOS: {perclos} | coverage: {temporal.coverage:.0%}",
     ]
     if face.ears:
-        lines.append(f"EAR: {face.ears[0]:.3f} / {face.ears[1]:.3f}")
+        ear_text = [f"{value:.3f}" if value is not None else "unknown" for value in face.ears]
+        lines.append(f"EAR: {ear_text[0]} / {ear_text[1]}")
     if eyes.probabilities:
-        lines.append(f"P(closed): {eyes.probabilities[0]:.2f} / {eyes.probabilities[1]:.2f}")
+        probability_text = [
+            f"{value:.2f}" if value is not None else "unknown"
+            for value in eyes.probabilities
+        ]
+        lines.append(f"P(closed): {probability_text[0]} / {probability_text[1]}")
     if extra.mar is not None:
         lines.append(f"MAR: {extra.mar:.2f} | yawns: {extra.yawns}")
     if extra.angles is not None:

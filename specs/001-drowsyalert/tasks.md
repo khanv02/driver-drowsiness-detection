@@ -134,7 +134,7 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 - [X] T-054 [Parent: T-005] Implement explicit source kind/timebase and verified monotonic live/media timestamp behavior in `src/drowsyalert/pipeline/source.py` (depends on T-053).
 - [X] T-055 [Parent: T-005] Run focused source tests and Ruff, then record T-005 completion in `specs/001-drowsyalert/tasks.md` (depends on T-054).
 
-- [ ] T-006 — Verify face/landmark and eye-region validity
+- [X] T-006 — Verify face/landmark and eye-region validity
 
 - **Phase:** 2 — Landmark and PERCLOS Baseline.
 - **Priority:** P0.
@@ -148,12 +148,12 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 
 ### T-006 leaf tasks — Face and per-eye validity
 
-- [ ] T-056 [Parent: T-006] Add tests for no face, multiple-face ambiguity, malformed landmarks, out-of-frame/degenerate eyes, and independent per-eye validity in `tests/test_detection.py`.
-- [ ] T-057 [Parent: T-006] Extend `FaceObservation` with explicit per-eye validity and nullable per-eye crops/boxes/EAR values in `src/drowsyalert/types.py` (depends on T-056).
-- [ ] T-058 [Parent: T-006] Implement no-face/multiple-face selection and independent eye validation in `src/drowsyalert/detection/face.py`; adapt presentation/log consumers as needed (depends on T-057).
-- [ ] T-059 [Parent: T-006] Run focused detection tests and Ruff, then record T-006 completion in `specs/001-drowsyalert/tasks.md` (depends on T-058).
+- [X] T-056 [Parent: T-006] Add tests for no face, multiple-face ambiguity, malformed landmarks, out-of-frame/degenerate eyes, and independent per-eye validity in `tests/test_detection.py`.
+- [X] T-057 [Parent: T-006] Extend `FaceObservation` with explicit per-eye validity and nullable per-eye crops/boxes/EAR values in `src/drowsyalert/types.py` (depends on T-056).
+- [X] T-058 [Parent: T-006] Implement no-face/multiple-face selection and independent eye validation in `src/drowsyalert/detection/face.py`; adapt presentation/log consumers as needed (depends on T-057).
+- [X] T-059 [Parent: T-006] Run focused detection tests and Ruff, then record T-006 completion in `specs/001-drowsyalert/tasks.md` (depends on T-058).
 
-- [ ] T-007 — Define and test landmark-derived eye-state estimation
+- [X] T-007 — Define and test landmark-derived eye-state estimation
 
 - **Phase:** 2 — Landmark and PERCLOS Baseline.
 - **Priority:** P0.
@@ -167,11 +167,11 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 
 ### T-007 leaf tasks — Landmark eye state
 
-- [ ] T-060 [Parent: T-007] Add tests for threshold equality, bilateral closure, one valid open eye, one valid closed eye with the other invalid, and invalid EAR evidence in `tests/test_eye_state.py`.
-- [ ] T-061 [Parent: T-007] Implement the approved bilateral landmark-EAR `OPEN`/`CLOSED`/`UNKNOWN` policy and source identity in `src/drowsyalert/models/ear.py` and `src/drowsyalert/types.py` (depends on T-060).
-- [ ] T-062 [Parent: T-007] Run focused landmark eye-state tests and Ruff, then record T-007 completion in `specs/001-drowsyalert/tasks.md` (depends on T-061).
+- [X] T-060 [Parent: T-007] Add tests for threshold equality, bilateral closure, one valid open eye, one valid closed eye with the other invalid, and invalid EAR evidence in `tests/test_eye_state.py`.
+- [X] T-061 [Parent: T-007] Implement the approved bilateral landmark-EAR `OPEN`/`CLOSED`/`UNKNOWN` policy and source identity in `src/drowsyalert/models/ear.py` and `src/drowsyalert/types.py` (depends on T-060).
+- [X] T-062 [Parent: T-007] Run focused landmark eye-state tests and Ruff, then record T-007 completion in `specs/001-drowsyalert/tasks.md` (depends on T-061).
 
-- [ ] T-008 — Verify timestamp-based PERCLOS and tracking-loss semantics
+- [X] T-008 — Verify timestamp-based PERCLOS and tracking-loss semantics
 
 - **Phase:** 2 — Landmark and PERCLOS Baseline.
 - **Priority:** P0.
@@ -185,11 +185,11 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 
 ### T-008 leaf tasks — Timestamp-weighted temporal behavior
 
-- [ ] T-063 [Parent: T-008] Add deterministic tests for irregular intervals, window clipping, unknown/gap exclusion, closure reset, invalid timestamps, readiness, source, and window metadata in `tests/test_temporal.py`.
-- [ ] T-064 [Parent: T-008] Complete temporal source/window metadata and interval behavior in `src/drowsyalert/features/temporal.py` and `src/drowsyalert/types.py` (depends on T-063).
-- [ ] T-065 [Parent: T-008] Run focused temporal tests and Ruff, then record T-008 completion in `specs/001-drowsyalert/tasks.md` (depends on T-064).
+- [X] T-063 [Parent: T-008] Add deterministic tests for irregular intervals, window clipping, unknown/gap exclusion, closure reset, invalid timestamps, readiness, source, and window metadata in `tests/test_temporal.py`.
+- [X] T-064 [Parent: T-008] Complete temporal source/window metadata and interval behavior in `src/drowsyalert/features/temporal.py` and `src/drowsyalert/types.py` (depends on T-063).
+- [X] T-065 [Parent: T-008] Run focused temporal tests and Ruff, then record T-008 completion in `specs/001-drowsyalert/tasks.md` (depends on T-064).
 
-- [ ] T-009 — Establish landmark/PERCLOS baseline integration gate
+- [X] T-009 — Establish landmark/PERCLOS baseline integration gate
 
 - **Phase:** 2 — Landmark and PERCLOS Baseline.
 - **Priority:** P0.
@@ -203,18 +203,23 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 
 ### T-009 leaf tasks — Baseline integration gate
 
-- [ ] T-066 [Parent: T-009] Add a deterministic fake-source/fake-detector integration test covering valid, unknown, and timestamped replay records in `tests/test_pipeline.py`.
-- [ ] T-067 [Parent: T-009] Complete landmark-source/timebase/window/coverage metadata in `src/drowsyalert/pipeline/realtime.py` and keep offline replay silent (depends on T-066).
-- [ ] T-068 [Parent: T-009] Record automated replay evidence and any unavailable webcam/model/manual checks in `docs/verification.md` without claiming skipped hardware checks passed (depends on T-067).
-- [ ] T-069 [Parent: T-009] Run the Phase 2 test/lint suite, update requirement evidence and G2 status, and mark T-009 complete in `specs/001-drowsyalert/tasks.md` (depends on T-068).
+- [X] T-066 [Parent: T-009] Add a deterministic fake-source/fake-detector integration test covering valid, unknown, and timestamped replay records in `tests/test_pipeline.py`.
+- [X] T-067 [Parent: T-009] Complete landmark-source/timebase/window/coverage metadata in `src/drowsyalert/pipeline/realtime.py` and keep offline replay silent (depends on T-066).
+- [X] T-068 [Parent: T-009] Record automated replay evidence and any unavailable webcam/model/manual checks in `docs/verification.md` without claiming skipped hardware checks passed (depends on T-067).
+- [X] T-069 [Parent: T-009] Run the Phase 2 test/lint suite, update requirement evidence and G2 status, and mark T-009 complete in `specs/001-drowsyalert/tasks.md` (depends on T-068).
+- [X] T-070 [Parent: Phase 2] Run the final Phase 2 suite and Ruff checks, confirm every T-005–T-009 leaf task is complete, and clear staged/diff formatting errors before merging the phase branch.
 
 ### Phase 2 acceptance gate
 
 G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmark-derived eye state and PERCLOS are separately traceable; gaps and invalid input remain unknown; unit and integration tests pass. No CNN accuracy claim is made at this gate.
 
+**G2 status (2026-10-26): Passed for automated code progression.** The full suite reports 41 passed and 1 optional-CNN skip; Ruff passes. Physical webcam, real Face Landmarker asset, real video codec, and audio checks remain explicitly unverified in `docs/verification.md` and are not claimed as passed.
+
 ## Phase 3 — CNN Eye Classification
 
 **Milestone outcome**: lawful and leakage-aware eye-image data pipeline, trained classifier, independent held-out metrics, and explicit CNN inference integration.
+
+- [X] T-071 [Parent: Phase 3] Decompose T-010–T-014 into independently reviewable dataset, preparation, training, evaluation, and inference tasks in `specs/001-drowsyalert/tasks.md`.
 
 - [ ] T-010 — Select and document eye-state dataset and split (Research/Data)
 
@@ -228,6 +233,13 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - **Verification:** Reviewer checks source/version/retrieval date/license/labels/splits and confirms held-out examples do not share subjects/sessions/near-duplicate frames where metadata permits.
 - **Definition of Done:** Dataset is approved for intended use and reproducibility; if no suitable lawful dataset is available, task is blocked with documented alternatives rather than fabricated availability.
 
+### T-010 leaf tasks — Dataset authority and split protocol
+
+- [X] T-072 [Parent: T-010] Audit candidate datasets, access terms, provenance, labels, identity metadata, and leakage risks in `docs/dataset-card.md`; reject sources without usable rights evidence.
+- [X] T-073 [Parent: T-010] Replace the automatic unknown-license Kaggle downloader with a safe acquisition verifier that never downloads or redistributes data implicitly (depends on T-072).
+- [X] T-074 [Parent: T-010] Document the selected CEW acquisition, local layout, labels, split, provenance, and no-redistribution procedure in `data/README.md` and `docs/dataset-card.md` (depends on T-072).
+- [ ] T-075 [Parent: T-010] Inspect the owner-provided CEW extraction, record source/version/file hashes and actual counts, and approve the real-data manifest before training (depends on T-074; owner must provide dataset).
+
 - [ ] T-011 — Prepare eye-image labels and dataset loading
 
 - **Phase:** 3 — CNN Eye Classification.
@@ -239,6 +251,13 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - **Expected Artifacts:** Dataset loader/preparation code under `src/drowsyalert/models/` and `scripts/`; `tests/test_cnn_dataset.py`; dataset documentation.
 - **Verification:** Tests use small synthetic fixtures and prove labels, exclusions, and splits are deterministic and auditable; no real dataset statistics are asserted until data are obtained.
 - **Definition of Done:** Prepared samples conform to documented label mapping and split manifest; provenance remains attached.
+
+### T-011 leaf tasks — Validated preparation pipeline
+
+- [X] T-076 [Parent: T-011] Add synthetic tests for label mapping, rejected samples, manifest schema, duplicate handling, group-disjoint splits, and deterministic output in `tests/test_cnn_dataset.py` (depends on T-074).
+- [X] T-077 [Parent: T-011] Implement strict label/group/manifest validation and leakage-safe deterministic preparation in `src/drowsyalert/models/dataset.py` (depends on T-076).
+- [X] T-078 [Parent: T-011] Update the preparation CLI and generated provenance report with source identity, transformations, hashes, split counts, and warnings (depends on T-077).
+- [X] T-079 [Parent: T-011] Run the synthetic preparation suite and Ruff checks, then document which real-data assertions remain pending T-075 (depends on T-078).
 
 - [ ] T-012 — Train and validate the eye-state CNN
 
@@ -252,6 +271,13 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - **Verification:** A small synthetic or authorized sample run validates the training/checkpoint path; training and validation identities, seed, settings, and metrics are recorded. The full performance claim awaits T-013.
 - **Definition of Done:** A compatible checkpoint is reproducibly generated from authorized data and validation selection is documented.
 
+### T-012 leaf tasks — Reproducible training and selection
+
+- [X] T-080 [Parent: T-012] Add tests for deterministic training configuration, validation-only checkpoint selection, class mapping, and checkpoint metadata in `tests/test_cnn_training.py` (depends on T-079).
+- [X] T-081 [Parent: T-012] Implement deterministic loaders/training, validation-only selection, and complete checkpoint/run metadata in `src/drowsyalert/models/train.py` and `src/drowsyalert/models/eye_cnn.py` (depends on T-080).
+- [X] T-082 [Parent: T-012] Run a tiny synthetic training/checkpoint smoke test without making a performance claim (depends on T-081).
+- [X] T-083 [Parent: T-012] Document the reproducible training command, configuration, artifacts, selection rule, and real-data prerequisites in `docs/training.md` (depends on T-082).
+
 - [ ] T-013 — Evaluate eye classification on the held-out test split
 
 - **Phase:** 3 — CNN Eye Classification.
@@ -264,6 +290,12 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - **Verification:** Metric calculations pass known-confusion-matrix tests; report states whether Accuracy ≥0.90 was met without implying it must be.
 - **Definition of Done:** Held-out results and protocol are auditable; no unavailable or fabricated data/results.
 
+### T-013 leaf tasks — Frozen held-out evaluation
+
+- [X] T-084 [Parent: T-013] Add known-confusion-matrix tests for counts, Accuracy, per-class Precision/Recall/F1, macro F1, and empty/invalid inputs in `tests/test_cnn_metrics.py` (depends on T-081).
+- [X] T-085 [Parent: T-013] Implement a one-way held-out evaluator with checkpoint/manifest identity, threshold policy, and machine-readable results (depends on T-084).
+- [ ] T-086 [Parent: T-013] Evaluate the frozen checkpoint once on the owner-approved real CEW test split and record whether Accuracy ≥0.90 was met (depends on T-075, T-083, T-085; blocked until dataset/model exist).
+
 - [ ] T-014 — Integrate CNN inference as a distinct eye-state source
 
 - **Phase:** 3 — CNN Eye Classification.
@@ -275,6 +307,13 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - **Expected Artifacts:** Model/pipeline changes; `tests/test_cnn_inference.py`; updated run schema/documentation.
 - **Verification:** Tests cover valid predictions, uncertain output, invalid crop, incompatible/missing checkpoint, and source identity; selected source matches the recorded PERCLOS source.
 - **Definition of Done:** CNN path is independently selectable and cannot overwrite the identity of the landmark baseline.
+
+### T-014 leaf tasks — Distinct runtime CNN evidence
+
+- [X] T-087 [Parent: T-014] Add tests for per-eye probabilities, configurable uncertainty, bilateral policy, invalid crops, missing/incompatible checkpoints, and source identity in `tests/test_cnn_inference.py` (depends on T-081).
+- [X] T-088 [Parent: T-014] Implement explicit CNN uncertainty and bilateral eye-state behavior in `src/drowsyalert/models/eye_cnn.py` (depends on T-087).
+- [X] T-089 [Parent: T-014] Integrate CNN checkpoint/source/threshold identity into runtime results and CSV logging without changing the landmark baseline (depends on T-088).
+- [ ] T-090 [Parent: Phase 3] Run the full Phase 3 suite and Ruff checks; record completed code paths, dataset blockers, and G3 status without fabricating results (depends on T-075–T-089).
 
 ### Phase 3 acceptance gate
 
@@ -572,7 +611,7 @@ Parallel work is allowed only after listed dependencies are complete and when se
 
 ## Format and traceability summary
 
-- Task list currently contains **31 parent work packages plus 38 leaf tasks** (69 numbered items). Create leaf tasks for the active work package before implementation; the leaf count will grow as approved work is decomposed.
+- Task list currently contains **31 parent work packages plus 59 leaf tasks** (90 numbered items). Create leaf tasks for the active work package before implementation; the leaf count will grow as approved work is decomposed.
 - By phase: Phase 1 **4**; Phase 2 **5**; Phase 3 **5**; Phase 4 **4**; Phase 5 **4**; Phase 6 **5**; Phase 7 **4**.
 - Research/data tasks: T-001, T-010, T-023, T-024, T-027; implementation/environment tasks are otherwise separated as labelled.
 - T-001–T-031 are parent work packages, not the intended smallest execution units. Add focused leaf tasks with stable IDs before starting each parent; avoid speculative leaf tasks where dataset/protocol approvals may change the work.

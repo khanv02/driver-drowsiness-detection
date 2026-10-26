@@ -37,8 +37,13 @@ def observation_from_landmarks(frame: np.ndarray, points: np.ndarray) -> FaceObs
     if len(points) < 468 or not np.isfinite(points).all():
         return FaceObservation(False, "Invalid landmarks")
     height, width = frame.shape[:2]
-    crops, boxes, ears = [], [], []
-    for indices in EYE_INDICES:
+    crops = [None, None]
+    boxes = [None, None]
+    ears = [None, None]
+    eye_valid = [False, False]
+    reasons = []
+    for eye_index, indices in enumerate(EYE_INDICES):
+        side = "left" if eye_index == 0 else "right"
         eye = points[list(indices), :2]
         if (
             eye[:, 0].min() < 0
@@ -46,23 +51,48 @@ def observation_from_landmarks(frame: np.ndarray, points: np.ndarray) -> FaceObs
             or eye[:, 0].max() >= width
             or eye[:, 1].max() >= height
         ):
-            return FaceObservation(False, "Eye outside frame", landmarks=points)
+            reasons.append(f"{side} eye outside frame")
+            continue
         try:
-            ears.append(eye_aspect_ratio(eye))
+            ear = eye_aspect_ratio(eye)
         except ValueError:
-            return FaceObservation(False, "Invalid eye geometry", landmarks=points)
+            reasons.append(f"invalid {side} eye geometry")
+            continue
         eye_width = np.linalg.norm(eye[0] - eye[3])
         if eye_width < 8:
-            return FaceObservation(False, "Eyes too small", landmarks=points)
+            reasons.append(f"{side} eye too small")
+            continue
         center = eye.mean(axis=0)
         half_w, half_h = eye_width * 0.7, eye_width * 0.45
         x1, y1 = np.maximum(0, np.floor(center - (half_w, half_h))).astype(int)
         x2, y2 = np.minimum((width, height), np.ceil(center + (half_w, half_h))).astype(int)
-        crops.append(frame[y1:y2, x1:x2].copy())
-        boxes.append((int(x1), int(y1), int(x2), int(y2)))
+        crop = frame[y1:y2, x1:x2].copy()
+        if not crop.size:
+            reasons.append(f"invalid {side} eye crop")
+            continue
+        crops[eye_index] = crop
+        boxes[eye_index] = (int(x1), int(y1), int(x2), int(y2))
+        ears[eye_index] = ear
+        eye_valid[eye_index] = True
     return FaceObservation(
-        True, landmarks=points, eye_crops=tuple(crops), eye_boxes=tuple(boxes), ears=tuple(ears)
+        True,
+        "; ".join(reasons),
+        landmarks=points,
+        eye_crops=tuple(crops),
+        eye_boxes=tuple(boxes),
+        ears=tuple(ears),
+        eye_valid=tuple(eye_valid),
     )
+
+
+def observation_from_face_landmarks(frame: np.ndarray, faces) -> FaceObservation:
+    if not faces:
+        return FaceObservation(False, "No face")
+    if len(faces) > 1:
+        return FaceObservation(False, "Multiple faces")
+    height, width = frame.shape[:2]
+    points = np.array([(point.x * width, point.y * height) for point in faces[0]], dtype=float)
+    return observation_from_landmarks(frame, points)
 
 
 class FaceDetector:
@@ -81,7 +111,7 @@ class FaceDetector:
             mp.tasks.vision.FaceLandmarkerOptions(
                 base_options=mp.tasks.BaseOptions(model_asset_path=str(model_path)),
                 running_mode=mode,
-                num_faces=1,
+                num_faces=2,
                 min_face_detection_confidence=0.5,
                 min_face_presence_confidence=0.5,
                 min_tracking_confidence=0.5,
@@ -99,13 +129,7 @@ class FaceDetector:
             milliseconds = max(self.last_ms + 1, int(timestamp * 1000))
             self.last_ms = milliseconds
             result = self.landmarker.detect_for_video(image, milliseconds)
-        if not result.face_landmarks:
-            return FaceObservation(False, "No face")
-        height, width = frame.shape[:2]
-        points = np.array(
-            [(p.x * width, p.y * height) for p in result.face_landmarks[0]], dtype=np.float64
-        )
-        return observation_from_landmarks(frame, points)
+        return observation_from_face_landmarks(frame, result.face_landmarks)
 
     def close(self):
         self.landmarker.close()

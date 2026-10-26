@@ -32,7 +32,13 @@ def test_gap_breaks_closure(gap_state):
 
 
 def test_time_weighting_and_unknown_coverage():
-    tracker = TemporalTracker(window=1, min_valid=0.2, min_coverage=0.8, max_gap=0.5)
+    tracker = TemporalTracker(
+        window=1,
+        min_valid=0.2,
+        min_coverage=0.8,
+        max_gap=0.5,
+        source="landmark_ear",
+    )
     tracker.update(0, EyeState.CLOSED)
     tracker.update(0.2, EyeState.OPEN)
     result = tracker.update(0.5, EyeState.OPEN)
@@ -42,6 +48,10 @@ def test_time_weighting_and_unknown_coverage():
     assert result.valid_seconds == pytest.approx(0.5)
     assert result.coverage == pytest.approx(0.625)
     assert not result.ready
+    assert result.source == "landmark_ear"
+    assert result.window_seconds == 1
+    assert result.window_start == pytest.approx(0)
+    assert result.window_end == pytest.approx(0.8)
 
 
 def test_eviction_clips_boundary_intervals():
@@ -60,6 +70,23 @@ def test_invalid_timestamp(timestamp):
     tracker.update(0, EyeState.OPEN)
     with pytest.raises(ValueError):
         tracker.update(timestamp, EyeState.OPEN)
+
+
+def test_negative_initial_timestamp_is_rejected():
+    with pytest.raises(ValueError):
+        TemporalTracker().update(-0.1, EyeState.OPEN)
+
+
+def test_window_metadata_moves_with_rolling_cutoff():
+    tracker = TemporalTracker(window=1, min_valid=0.2, max_gap=0.5, source="landmark_ear")
+    tracker.update(4.0, EyeState.OPEN)
+    tracker.update(4.4, EyeState.CLOSED)
+    result = tracker.update(5.2, EyeState.CLOSED)
+
+    assert result.source == "landmark_ear"
+    assert result.window_seconds == 1
+    assert result.window_start == pytest.approx(4.2)
+    assert result.window_end == pytest.approx(5.2)
 
 
 def test_window_must_be_ready_and_unknown_overrides_history():

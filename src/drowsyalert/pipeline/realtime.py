@@ -23,8 +23,16 @@ LOGGER = logging.getLogger(__name__)
 LOG_FIELDS = [
     "frame",
     "timestamp",
+    "input_kind",
+    "method",
+    "eye_source",
+    "eye_threshold",
+    "eye_uncertainty_margin",
+    "checkpoint_sha256",
     "valid",
+    "observation_reason",
     "eye_state",
+    "eye_reason",
     "ear_left",
     "ear_right",
     "p_closed_left",
@@ -32,7 +40,11 @@ LOG_FIELDS = [
     "closed_seconds",
     "perclos",
     "coverage",
+    "valid_seconds",
     "ready",
+    "window_seconds",
+    "window_start",
+    "window_end",
     "yawns",
     "mar",
     "pitch",
@@ -56,12 +68,28 @@ def run(
     mute: bool = False,
 ):
     predictor = EARBackend(config.ear_threshold)
+    eye_source = "landmark_ear"
+    eye_threshold = config.ear_threshold
+    eye_uncertainty_margin = None
+    checkpoint_sha256 = None
     if backend == "cnn":
         from drowsyalert.models.eye_cnn import CNNBackend
 
-        predictor = CNNBackend(config.resource(config.checkpoint), config.cnn_threshold)
+        predictor = CNNBackend(
+            config.resource(config.checkpoint),
+            config.cnn_threshold,
+            config.cnn_uncertainty_margin,
+        )
+        eye_source = predictor.source
+        eye_threshold = predictor.threshold
+        eye_uncertainty_margin = predictor.uncertainty_margin
+        checkpoint_sha256 = predictor.checkpoint_sha256
     tracker = TemporalTracker(
-        config.window_seconds, config.min_valid_seconds, config.min_coverage, config.max_gap_seconds
+        config.window_seconds,
+        config.min_valid_seconds,
+        config.min_coverage,
+        config.max_gap_seconds,
+        source=eye_source,
     )
     extra_tracker = ExtraTracker(config, method)
     engine = DecisionEngine(config, method)
@@ -95,12 +123,24 @@ def run(
                         row = dict(
                             frame=sample.index,
                             timestamp=sample.timestamp,
+                            input_kind=sample.source_kind,
+                            method=method,
+                            eye_source=eyes.source,
+                            eye_threshold=eye_threshold,
+                            eye_uncertainty_margin=eye_uncertainty_margin,
+                            checkpoint_sha256=checkpoint_sha256,
                             valid=face.valid,
+                            observation_reason=face.reason,
                             eye_state=eyes.state,
+                            eye_reason=eyes.reason,
                             closed_seconds=temporal.closed_seconds,
                             perclos=temporal.perclos,
                             coverage=temporal.coverage,
+                            valid_seconds=temporal.valid_seconds,
                             ready=temporal.ready,
+                            window_seconds=temporal.window_seconds,
+                            window_start=temporal.window_start,
+                            window_end=temporal.window_end,
                             yawns=extra.yawns,
                             mar=extra.mar,
                             pitch=extra.angles[0] if extra.angles else None,
@@ -140,5 +180,11 @@ def run(
         "frames": frame_count,
         "wall_seconds": seconds,
         "fps": frame_count / seconds if seconds else 0,
+        "input_kind": "video_media" if video is not None else "live_monotonic",
+        "eye_source": eye_source,
+        "eye_threshold": eye_threshold,
+        "eye_uncertainty_margin": eye_uncertainty_margin,
+        "checkpoint_sha256": checkpoint_sha256,
+        "method": method,
         "config": asdict(config),
     }

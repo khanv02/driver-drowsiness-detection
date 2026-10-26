@@ -1,5 +1,7 @@
 """One small CNN and one preprocessing function shared by training and runtime."""
 
+import hashlib
+import math
 from pathlib import Path
 
 import cv2
@@ -74,21 +76,98 @@ def load_checkpoint(path: Path):
     return model, checkpoint
 
 
+def classify_eye_probabilities(
+    probabilities: tuple[float | None, float | None],
+    threshold: float,
+    margin: float,
+):
+    from drowsyalert.types import EyeState
+
+    if not math.isfinite(threshold) or not 0 < threshold < 1:
+        raise ValueError("CNN threshold must be finite and between zero and one")
+    if not math.isfinite(margin) or margin < 0:
+        raise ValueError("CNN uncertainty margin must be finite and nonnegative")
+    if threshold - margin <= 0 or threshold + margin > 1:
+        raise ValueError("CNN uncertainty band must remain inside (0, 1]")
+    for probability in probabilities:
+        if probability is not None and (
+            not math.isfinite(probability) or not 0 <= probability <= 1
+        ):
+            raise ValueError("CNN eye probability must be finite and between zero and one")
+    lower, upper = threshold - margin, threshold + margin
+    if any(value is not None and value <= lower for value in probabilities):
+        return EyeState.OPEN, ""
+    if all(value is not None and value >= upper for value in probabilities):
+        return EyeState.CLOSED, ""
+    if any(value is not None and lower < value < upper for value in probabilities):
+        return EyeState.UNKNOWN, "CNN probability is inside the uncertainty band"
+    return EyeState.UNKNOWN, "Bilateral confident CNN evidence unavailable"
+
+
+def _file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as source:
+        while block := source.read(1024 * 1024):
+            digest.update(block)
+    return digest.hexdigest()
+
+
 class CNNBackend:
-    def __init__(self, checkpoint: Path, threshold: float = 0.5):
+    source = "cnn_eye_classifier"
+
+    def __init__(
+        self,
+        checkpoint: Path,
+        threshold: float = 0.5,
+        uncertainty_margin: float = 0.1,
+    ):
+        classify_eye_probabilities((None, None), threshold, uncertainty_margin)
         torch.set_num_threads(min(4, torch.get_num_threads()))
         self.model, self.metadata = load_checkpoint(checkpoint)
         self.threshold = threshold
+        self.uncertainty_margin = uncertainty_margin
+        self.checkpoint_sha256 = _file_sha256(checkpoint)
 
     def predict(self, observation):
         from drowsyalert.types import EyeObservation, EyeState
 
-        if not observation.valid or observation.eye_crops is None:
-            return EyeObservation(EyeState.UNKNOWN)
-        inputs = torch.stack([preprocess_eye(eye) for eye in observation.eye_crops])
-        with torch.inference_mode():
-            probabilities = self.model(inputs).softmax(dim=1)[:, 1].tolist()
-        state = (
-            EyeState.CLOSED if all(p >= self.threshold for p in probabilities) else EyeState.OPEN
+        if not observation.valid:
+            return EyeObservation(
+                EyeState.UNKNOWN,
+                source=self.source,
+                reason=observation.reason or "Face unavailable",
+            )
+        if observation.eye_crops is None or len(observation.eye_crops) != 2:
+            return EyeObservation(
+                EyeState.UNKNOWN,
+                probabilities=(None, None),
+                source=self.source,
+                reason="Bilateral eye crops unavailable",
+            )
+        inferred_valid = tuple(eye is not None for eye in observation.eye_crops)
+        valid = observation.eye_valid or inferred_valid
+        usable = tuple(
+            flag and inferred
+            for flag, inferred in zip(valid, inferred_valid, strict=True)
         )
-        return EyeObservation(state, tuple(probabilities))
+        indices = [index for index, flag in enumerate(usable) if flag]
+        if not indices:
+            return EyeObservation(
+                EyeState.UNKNOWN,
+                probabilities=(None, None),
+                source=self.source,
+                reason="Bilateral eye crops unavailable",
+            )
+        inputs = torch.stack(
+            [preprocess_eye(observation.eye_crops[index]) for index in indices]
+        )
+        with torch.inference_mode():
+            inferred = self.model(inputs).softmax(dim=1)[:, 1].tolist()
+        probabilities: list[float | None] = [None, None]
+        for index, probability in zip(indices, inferred, strict=True):
+            probabilities[index] = probability
+        values = (probabilities[0], probabilities[1])
+        state, reason = classify_eye_probabilities(
+            values, self.threshold, self.uncertainty_margin
+        )
+        return EyeObservation(state, values, source=self.source, reason=reason)

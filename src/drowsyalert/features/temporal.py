@@ -13,11 +13,15 @@ class TemporalTracker:
         min_valid: float = 30,
         min_coverage: float = 0.8,
         max_gap: float = 0.25,
+        source: str = "landmark_ear",
     ):
         if not (window > 0 and 0 < min_valid <= window and 0 < min_coverage <= 1 and max_gap > 0):
             raise ValueError("Invalid temporal configuration")
+        if not source:
+            raise ValueError("Temporal source must be identified")
         self.window, self.min_valid = window, min_valid
         self.min_coverage, self.max_gap = min_coverage, max_gap
+        self.source = source
         self.intervals = deque()
         self.last_time = None
         self.first_time = None
@@ -25,8 +29,8 @@ class TemporalTracker:
         self.closed = 0.0
 
     def update(self, timestamp: float, state: EyeState) -> TemporalFeatures:
-        if not math.isfinite(timestamp):
-            raise ValueError("Timestamp must be finite")
+        if not math.isfinite(timestamp) or timestamp < 0:
+            raise ValueError("Timestamp must be finite and nonnegative")
         if self.last_time is not None and timestamp <= self.last_time:
             raise ValueError("Timestamps must strictly increase")
         if self.first_time is None:
@@ -61,5 +65,14 @@ class TemporalTracker:
         ready = valid >= self.min_valid - 1e-9 and coverage >= self.min_coverage
         self.last_time, self.last_state = timestamp, state
         return TemporalFeatures(
-            self.closed, closed / valid if valid else None, coverage, valid, ready, continuous
+            self.closed,
+            closed / valid if valid else None,
+            coverage,
+            valid,
+            ready,
+            continuous,
+            source=self.source,
+            window_seconds=self.window,
+            window_start=max(self.first_time, cutoff),
+            window_end=timestamp,
         )
