@@ -60,6 +60,7 @@ class FakeAlert:
     def __init__(self, _cooldown, *, enabled):
         self.enabled = enabled
         self.closed = False
+        self.play_count = 0
         self.instances.append(self)
 
     def update(self, *_):
@@ -67,6 +68,19 @@ class FakeAlert:
 
     def close(self):
         self.closed = True
+
+    def metadata(self):
+        return {
+            "enabled": self.enabled,
+            "available": False,
+            "alert_active": False,
+            "playing": False,
+            "play_count": self.play_count,
+            "failure_count": 0,
+            "last_error": None,
+            "cooldown_seconds": 5.0,
+            "sound": "fake.wav",
+        }
 
 
 def test_headless_replay_records_source_unknown_and_temporal_metadata(monkeypatch, tmp_path):
@@ -93,6 +107,9 @@ def test_headless_replay_records_source_unknown_and_temporal_metadata(monkeypatc
     assert result["config"]["perclos_threshold"] == config.perclos_threshold
     assert result["config"]["window_seconds"] == config.window_seconds
     assert result["config"]["min_coverage"] == config.min_coverage
+    assert result["audio"]["policy"] == "replay_silent"
+    assert result["audio"]["enabled"] is False
+    assert result["audio"]["play_count"] == 0
     assert [row["timestamp"] for row in rows] == ["0.0", "0.1", "0.2"]
     assert {row["input_kind"] for row in rows} == {"video_media"}
     assert {row["eye_source"] for row in rows} == {"landmark_ear"}

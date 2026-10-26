@@ -96,6 +96,7 @@ def run(
     # Video replay uses video time for features but is silent unless used live.
     audio = AlertManager(config.cooldown_seconds, enabled=not mute and video is None)
     log_file, writer, frame_count = None, None, 0
+    audio_metadata = None
     started = time.perf_counter()
     try:
         if log_path:
@@ -171,6 +172,10 @@ def run(
                     frame_count += 1
     finally:
         audio.close()
+        audio_metadata = audio.metadata()
+        audio_metadata["policy"] = (
+            "muted" if mute else ("replay_silent" if video is not None else "live")
+        )
         if log_file:
             log_file.close()
         if not headless:
@@ -186,5 +191,6 @@ def run(
         "eye_uncertainty_margin": eye_uncertainty_margin,
         "checkpoint_sha256": checkpoint_sha256,
         "method": method,
+        "audio": audio_metadata,
         "config": asdict(config),
     }

@@ -365,7 +365,7 @@ G3 passes when a licensed dataset/split is documented, data-loading and training
 - [X] T-098 [Parent: T-016] Update `README.md` with status meanings, stop/mute controls, webcam privacy, and research-prototype limitations (depends on T-097).
 - [X] T-099 [Parent: T-016] Run focused overlay tests and Ruff, then record presentation verification (depends on T-098).
 
-- [ ] T-017 — Verify audio warning and repeat control
+- [X] T-017 — Verify audio warning and repeat control
 
 - **Phase:** 4 — Real-Time Drowsiness Alert.
 - **Priority:** P1.
@@ -379,10 +379,10 @@ G3 passes when a licensed dataset/split is documented, data-loading and training
 
 ### T-017 leaf tasks — Bounded and observable audio behavior
 
-- [ ] T-100 [Parent: T-017] Add injected audio tests for first alert, sustained alert before/at cooldown, recovery stop, re-alert, mute, missing sound, playback failure, and close in `tests/test_alerts.py` (depends on T-095).
-- [ ] T-101 [Parent: T-017] Implement explicit audio availability/enabled/active/playback-result state with nonblocking cooldown behavior in `src/drowsyalert/pipeline/alerts.py` (depends on T-100).
-- [ ] T-102 [Parent: T-017] Record audio enabled/available/play count/failure metadata in pipeline results and document the repeat policy (depends on T-101).
-- [ ] T-103 [Parent: T-017] Run focused alert tests and Ruff; record that actual speaker output remains a manual hardware check (depends on T-102).
+- [X] T-100 [Parent: T-017] Add injected audio tests for first alert, sustained alert before/at cooldown, recovery stop, re-alert, mute, missing sound, playback failure, and close in `tests/test_alerts.py` (depends on T-095).
+- [X] T-101 [Parent: T-017] Implement explicit audio availability/enabled/active/playback-result state with nonblocking cooldown behavior in `src/drowsyalert/pipeline/alerts.py` (depends on T-100).
+- [X] T-102 [Parent: T-017] Record audio enabled/available/play count/failure metadata in pipeline results and document the repeat policy (depends on T-101).
+- [X] T-103 [Parent: T-017] Run focused alert tests and Ruff; record that actual speaker output remains a manual hardware check (depends on T-102).
 
 - [ ] T-018 — Verify the complete live webcam alert flow
 
