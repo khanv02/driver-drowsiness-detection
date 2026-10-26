@@ -15,9 +15,9 @@ def test_long_closure_and_short_blink():
     assert engine.decide(EyeState.CLOSED, result).state == AlertState.ALERT
     opened = tracker.update(2.1, EyeState.OPEN)
     assert opened.closed_seconds == 0
-    assert engine.decide(EyeState.OPEN, opened).state == AlertState.NORMAL
+    assert engine.decide(EyeState.OPEN, opened).state == AlertState.UNKNOWN
     blink = tracker.update(2.2, EyeState.CLOSED)
-    assert engine.decide(EyeState.CLOSED, blink).state == AlertState.NORMAL
+    assert engine.decide(EyeState.CLOSED, blink).state == AlertState.UNKNOWN
 
 
 @pytest.mark.parametrize("gap_state", [EyeState.UNKNOWN, EyeState.CLOSED])
@@ -92,7 +92,7 @@ def test_window_metadata_moves_with_rolling_cutoff():
 def test_window_must_be_ready_and_unknown_overrides_history():
     engine = DecisionEngine(Config())
     features = TemporalFeatures(0, 0.9, 1, 10, False, True)
-    assert engine.decide(EyeState.OPEN, features).state == AlertState.NORMAL
+    assert engine.decide(EyeState.OPEN, features).state == AlertState.UNKNOWN
     ready = TemporalFeatures(0, 0.9, 1, 60, True, True)
     assert engine.decide(EyeState.OPEN, ready).state == AlertState.ALERT
     assert engine.decide(EyeState.UNKNOWN, ready).state == AlertState.UNKNOWN

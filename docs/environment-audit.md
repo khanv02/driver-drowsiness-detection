@@ -83,3 +83,18 @@ No new dependency or project-layout change is justified in Phase 1. The followin
 - Values in `configs/config.yaml` are provisional defaults and lack experiment provenance until the run-record work is implemented.
 
 Phase 1 conventions are recorded in `docs/development-conventions.md`. The Git baseline still requires a reviewed checkpoint before feature/task branches or commits are created.
+
+## Phase 4 asset update
+
+**Update date:** 2026-10-26
+
+This update records assets acquired or produced after the read-only Phase 1 audit above. It does
+not alter the historical observations made during that audit.
+
+| Asset | Local evidence | Provenance / readiness |
+|---|---|---|
+| MediaPipe Face Landmarker | `models/pretrained/face_landmarker.task`; 3,758,596 bytes; SHA-256 `64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff` | Downloaded by `drowsyalert --download-model` from MediaPipe's configured Google Cloud Storage model URL (`face_landmarker/float16/latest/face_landmarker.task`). Loaded successfully by MediaPipe and returned the expected `No face` result for a synthetic blank frame. |
+| CEW EyeCNN checkpoint | `models/checkpoints/eye_cnn.pt`; SHA-256 `40f39307be277e61201c303c85dc2542dc81ab6593958f06c85b1a9bf8befd85` | Locally trained and validation-selected in Phase 3; held-out CEW Accuracy 0.907967. |
+
+Both files remain excluded from Git. The Face Landmarker URL contains `latest`, so reproducibility
+depends on the recorded file hash rather than assuming that a future download has identical bytes.

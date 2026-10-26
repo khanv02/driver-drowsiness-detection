@@ -60,6 +60,7 @@ class FakeAlert:
     def __init__(self, _cooldown, *, enabled):
         self.enabled = enabled
         self.closed = False
+        self.play_count = 0
         self.instances.append(self)
 
     def update(self, *_):
@@ -67,6 +68,19 @@ class FakeAlert:
 
     def close(self):
         self.closed = True
+
+    def metadata(self):
+        return {
+            "enabled": self.enabled,
+            "available": False,
+            "alert_active": False,
+            "playing": False,
+            "play_count": self.play_count,
+            "failure_count": 0,
+            "last_error": None,
+            "cooldown_seconds": 5.0,
+            "sound": "fake.wav",
+        }
 
 
 def test_headless_replay_records_source_unknown_and_temporal_metadata(monkeypatch, tmp_path):
@@ -89,6 +103,13 @@ def test_headless_replay_records_source_unknown_and_temporal_metadata(monkeypatc
     assert result["eye_uncertainty_margin"] is None
     assert result["checkpoint_sha256"] is None
     assert result["method"] == "perclos"
+    assert result["config"]["closed_seconds"] == config.closed_seconds
+    assert result["config"]["perclos_threshold"] == config.perclos_threshold
+    assert result["config"]["window_seconds"] == config.window_seconds
+    assert result["config"]["min_coverage"] == config.min_coverage
+    assert result["audio"]["policy"] == "replay_silent"
+    assert result["audio"]["enabled"] is False
+    assert result["audio"]["play_count"] == 0
     assert [row["timestamp"] for row in rows] == ["0.0", "0.1", "0.2"]
     assert {row["input_kind"] for row in rows} == {"video_media"}
     assert {row["eye_source"] for row in rows} == {"landmark_ear"}
@@ -151,3 +172,134 @@ def test_cnn_runtime_records_checkpoint_and_confidence_policy(monkeypatch, tmp_p
     assert {row["eye_uncertainty_margin"] for row in rows} == {
         str(config.cnn_uncertainty_margin)
     }
+
+
+def test_live_flow_transitions_unknown_normal_alert_and_cleans_up(monkeypatch, tmp_path):
+    frame = np.zeros((20, 20, 3), dtype=np.uint8)
+
+    class LiveSource:
+        source_kind = "live_monotonic"
+        fps = 30.0
+        instances = []
+
+        def __init__(self, *_args, **_kwargs):
+            self.closed = False
+            self.samples = iter(
+                [
+                    FrameSample(i, timestamp, frame.copy(), self.source_kind)
+                    for i, timestamp in enumerate((0.0, 0.1, 0.2, 0.3, 0.4))
+                ]
+            )
+            self.instances.append(self)
+
+        def read(self):
+            return next(self.samples, None)
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            self.closed = True
+
+    class SequenceDetector:
+        instances = []
+
+        def __init__(self, *_args, **_kwargs):
+            self.closed = False
+            self.observations = iter(
+                [
+                    FaceObservation(False, "No face"),
+                    FaceObservation(True, ears=(0.30, 0.31), eye_valid=(True, True)),
+                    FaceObservation(True, ears=(0.10, 0.11), eye_valid=(True, True)),
+                    FaceObservation(True, ears=(0.10, 0.11), eye_valid=(True, True)),
+                    FaceObservation(True, ears=(0.10, 0.11), eye_valid=(True, True)),
+                ]
+            )
+            self.instances.append(self)
+
+        def detect(self, _frame, _timestamp):
+            return next(self.observations)
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            self.closed = True
+
+    class TrackingAlert(FakeAlert):
+        def __init__(self, cooldown, *, enabled):
+            super().__init__(cooldown, enabled=enabled)
+            self.states = []
+
+        def update(self, state, _timestamp):
+            self.states.append(state)
+            if state == "ALERT" and self.enabled:
+                self.play_count += 1
+                return True
+            return False
+
+    monkeypatch.setattr(realtime, "VideoSource", LiveSource)
+    monkeypatch.setattr(realtime, "FaceDetector", SequenceDetector)
+    monkeypatch.setattr(realtime, "AlertManager", TrackingAlert)
+    log_path = tmp_path / "live.csv"
+    config = Config(
+        closed_seconds=0.2,
+        window_seconds=1.0,
+        min_valid_seconds=0.1,
+        min_coverage=0.4,
+        max_gap_seconds=0.2,
+    )
+
+    result = realtime.run(config, headless=True, log_path=log_path)
+
+    with log_path.open(newline="", encoding="utf-8") as source:
+        rows = list(csv.DictReader(source))
+    states = [row["state"] for row in rows]
+    assert states[0] == "UNKNOWN"
+    assert "NORMAL" in states
+    assert states[-1] == "ALERT"
+    assert rows[-1]["reason"] == "Prolonged eye closure"
+    assert result["input_kind"] == "live_monotonic"
+    assert result["audio"]["policy"] == "live"
+    assert result["audio"]["enabled"] is True
+    assert result["audio"]["play_count"] >= 1
+    assert LiveSource.instances[-1].closed
+    assert SequenceDetector.instances[-1].closed
+    assert TrackingAlert.instances[-1].closed
+
+
+def test_live_mute_and_camera_failure_still_cleanup(monkeypatch):
+    frame = np.zeros((20, 20, 3), dtype=np.uint8)
+
+    class FailingSource:
+        source_kind = "live_monotonic"
+        fps = 30.0
+        instances = []
+
+        def __init__(self, *_args, **_kwargs):
+            self.reads = 0
+            self.closed = False
+            self.instances.append(self)
+
+        def read(self):
+            self.reads += 1
+            if self.reads == 1:
+                return FrameSample(0, 0.0, frame.copy(), self.source_kind)
+            raise OSError("Camera disconnected")
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            self.closed = True
+
+    monkeypatch.setattr(realtime, "VideoSource", FailingSource)
+    monkeypatch.setattr(realtime, "FaceDetector", FakeDetector)
+    monkeypatch.setattr(realtime, "AlertManager", FakeAlert)
+
+    with np.testing.assert_raises_regex(OSError, "Camera disconnected"):
+        realtime.run(Config(), headless=True, mute=True)
+
+    assert FailingSource.instances[-1].closed
+    assert FakeAlert.instances[-1].enabled is False
+    assert FakeAlert.instances[-1].closed

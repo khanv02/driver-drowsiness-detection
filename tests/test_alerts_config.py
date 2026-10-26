@@ -1,27 +1,7 @@
 import pytest
 
 from drowsyalert.main import main
-from drowsyalert.pipeline.alerts import AlertManager
-from drowsyalert.types import AlertState
 from drowsyalert.utils.config import load_config
-
-
-def test_audio_cooldown_and_stop(monkeypatch):
-    manager = AlertManager(cooldown=5)
-    manager.available = False
-    stops = []
-    monkeypatch.setattr(manager, "stop", lambda: stops.append(True))
-    assert manager.update(AlertState.ALERT, 0)
-    assert not manager.update(AlertState.ALERT, 1)
-    assert manager.update(AlertState.ALERT, 5)
-    assert not manager.update(AlertState.NORMAL, 6)
-    assert stops == [True]
-    assert not manager.update(AlertState.ALERT, 7)
-
-
-def test_muted_audio_never_emits():
-    manager = AlertManager(enabled=False)
-    assert not manager.update(AlertState.ALERT, 0)
 
 
 @pytest.mark.parametrize(

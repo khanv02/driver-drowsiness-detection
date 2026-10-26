@@ -40,7 +40,9 @@ Model Face Landmarker và checkpoint CNN không được lưu trong Git. EAR kh�
 
 **Phase 3 — CNN eye classification: hoàn thành (G3).** Dataset CEW được chuẩn bị theo split nhóm, CNN được chọn checkpoint bằng validation và đánh giá một lần trên tập test đã đóng băng. Trên 728 ảnh test, mô hình đạt Accuracy **0,907967** và macro F1 **0,907904**. G3 đã vượt qua 79 kiểm thử tự động; Ruff đạt.
 
-Kết quả Phase 3 chỉ đo phân loại ảnh mắt trên CEW. Chưa có kết luận về độ chính xác phát hiện buồn ngủ theo video, hiệu quả cảnh báo, an toàn lái xe hoặc tổng quát hóa sang người lái và điều kiện thực tế. So sánh nghiên cứu PERCLOS, PERCLOS + yawning và PERCLOS + head pose, cùng kiểm tra webcam, model asset và thiết bị demo, vẫn cần được thực hiện ở các giai đoạn tiếp theo. Xem [bằng chứng kiểm thử và kết quả](docs/verification.md), [quy trình huấn luyện](docs/training.md) và [danh sách công việc](specs/001-drowsyalert/tasks.md).
+**Phase 4 — Real-time drowsiness alert: triển khai hoàn thành; nghiệm thu G4 đang chờ.** Đã tích hợp quyết định cảnh báo Method A, overlay trạng thái/lý do, điều khiển âm thanh có cooldown và mute, xử lý UNKNOWN, cùng luồng live và CLI. Bộ kiểm thử tự động có **112 passed** và Ruff đạt. Smoke test webcam đã đọc 5 khung hình CNN ở chế độ headless/mute; bước này chỉ xác nhận capture và metadata, chưa xác nhận hiển thị giao diện hoặc âm thanh. G4 cần người kiểm tra trực tiếp các chuyển trạng thái, phục hồi, thao tác dừng và cảnh báo âm thanh.
+
+Kết quả Phase 3 chỉ đo phân loại ảnh mắt trên CEW; Phase 4 xác minh luồng ứng dụng/cảnh báo và smoke test capture, không chứng minh độ chính xác phát hiện buồn ngủ theo video, hiệu quả cảnh báo ngoài thực tế, an toàn lái xe hay tổng quát hóa sang tài xế. So sánh nghiên cứu PERCLOS, PERCLOS + yawning và PERCLOS + head pose vẫn cần thực hiện ở các giai đoạn sau. Xem [bằng chứng kiểm thử và kết quả](docs/verification.md), [quy trình huấn luyện](docs/training.md) và [danh sách công việc](specs/001-drowsyalert/tasks.md).
 
 ## Công nghệ
 
@@ -84,6 +86,16 @@ uv run drowsyalert --camera 0 --method perclos-head-pose
 ```
 
 Cấu hình mặc định nằm ở [`configs/config.yaml`](configs/config.yaml). Các ngưỡng trong file là giá trị cấu hình ban đầu, chưa được xác nhận là ngưỡng an toàn cho tài xế. Xem `uv run drowsyalert --help` để biết các tùy chọn khác.
+
+### Trạng thái và điều khiển webcam
+
+- `NORMAL`: quan sát hợp lệ, cửa sổ PERCLOS đã sẵn sàng và chưa đạt ngưỡng cảnh báo.
+- `ALERT`: nhắm mắt liên tục đủ lâu hoặc PERCLOS đạt ngưỡng; lý do cụ thể hiển thị trên cửa sổ.
+- `UNKNOWN`: không thấy khuôn mặt/mắt, dự đoán không chắc chắn, dữ liệu thời gian không hợp lệ hoặc cửa sổ vẫn đang khởi động. `UNKNOWN` không được coi là `NORMAL`.
+- Nhấn `Q` hoặc `Esc` để dừng. Thêm `--mute` để tắt âm thanh mà không thay đổi quyết định.
+- Khung hình webcam được xử lý cục bộ và không được lưu bởi luồng demo. `--log` chỉ ghi số đo/trạng thái CSV, không ghi video.
+
+Overlay luôn hiển thị nguồn trạng thái mắt, trạng thái/lý do, PERCLOS/coverage, điều khiển dừng và thông báo đây là prototype nghiên cứu, không phải hệ thống an toàn được chứng nhận.
 
 ## Chuẩn bị dữ liệu và huấn luyện CNN
 
