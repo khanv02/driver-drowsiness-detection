@@ -507,6 +507,8 @@ T-023 before held-out evaluation; no comparative result is claimed.
 
 **Milestone outcome**: lawful, consent-aware and temporally labelled evaluation data; frozen protocol; reproducible A/B/C results, latency/error analysis, and transparent limitations.
 
+- [X] T-123 [Parent: Phase 6] Audit Phase 6 readiness and decompose only the protocol task T-023 before dataset-specific or scoring work; preserve the T-018/T-022 hardware dependency and the missing temporal-video corpus as explicit blockers.
+
 - [ ] T-023 — Approve temporal ground truth and evaluation protocol (Research)
 
 - **Phase:** 6 — Experimental Evaluation.
@@ -518,6 +520,12 @@ T-023 before held-out evaluation; no comparative result is claimed.
 - **Expected Artifacts:** `docs/evaluation-protocol.md`; versioned protocol approval record.
 - **Verification:** Reviewer confirms all three methods use same eligible test videos/labels/timestamps and threshold selection is restricted to training/validation.
 - **Definition of Done:** Protocol frozen and dated before final test evaluation; unresolved annotation or ethics decisions block affected study claims.
+
+### T-023 leaf tasks — Frozen evaluation protocol
+
+- [ ] T-124 [Parent: T-023] Audit candidate public temporal-video sources and the current local data inventory for license, access, subject/session identity, event timing, and condition-label suitability without downloading or claiming a dataset.
+- [ ] T-125 [Parent: T-023] Draft `docs/evaluation-protocol.md` with annotation units, onset/offset rules, validation/test separation, one-to-one alert matching, latency, false-alarm denominator, unknown coverage, condition analysis, A/B/C controls, and approval fields (depends on T-124).
+- [ ] T-126 [Parent: T-023] Obtain and record project-owner/supervisor approval of the selected data path, protocol version, event/matching definitions, threshold-freeze rule, and any volunteer ethics requirements; only then mark T-023 complete (depends on T-125; human approval required).
 
 - [ ] T-024 — Acquire/prepare annotated evaluation videos and condition labels (Research/Data)
 
