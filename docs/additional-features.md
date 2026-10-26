@@ -29,3 +29,26 @@ MAR can respond to speech, facial expression, camera angle, or landmark error. A
 event is therefore a configured geometric indicator, not proof of physiological
 drowsiness. Its threshold and duration require validation-only selection before any
 comparative claim.
+
+## Method C: PERCLOS plus relative head pose
+
+Head pose uses a six-point perspective-n-point estimate. Positive relative pitch is
+defined as head-down for this implementation. The evidence records the relative
+pitch/yaw/roll tuple, validity, sustained head-down duration, Boolean sustained
+indicator, reference pitch, and an unavailable reason.
+
+`head_pose_reference_degrees` may supply a fixed absolute pitch reference. A controlled
+experiment must use and record a reference selected by its approved validation
+protocol. When the setting is `null`, the live/demo tracker captures the first valid
+pitch as its reference and records that acquisition in the evidence. This automatic
+mode is convenient for a demonstration but must not be treated as a validated neutral
+pose or silently used to tune held-out test material.
+
+Relative pitch at or above `head_down_degrees` starts a candidate. The indicator becomes
+true after continuous valid evidence for at least `head_down_seconds`; both boundaries
+are inclusive. A below-threshold sample, invalid pose, missing face, or gap longer than
+`max_gap_seconds` resets duration. The reference remains fixed for the run.
+
+Pose from a monocular landmark model depends on camera geometry and is not a physical
+measurement of fatigue. Method C's thresholds and reference procedure require
+validation before research comparison.

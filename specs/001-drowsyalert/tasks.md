@@ -432,7 +432,7 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 - [X] T-111 [Parent: T-019] Implement explicit valid/unknown yawn evidence and robust temporal state in `src/drowsyalert/features/geometry.py`, `src/drowsyalert/features/extra.py`, and `src/drowsyalert/types.py` (depends on T-110).
 - [X] T-112 [Parent: T-019] Document the configurable provisional yawn rule, run focused tests and Ruff, and record T-019 completion (depends on T-111).
 
-- [ ] T-020 — Implement and test head-pose feature extraction (Coding)
+- [X] T-020 — Implement and test head-pose feature extraction (Coding)
 
 - **Phase:** 5 — Additional Research Features.
 - **Priority:** P1.
@@ -446,9 +446,9 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 
 ### T-020 leaf tasks — Relative head-pose evidence
 
-- [ ] T-113 [Parent: T-020] Add deterministic pose validation, sign/reference, threshold, sustained-duration, invalid-observation, timestamp, and gap-reset tests in `tests/test_head_pose.py`.
-- [ ] T-114 [Parent: T-020] Implement explicit pose validity, neutral-reference metadata, relative-pitch convention, and robust temporal reset behavior in `src/drowsyalert/features/extra.py` and `src/drowsyalert/types.py` (depends on T-113).
-- [ ] T-115 [Parent: T-020] Document the configurable provisional head-pose rule, run focused tests and Ruff, and record T-020 completion (depends on T-114).
+- [X] T-113 [Parent: T-020] Add deterministic pose validation, sign/reference, threshold, sustained-duration, invalid-observation, timestamp, and gap-reset tests in `tests/test_head_pose.py`.
+- [X] T-114 [Parent: T-020] Implement explicit pose validity, neutral-reference metadata, relative-pitch convention, and robust temporal reset behavior in `src/drowsyalert/features/extra.py` and `src/drowsyalert/types.py` (depends on T-113).
+- [X] T-115 [Parent: T-020] Document the configurable provisional head-pose rule, run focused tests and Ruff, and record T-020 completion (depends on T-114).
 
 - [ ] T-021 — Normalize method A/B/C configuration and evidence provenance
 

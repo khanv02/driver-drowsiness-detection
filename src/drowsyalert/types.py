@@ -68,4 +68,8 @@ class ExtraFeatures:
     yawn_active_seconds: float = 0.0
     yawn_reason: str = "Yawn cue inactive for method"
     head_down_seconds: float = 0.0
+    head_down: bool = False
     angles: tuple[float, float, float] | None = None
+    head_pose_valid: bool = False
+    pose_reference_pitch: float | None = None
+    head_pose_reason: str = "Head-pose cue inactive for method"

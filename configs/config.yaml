@@ -15,6 +15,9 @@ cnn_uncertainty_margin: 0.1
 yawn_threshold: 0.6
 yawn_seconds: 1.5
 yawn_count: 2
+# null captures the first valid pose as the live reference. Controlled experiments
+# must supply and record a validation-selected numeric reference.
+head_pose_reference_degrees: null
 head_down_degrees: 20.0
 head_down_seconds: 1.5
 width: 640
