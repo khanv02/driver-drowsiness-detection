@@ -388,7 +388,10 @@ Observed results:
 - Build: `dist/drowsyalert-0.2.0.tar.gz` and
   `dist/drowsyalert-0.2.0-py3-none-any.whl` were created successfully.
 - The workflow YAML was parsed locally and its Ubuntu/Windows matrix and dependent build
-  job were verified. Hosted GitHub Actions evidence remains pending the branch push/run.
+  job were verified. GitHub Actions run
+  [`40530008620`](https://github.com/khanv02/driver-drowsiness-detection/actions/runs/40530008620)
+  completed successfully: `Quality (windows-latest)`, `Quality (ubuntu-latest)`, and
+  `Build distribution` all passed for commit `2ea55df`.
 
 T-028 remains open. Final regression evidence still depends on G6, and the separate
 T-018/G4 visible webcam and audible-speaker acceptance remains a declared manual hardware
