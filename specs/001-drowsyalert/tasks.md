@@ -658,7 +658,7 @@ available manual hardware evidence.
   installation, Ruff, and the complete automated test suite in `.github/workflows/ci.yml`;
   preserve camera/audio as explicit non-CI checks (depends on T-161; recovery branch:
   `task/T-162-ci-platform-matrix`).
-- [ ] T-163 [Parent: T-028] Add a CI package-build smoke check with `uv build`, without
+- [X] T-163 [Parent: T-028] Add a CI package-build smoke check with `uv build`, without
   publishing artifacts or introducing deployment credentials (depends on T-162; recovery
   branch: `task/T-163-package-build-check`).
 - [ ] T-164 [Parent: T-028] Run the complete local Ruff, pytest, and package-build checks;
