@@ -1,6 +1,6 @@
 # Implementation Plan: DrowsyAlert
 
-**Branch**: `phase/5-additional-research-features` | **Date**: 2026-10-26 | **Spec**: [spec.md](spec.md)
+**Branch**: `phase/6-experimental-evaluation` | **Date**: 2026-10-26 | **Spec**: [spec.md](spec.md)
 
 **Development branch policy**: `main` is the clean shared baseline. Each implementation phase uses a recoverable `phase/<number>-<slug>` branch, and each small leaf task uses `task/T-###-short-description` based on the active phase branch. Verify and review every focused diff, commit it, then merge it into the phase branch. Merge a phase into `main` only after its acceptance gate passes. If a task goes wrong, abandon/recreate its task branch or revert its task commit; do not reset shared branches or start from an uncommitted worktree.
 

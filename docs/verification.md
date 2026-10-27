@@ -256,3 +256,102 @@ Formal G5 closure remains **pending** only because parent T-022 declares T-018 a
 dependency, while T-018/G4 still awaits the deferred human-visible webcam and real-speaker
 acceptance check. This hardware limitation does not invalidate the automated Phase 5
 implementation and no visual/audio success is inferred from it.
+
+## Phase 6 - Experimental evaluation foundation
+
+**Date:** 2026-10-26
+
+**Branch:** `phase/6-experimental-evaluation`
+
+**Status:** NITYMED acquired, Protocol v1 approved, and preparation/evaluation tooling
+verified; independent labels, participant-safe split, and real results pending.
+
+Completed preparatory evidence:
+
+- Candidate temporal-video sources and current local inventory were audited without
+  downloading or claiming a dataset.
+- Evaluation Protocol `drowsyalert-video-eval-v1.1` freezes A/B/C controls, independent
+  microsleep reference labels, secondary yaw reporting, subject/session separation,
+  -1/+2-second matching, latency, false alarms, unknown coverage, 1-second system
+  Accuracy, conditions, privacy, validation-only selection, and no volunteer collection.
+- A strict annotation CSV loader validates finite media bounds, final adjudication,
+  approved label/condition values, stable clip identities, duplicates, circular
+  detector-derived labels, and subject/session leakage. It stores no frame pixels.
+- Parameterized metrics validate intervals and compute chronological one-to-one matches,
+  event TP/FP/FN, precision/recall/F1, false alarms per valid hour, signed latency
+  distributions, misses, and observation coverage. Matching tolerances have no defaults.
+- The acquired NITYMED HDTV720 tree contains 126 decode-verified videos and an ignored
+  per-video hash/metadata manifest. The provider count discrepancy, 24 FPS outlier, lack
+  of temporal labels, and missing participant mapping are recorded.
+- A local annotation worklist/review tool records human-observed media-time intervals,
+  refuses circular detector labels, and blocks final export until review/split metadata
+  satisfies the strict annotation contract.
+- Fixed-bin system Accuracy retains UNKNOWN in the primary denominator and reports
+  observed-only Accuracy/coverage separately. Alert episode extraction and grouped
+  condition calculations use explicit parameters.
+- The evaluator joins annotations and run records into separate event, latency,
+  coverage, failure, condition, and processing summaries.
+- The resumable batch runner fixes a common clip set, landmark-EAR source, shared config,
+  data/split/config/code identities, and forced headless/muted execution across A/B/C.
+  It rejects incompatible existing outputs and requires a numeric frozen pose reference.
+
+Verification commands:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -p no:cacheprovider -q
+uv run ruff check src scripts demo tests
+```
+
+Observed result after the v1.1 split/worklist implementation: `219 passed` in 26.27 seconds and
+Ruff reported `All checks passed!`.
+
+This is software, corpus-integrity, and protocol-approval evidence only. T-024/T-139
+still require reviewed participant grouping, split, and independent temporal annotations.
+At that foundation checkpoint, no A/B/C performance, alert latency, video Accuracy, or
+robustness result had been measured. The later pilot below is explicitly non-final.
+
+### Four-clip pilot checkpoint
+
+After independent project-owner review, the ignored pilot annotation manifest contained
+nine intervals across four validation-only clips. Twelve headless/muted A/B/C replays
+completed without runner failures, and the evaluator recalculated a comparison from all
+raw records. The exact artifact hashes, counts, pilot measurements, annotation cleanup,
+unknown/failure durations, and limitations are recorded in
+[pilot-evaluation.md](pilot-evaluation.md).
+
+This closes the synthetic-plus-pilot evaluator task T-145 and latency/failure work package
+T-026. It does not close T-024/T-139 or T-027: the full independently reviewed annotation
+corpus, validation threshold selection, and one-way held-out testing remain absent.
+
+### Frozen 38-clip split
+
+The approved v1.1 amendment replaces the unavailable subject-disjoint gate with a
+disclosed clip-disjoint study. The deterministic seed-42 split contains all 19
+microsleep clips and 19 selected yawning clips: validation 6+6 and test 13+13. The four
+viewed pilot clips are locked to validation. Validation is sex-balanced within each
+category; yawning test selection is 7 female/6 male, while microsleep test retains the
+unavoidable 5 female/8 male remainder.
+
+The canonical split identity is
+`2e4e0ea7eb2e529ea2db2f692444768a4de91023d9ce29829bcbdab911cbd047`.
+No duplicate clip ID or content hash crosses the partitions. Exact membership, local
+artifact hashes, durations, counts, and leakage limitation are recorded in
+[evaluation-split-v1.1.md](evaluation-split-v1.1.md). Four reviewed rows were initially
+preserved from the pilot. All 12 validation rows have now been reviewed; 26 held-out
+test rows remain in seven batches.
+
+### Twelve-clip validation baseline
+
+The first complete validation replay used the tracked numeric-reference configuration
+at commit `c6d89884bfc3828d15a9951112d8735867a3339a`. All 36 planned headless/muted
+A/B/C records completed with no failures or skips. The shared comparison contains 19
+reviewed primary events across 939.72 eligible seconds. A/B/C all produced TP=5, FP=28,
+FN=14, and event F1=0.1923; A and C primary system accuracy was 0.2860, while B was
+0.2701. Observation coverage was only 0.6299 because the 30-second warm-up contributed
+about 335.24 seconds of UNKNOWN time.
+
+The run is retained as validation-only evidence and is not frozen for held-out testing.
+Exact metrics, identities, hashes, limitations, and the bounded retuning decision are in
+[validation-evaluation-v1.1.md](validation-evaluation-v1.1.md). T-157/T-158 must replay
+stored validation observations and freeze one configuration before the 26 test clips are
+reviewed or scored.

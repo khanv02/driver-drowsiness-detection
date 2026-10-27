@@ -30,3 +30,14 @@ folder mapping must be recorded in `docs/dataset-card.md` after inspection.
 
 Never commit downloaded datasets, participant footage, checkpoints, or generated results.
 Do not redistribute CEW through this repository.
+
+## Phase 6 temporal-video requirement
+
+NITYMED HDTV720 is present under `data/raw/nitymed/DSM_Dataset-HDTV720/`. Its generated
+inventory is `data/processed/nitymed/video-manifest.csv`; both locations are ignored.
+See `docs/nitymed-dataset-card.md` for provenance, counts, integrity findings, and open
+annotation/grouping gates. The category folders are not temporal onset/offset labels.
+
+Do not record volunteers until the supervisor/ethics and consent process is approved.
+Any additional source archive must remain under `data/raw/<dataset-id>/` with its
+provenance and SHA-256 recorded before extraction when the archive is available.

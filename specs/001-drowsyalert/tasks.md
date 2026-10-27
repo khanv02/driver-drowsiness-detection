@@ -507,7 +507,11 @@ T-023 before held-out evaluation; no comparative result is claimed.
 
 **Milestone outcome**: lawful, consent-aware and temporally labelled evaluation data; frozen protocol; reproducible A/B/C results, latency/error analysis, and transparent limitations.
 
-- [ ] T-023 — Approve temporal ground truth and evaluation protocol (Research)
+- [X] T-123 [Parent: Phase 6] Audit Phase 6 readiness and decompose only the protocol task T-023 before dataset-specific or scoring work; preserve the T-018/T-022 hardware dependency and the missing temporal-video corpus as explicit blockers.
+- [X] T-133 [Parent: Phase 6] Run the complete suite and Ruff after the data-independent annotation and metric foundations; record that 176 tests pass while protocol approval, video acquisition, and real scoring remain pending.
+- [X] T-134 [Parent: Phase 6] Audit the acquired NITYMED HDTV720 corpus and decompose T-024 through T-027 into recoverable data, metric, evaluator, and controlled-run leaf tasks without treating category folders as temporal ground truth.
+
+- [X] T-023 — Approve temporal ground truth and evaluation protocol (Research)
 
 - **Phase:** 6 — Experimental Evaluation.
 - **Priority:** P0.
@@ -518,6 +522,15 @@ T-023 before held-out evaluation; no comparative result is claimed.
 - **Expected Artifacts:** `docs/evaluation-protocol.md`; versioned protocol approval record.
 - **Verification:** Reviewer confirms all three methods use same eligible test videos/labels/timestamps and threshold selection is restricted to training/validation.
 - **Definition of Done:** Protocol frozen and dated before final test evaluation; unresolved annotation or ethics decisions block affected study claims.
+
+### T-023 leaf tasks — Frozen evaluation protocol
+
+- [X] T-124 [Parent: T-023] Audit candidate public temporal-video sources and the current local data inventory for license, access, subject/session identity, event timing, and condition-label suitability without downloading or claiming a dataset.
+- [X] T-125 [Parent: T-023] Draft `docs/evaluation-protocol.md` with annotation units, onset/offset rules, validation/test separation, one-to-one alert matching, latency, false-alarm denominator, unknown coverage, condition analysis, A/B/C controls, and approval fields (depends on T-124).
+- [X] T-126 [Parent: T-023] Obtain and record project-owner/supervisor approval of the selected data path, protocol version, event/matching definitions, threshold-freeze rule, and any volunteer ethics requirements; only then mark T-023 complete (depends on T-129; human approval required).
+- [X] T-127 [Parent: T-023] Add synthetic tests for the draft annotation schema, media bounds, stable identities, final-adjudication state, circular-label rejection, and subject/session split leakage in `tests/test_annotations.py` (depends on T-125).
+- [X] T-128 [Parent: T-023] Implement a data-independent temporal annotation loader/validator and stable manifest identity in `src/drowsyalert/experiments/annotations.py` (depends on T-127; does not approve a dataset or protocol).
+- [X] T-129 [Parent: T-023] Publish the CSV template/field contract, run focused tests and Ruff, and record that real annotations remain blocked by T-126/T-024 (depends on T-128).
 
 - [ ] T-024 — Acquire/prepare annotated evaluation videos and condition labels (Research/Data)
 
@@ -531,7 +544,20 @@ T-023 before held-out evaluation; no comparative result is claimed.
 - **Verification:** Dataset audit confirms authorization, label coverage, split separation, and no private files in Git; report dataset/sample counts only after actual acquisition.
 - **Definition of Done:** Evaluation corpus is available and approved, or task is marked blocked with the specific data/permission gap; no data availability is presumed.
 
-- [ ] T-025 — Implement and unit-test temporal/video evaluation metrics
+### T-024 leaf tasks — NITYMED corpus preparation
+
+- [X] T-135 [Parent: T-024] Add synthetic tests for a privacy-safe video-manifest contract, deterministic hashes/identities, media metadata, supported category paths, duplicate detection, and explicit unknown subject/split values.
+- [X] T-136 [Parent: T-024] Implement a read-only NITYMED inventory/manifest builder and CLI that validates MP4 decoding and records relative paths, source categories, duration/FPS/resolution, content hashes, provenance, and unresolved grouping without copying video frames (depends on T-135).
+- [X] T-137 [Parent: T-024] Run the inventory against the acquired HDTV720 corpus, save local ignored manifests/worklists, and publish a tracked dataset card with actual counts, integrity findings, license/source evidence, retrieval date, and the provider-count discrepancy (depends on T-136).
+- [X] T-138 [Parent: T-024] Add a local human-review annotation worklist/tool that records independent media-time intervals using the approved annotation schema and never promotes detector output to reference truth (depends on T-137).
+- [X] T-150 [Parent: T-024] Fix the annotation reviewer to open paused on its first frame and pace playback from the video's actual FPS so a reviewer can see and label the media reliably.
+- [X] T-151 [Parent: T-024] Record the owner-approved Protocol v1.1 amendment for a deterministic balanced 38-clip split, lock all viewed pilot clips to validation, and require explicit possible participant-leakage disclosure.
+- [X] T-152 [Parent: T-024] Add tests for deterministic balanced category selection, locked validation membership, exact 6+6/13+13 counts, clip/hash isolation, and stable split identity.
+- [X] T-153 [Parent: T-024] Implement the versioned clip-split builder and local CLI against the NITYMED manifest (depends on T-152).
+- [X] T-154 [Parent: T-024] Generate and audit the ignored 38-clip split, annotation worklist, review batches, and stable hashes; preserve the four reviewed pilot rows (depends on T-153).
+- [ ] T-139 [Parent: T-024] Validate final annotations, clip-disjoint validation/test isolation, condition tags, disclosed unavailable participant mapping, and manifest hashes; keep T-024 blocked if independently reviewed event timing remains incomplete (depends on T-126, T-154; human review required).
+
+- [X] T-025 — Implement and unit-test temporal/video evaluation metrics
 
 - **Phase:** 6 — Experimental Evaluation.
 - **Priority:** P1.
@@ -543,7 +569,20 @@ T-023 before held-out evaluation; no comparative result is claimed.
 - **Verification:** Hand-calculated fixtures match expected values; tests ensure image classification counts are not reused as temporal alert counts.
 - **Definition of Done:** Metrics and denominators are documented, tested, and traceable to protocol.
 
-- [ ] T-026 — Measure alert latency and failure scenarios
+### T-025 preparatory leaf tasks — Parameterized event-metric primitives
+
+These leaves may be built against synthetic inputs before T-023 approval because they
+require tolerances and denominators as explicit arguments. They do not freeze the draft
+protocol, complete T-025, or authorize held-out scoring.
+
+- [X] T-130 [Parent: T-025] Add hand-calculated synthetic tests for chronological one-to-one matching, early/late boundaries, false alerts, misses, signed latency, zero denominators, and observation coverage in `tests/test_experiment_metrics.py`.
+- [X] T-131 [Parent: T-025] Implement parameterized interval validation, event matching, event metrics, latency summaries, and coverage summaries in `src/drowsyalert/experiments/metrics.py` (depends on T-130).
+- [X] T-132 [Parent: T-025] Document the draft metric primitives, run focused tests and Ruff, and preserve T-025 as pending T-023 approval (depends on T-131).
+- [X] T-140 [Parent: T-025] Add hand-calculated tests for alert-episode extraction, fixed-bin system Accuracy with UNKNOWN retained in the primary denominator, observed-only diagnostics, and condition-group aggregation.
+- [X] T-141 [Parent: T-025] Implement the protocol-parameterized episode, system-Accuracy, and grouped metric functions without embedding unapproved thresholds (depends on T-140).
+- [X] T-142 [Parent: T-025] Reconcile metric documentation with the approved protocol, run focused/full verification, and mark T-025 complete only after T-126 freezes definitions (depends on T-126, T-141).
+
+- [X] T-026 — Measure alert latency and failure scenarios
 
 - **Phase:** 6 — Experimental Evaluation.
 - **Priority:** P1.
@@ -554,6 +593,12 @@ T-023 before held-out evaluation; no comparative result is claimed.
 - **Expected Artifacts:** Latency/failure evaluator; `tests/test_alert_latency.py`; result tables/plots under ignored outputs.
 - **Verification:** Synthetic timing cases prove latency and miss treatment; real data claims cite actual event counts and condition coverage.
 - **Definition of Done:** Latency, false alarms, misses, and observation loss are separate reported measures; absent conditions are identified as unavailable.
+
+### T-026 leaf tasks — Evaluation aggregation and failures
+
+- [X] T-143 [Parent: T-026] Add synthetic tests for joining annotations with run records, media-time latency/event summaries, common eligibility, observation-loss reasons, processing conditions, and missing-condition disclosure.
+- [X] T-144 [Parent: T-026] Implement a deterministic evaluator that derives alert episodes from frame records, applies the parameterized matcher, summarizes latency/coverage/failures, and emits machine-readable results (depends on T-141, T-143).
+- [X] T-145 [Parent: T-026] Verify the evaluator on synthetic fixtures and an explicitly labelled pilot only; document which NITYMED conditions remain unavailable and keep real claims blocked until T-139 (depends on T-144).
 
 - [ ] T-027 — Run the controlled A/B/C evaluation and compare results (Research)
 
@@ -566,6 +611,19 @@ T-023 before held-out evaluation; no comparative result is claimed.
 - **Expected Artifacts:** Machine-readable run records and comparison tables in ignored `outputs/results/`; evaluation summary in `docs/`.
 - **Verification:** Audit run IDs/configurations/test membership; confirm common test set and no test-informed tuning; recalculate summary from raw run records.
 - **Definition of Done:** Complete comparable metrics or a documented blocked/incomplete result; no fabricated values or unsupported claim that an Accuracy goal was met.
+
+### T-027 leaf tasks — Controlled A/B/C execution
+
+- [X] T-146 [Parent: T-027] Add tests for a batch-run plan that enforces identical clip membership, annotation/split IDs, landmark-EAR source, base temporal settings, eligibility, and frozen thresholds across A/B/C.
+- [X] T-147 [Parent: T-027] Implement a resumable headless batch runner and comparison exporter with per-clip failures, collision-safe outputs, run/config/data hashes, and no audio/UI side effects (depends on T-121, T-146).
+- [X] T-155 [Parent: T-027] Add the tracked numeric-head-reference validation configuration required by the documented A/B/C runner, preserving validation-only tuning and the held-out-test boundary (depends on T-147).
+- [X] T-156 [Parent: T-027] Execute the complete 12-clip validation baseline for A/B/C, audit 36/36 records and artifact identities, and record the low-coverage result without treating it as a held-out claim (depends on T-155).
+- [ ] T-157 [Parent: T-027] Add deterministic offline validation replay and a bounded warm-up/configuration sweep over stored observations so tuning does not rerun landmark inference or inspect test data (depends on T-156).
+- [ ] T-158 [Parent: T-027] Select and freeze one validation configuration using coverage, false alarms, misses, F1, and latency together; publish the selection rule and hashes before any test scoring (depends on T-157).
+- [ ] T-159 [Parent: T-027] Complete independent review of the 26 held-out test clips in small batches and finalize the test annotation manifest without viewing model output (depends on T-158; human review required).
+- [X] T-160 [Parent: T-159] Publish a teammate handoff with the current Phase 6 status, private-data prerequisites, exact review controls, seven recoverable test batches, and acceptance checklist.
+- [ ] T-148 [Parent: T-027] Execute and inspect a non-claim pilot on approved validation clips to confirm replay/export/evaluator integration; do not tune or score held-out test data (depends on T-139, T-145, T-147).
+- [ ] T-149 [Parent: T-027] Freeze validation-selected configuration, run A/B/C once on the common held-out test set, recalculate summaries from raw records, audit comparability, and publish limitations (depends on T-013, T-022, T-026, T-148; research approval required).
 
 ### Phase 6 acceptance gate
 
