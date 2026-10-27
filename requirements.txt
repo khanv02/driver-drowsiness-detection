@@ -1,0 +1,6 @@
+# Runtime dependencies for GitHub's Python (pip) dependency graph.
+# Keep these aligned with [project].dependencies in pyproject.toml.
+numpy>=1.26
+opencv-python>=4.10
+mediapipe>=0.10.20
+PyYAML>=6
