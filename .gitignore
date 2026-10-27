@@ -78,6 +78,7 @@ Desktop.ini
 !/data/**/
 !/data/**/.gitkeep
 !/data/**/README.md
+!/data/**/README.vi.md
 
 # Common standalone dataset staging directory
 /dataset/**
@@ -90,12 +91,14 @@ Desktop.ini
 !/models/**/
 !/models/**/.gitkeep
 !/models/**/README.md
+!/models/**/README.vi.md
 
 # Generated experiment results, figures, and logs stay local.
 /outputs/**
 !/outputs/**/
 !/outputs/**/.gitkeep
 !/outputs/**/README.md
+!/outputs/**/README.vi.md
 
 # Local experiment trackers and training runs
 /runs/
