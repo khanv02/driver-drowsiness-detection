@@ -172,6 +172,13 @@ Test tự động bao phủ một số trường hợp hình học, thời gian,
 
 Dữ liệu ở `data/`, model ở `models/` và kết quả ở `outputs/` được loại khỏi Git; chỉ README và `.gitkeep` được giữ. Webcam được xử lý cục bộ mặc định. Việc thu thập video tình nguyện viên cần có đồng ý và tuân thủ hướng dẫn của đơn vị phụ trách.
 
+## Đóng góp và hỗ trợ
+
+- Đọc [hướng dẫn đóng góp](CONTRIBUTING.md) trước khi tạo branch hoặc Pull Request.
+- Tuân thủ [quy tắc ứng xử](CODE_OF_CONDUCT.md) khi trao đổi và review.
+- Báo lỗi hoặc đề xuất bằng các mẫu có sẵn trong tab **Issues**.
+- Báo lỗ hổng bảo mật theo [Security Policy](SECURITY.md), không đăng thông tin nhạy cảm trong issue công khai.
+
 ## Nhóm phát triển
 
 | Thành viên | Vai trò | Nhiệm vụ chính |

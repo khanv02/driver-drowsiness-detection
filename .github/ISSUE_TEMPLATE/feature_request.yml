@@ -1,0 +1,61 @@
+name: Feature request
+description: Propose a focused improvement to the application, research workflow, or documentation.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or research need
+      description: Explain the need before describing a solution.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the smallest useful outcome and how it would be used.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Note existing features, workarounds, or simpler options you considered.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Primary area
+      options:
+        - Runtime or CLI
+        - Detection or temporal features
+        - CNN or training
+        - Evaluation or metrics
+        - Data tooling
+        - Documentation
+        - CI or packaging
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: validation
+    attributes:
+      label: Acceptance and validation
+      description: How should the team verify that this request is complete?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: impact
+    attributes:
+      label: Impact checks
+      options:
+        - label: This request does not claim that the prototype is a certified safety or medical system.
+          required: true
+        - label: I identified any dataset, model, privacy, protocol, or hardware implications above.
+          required: true
