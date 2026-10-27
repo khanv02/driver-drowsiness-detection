@@ -18,9 +18,10 @@ downloaded, redistributed, or committed by this repository.
 - Acquisition: the project owner downloads the eye-patch archive from the official page
   and extracts it into `data/raw/cew/`. Raw files stay ignored by Git.
 
-Selection is conditional: T-075 must verify the retrieved archive/file identity, actual
-layout, counts, readable images, and label mapping before any real training. A web-page
-count is not treated as a local-data measurement.
+T-075 verified the owner-provided extraction, source/file identity, local counts, readable
+images, and label mapping before training. The selected split manifest and held-out
+classification result are recorded in `docs/verification.md`; the checkpoint and raw
+dataset remain local/ignored and are not redistributed by this repository.
 
 ### Label and split protocol
 

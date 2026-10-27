@@ -252,10 +252,10 @@ T-021, and all T-022 implementation leaves are complete. Numerical yawn/pose val
 remain provisional configuration defaults and must be selected on validation material
 and frozen under the Phase 6 protocol before any held-out comparison.
 
-Formal G5 closure remains **pending** only because parent T-022 declares T-018 as a
-dependency, while T-018/G4 still awaits the deferred human-visible webcam and real-speaker
-acceptance check. This hardware limitation does not invalidate the automated Phase 5
-implementation and no visual/audio success is inferred from it.
+G5 software acceptance is **passed**. T-022's schema, exports, and headless integration
+are complete and do not require physical webcam/audio acceptance. The remaining manual
+webcam and speaker check is tracked separately under T-018/G4; no visual/audio success is
+inferred until a reviewer records that check.
 
 ## Phase 6 - Experimental evaluation foundation
 
@@ -263,8 +263,11 @@ implementation and no visual/audio success is inferred from it.
 
 **Branch:** `phase/6-experimental-evaluation`
 
-**Status:** NITYMED acquired, Protocol v1 approved, and preparation/evaluation tooling
-verified; independent labels, participant-safe split, and real results pending.
+**Current status:** Protocol v1.1 and the clip-disjoint 38-clip split are approved;
+all 12 validation annotations and the first 36-run A/B/C validation baseline are
+recorded. Final annotation/manifest validation, validation tuning, independent review
+of 26 held-out clips, and held-out A/B/C scoring remain pending. Participant mapping is
+unavailable, so the study must disclose possible participant overlap.
 
 Completed preparatory evidence:
 

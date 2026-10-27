@@ -2,7 +2,7 @@
 
 **Feature**: `specs/001-drowsyalert`
 **Basis**: SRS `spec.md`, current repository root, and the seven workstreams in the task request.
-**Plan status**: The project owner approved `spec.md`, `plan.md`, Constitution v1.0.0, and the available Project 12 source on 2026-10-26. Research/data decisions remain owned blockers for their dependent tasks. The dirty Git baseline must be reviewed before branch or commit operations.
+**Plan status**: The project owner approved `spec.md`, `plan.md`, Constitution v1.0.0, and the available Project 12 source on 2026-10-26. CEW and NITYMED are the selected data paths; Protocol v1.1 is approved. Final temporal annotations, validation-only threshold freeze, held-out review/scoring, and manual webcam/audio acceptance remain open. The dirty Git baseline must be reviewed before branch or commit operations.
 
 ## How to execute this task list
 
@@ -468,11 +468,11 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 - [X] T-117 [Parent: T-021] Normalize method identifiers, auxiliary evidence validity/reasons, configuration snapshots, and per-frame provenance across decision and runtime records (depends on T-116).
 - [X] T-118 [Parent: T-021] Document the A/B/C configuration matrix, run focused tests and Ruff, and record T-021 completion (depends on T-117).
 
-- [ ] T-022 — Add experiment execution and result-recording contract
+- [X] T-022 — Add experiment execution and result-recording contract
 
 - **Phase:** 5 — Additional Research Features.
 - **Priority:** P0.
-- **Dependencies:** T-013, T-018, T-021.
+- **Dependencies:** T-013, T-021.
 - **Requirements:** FR-018–FR-020; NFR-005–NFR-007; RA-001–RA-005.
 - **Objective:** Record enough inputs and outputs to reproduce and audit each experiment.
 - **Implementation Steps:** Review `src/drowsyalert/experiments/`, CSV logging in `src/drowsyalert/pipeline/realtime.py`, and config. Add/verify run identity, dataset/split, source timestamps, method, eye-state source, settings/thresholds, seed/model identity, audio state, evidence/unknown coverage, outputs, and environment details according to approved plan. Keep outputs/private data paths ignored.
@@ -487,21 +487,19 @@ G4 passes when decision, UI, and audio behaviors are independently tested and th
 - [X] T-121 [Parent: T-022] Integrate stable run/config/source/model/audio/evidence provenance with headless runtime exports and document the schema (depends on T-120).
 - [X] T-122 [Parent: Phase 5] Run the full automated suite and Ruff, audit ignored output/privacy boundaries, and record G5 status without claiming the deferred Phase 4 physical webcam/audio check passed (depends on T-112, T-115, T-118, T-121).
 
-T-022 implementation is complete through T-121. Its parent remains open because its
-declared T-018 dependency includes the deferred physical webcam/audio acceptance check.
-The experiment record contract itself is automated and can be verified without camera
-hardware; G5 must report this dependency honestly.
+T-022 is complete: its record schema, deterministic identity, exports, provenance, and
+headless integration are covered by T-119–T-122. Physical webcam/audio acceptance stays
+tracked separately under T-018 and does not gate the experiment-record contract.
 
 ### Phase 5 acceptance gate
 
 G5 passes when B and C indicators are tested, method A/B/C behavior is isolated, common settings are verifiable, and run records capture required provenance. No comparative conclusion is permitted before held-out evaluation.
 
-**G5 status (2026-10-26): Software verification passed; formal closure pending.** The
-Phase 5 implementation and all automated checks pass (`143 passed`; Ruff clean), but
-T-022 remains open solely because its declared T-018 dependency still awaits the deferred
-human-visible webcam and real-speaker acceptance check. Yawn/pose thresholds and the
-controlled pose-reference procedure also remain validation-only inputs to freeze under
-T-023 before held-out evaluation; no comparative result is claimed.
+**G5 status (2026-10-27): Software acceptance passed; physical demo acceptance remains
+separate under T-018.** Phase 5 implementation and automated checks are recorded as
+passing (`143 passed`; Ruff clean). Yawn/pose thresholds remain provisional and must be
+selected on validation data under T-157/T-158 before held-out evaluation. No comparative
+test result is claimed.
 
 ## Phase 6 — Experimental Evaluation
 
@@ -729,7 +727,11 @@ Parallel work is allowed only after listed dependencies are complete and when se
 
 ## First executable task and recommended MVP milestone
 
-**First completed implementation task**: **T-002 — Audit and record the current environment**. Phase 1 authority, dependency/layout, configuration, test, privacy, and recovery conventions are recorded. The next implementation milestone is **Phase 2, G2 landmark/PERCLOS baseline**. A live alert demo is not accepted as the research MVP until T-015–T-018 are complete.
+**Current implementation milestone**: **Phase 6 — Experimental Evaluation**. The next
+research actions are T-139 annotation/manifest validation and T-157 validation replay;
+T-158 must freeze the configuration before T-159 test review and T-149 held-out scoring.
+T-018 remains the separate manual webcam/audio acceptance task. The current validation
+baseline is not held-out evidence.
 
 ## Task-readiness review
 
@@ -737,12 +739,11 @@ Parallel work is allowed only after listed dependencies are complete and when se
 - **Verification**: Automated tests are scheduled alongside each behavior, beginning in Phase 2; regression is repeated in Phase 7.
 - **Data/research separation**: Dataset review, volunteer consent, labeling, protocol approval, and comparative evaluation are explicitly research/data tasks, separate from coding.
 - **No fabricated evidence**: Dataset availability, target attainment, and experimental outcomes remain unknown until measured; blocked paths are recorded as blocked.
-- **Current readiness**: G1, G2, and G3 passed. Phase 3 produced an ignored local CEW checkpoint and held-out classification record with full hashes and provenance. Phase 4 decision and alert work may proceed; later video-level research gates remain separate.
+- **Current readiness**: G1–G3 passed; G5 software acceptance passed. G4's manual webcam/audio acceptance remains open under T-018. Phase 6 protocol and data source are approved, but T-139 and T-157–T-159/T-148/T-149 remain open; no held-out A/B/C results are claimed.
 
 ## Format and traceability summary
 
-- Task list currently contains **31 parent work packages plus 77 leaf tasks** (108 numbered items). Create leaf tasks for the active work package before implementation; the leaf count will grow as approved work is decomposed.
-- By phase: Phase 1 **4**; Phase 2 **5**; Phase 3 **5**; Phase 4 **4**; Phase 5 **4**; Phase 6 **5**; Phase 7 **4**.
+- Task list currently contains **31 parent work packages plus 129 leaf tasks** (160 unique task IDs): **147 complete and 13 open**. Open tasks are T-018, T-024, T-027–T-031, T-139, T-148–T-149, and T-157–T-159.
 - Research/data tasks: T-001, T-010, T-023, T-024, T-027; implementation/environment tasks are otherwise separated as labelled.
 - T-001–T-031 are parent work packages, not the intended smallest execution units. Add focused leaf tasks with stable IDs before starting each parent; avoid speculative leaf tasks where dataset/protocol approvals may change the work.
 - Every leaf task must identify its parent, phase, dependencies, affected paths, verification, and recovery branch. Keep a leaf to one behavior or artifact whenever practical.

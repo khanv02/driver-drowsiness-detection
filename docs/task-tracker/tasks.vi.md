@@ -1,0 +1,176 @@
+# Trạng thái Task DrowsyAlert (Tiếng Việt)
+
+Ảnh chụp trạng thái: 2026-10-27 - 147 hoàn thành, 13 còn mở, 160 mã task.
+
+Định nghĩa và tiêu chí nghiệm thu chuẩn nằm trong [specs/001-drowsyalert/tasks.md](../../specs/001-drowsyalert/tasks.md). File này là chỉ mục trạng thái, không thay thế task chuẩn. Cập nhật file này từ checklist chuẩn khi trạng thái task thay đổi.
+
+## Checklist task
+
+- [x] **T-001**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-036**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-037**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-038**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-039**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-040**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-041**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-051**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-002**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-032**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-033**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-034**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-035**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-003**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-042**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-043**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-044**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-045**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-004**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-046**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-047**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-048**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-049**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-050**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-052**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-005**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-053**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-054**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-055**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-006**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-056**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-057**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-058**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-059**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-007**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-060**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-061**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-062**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-008**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-063**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-064**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-065**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-009**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-066**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-067**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-068**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-069**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-070**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-071**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-010**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-072**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-073**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-074**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-075**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-011**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-076**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-077**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-078**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-079**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-012**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-080**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-081**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-082**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-083**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-013**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-084**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-085**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-086**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-014**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-087**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-088**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-089**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-090**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-091**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-015**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-092**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-093**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-094**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-095**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-016**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-096**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-097**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-098**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-099**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-017**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-100**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-101**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-102**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-103**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-018**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-104**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-105**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-106**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-107**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-108**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-109**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-019**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-110**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-111**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-112**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-020**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-113**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-114**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-115**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-021**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-116**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-117**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-118**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-022**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-119**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-120**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-121**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-122**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-123**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-133**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-134**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-023**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-124**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-125**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-126**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-127**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-128**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-129**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-024**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-135**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-136**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-137**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-138**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-150**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-151**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-152**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-153**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-154**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-139**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-025**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-130**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-131**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-132**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-140**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-141**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-142**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-026**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-143**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-144**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-145**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-027**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-146**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-147**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-155**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-156**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-157**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-158**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-159**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-160**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-148**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-149**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-028**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-029**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-030**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-031**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+
+## Công việc còn lại (tóm tắt)
+
+- **T-018** - Kiểm tra thủ công webcam trực tiếp và âm thanh cảnh báo.
+- **T-024 / T-139** - Hoàn tất và kiểm tra chú thích video cùng manifest thời gian.
+- **T-027 / T-157-T-159 / T-148 / T-149** - Tinh chỉnh trên validation, review độc lập clip held-out, chạy pilot validation, rồi chạy so sánh A/B/C trên test đã đóng băng.
+- **T-028-T-031** - Hồi quy cuối, bằng chứng truy vết yêu cầu, hướng dẫn tái lập và tài liệu bàn giao nghiên cứu.
+- **Ghi chú:** T-022 đã hoàn thành; hợp đồng ghi nhận/xuất kết quả không còn phụ thuộc nghiệm thu webcam/loa.
