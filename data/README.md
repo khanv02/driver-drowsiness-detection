@@ -20,7 +20,7 @@ this README.
    current label parser.
 
 Expected logical labels are `open` (class 0) and `closed` (class 1). The exact extracted
-folder mapping must be recorded in `docs/dataset-card.md` after inspection.
+folder mapping must be recorded in `docs/research/dataset-card.md` after inspection.
 
 ## Directory policy
 
@@ -35,7 +35,7 @@ Do not redistribute CEW through this repository.
 
 NITYMED HDTV720 is present under `data/raw/nitymed/DSM_Dataset-HDTV720/`. Its generated
 inventory is `data/processed/nitymed/video-manifest.csv`; both locations are ignored.
-See `docs/nitymed-dataset-card.md` for provenance, counts, integrity findings, and open
+See `docs/research/nitymed-dataset-card.md` for provenance, counts, integrity findings, and open
 annotation/grouping gates. The category folders are not temporal onset/offset labels.
 
 Do not record volunteers until the supervisor/ethics and consent process is approved.

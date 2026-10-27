@@ -16,7 +16,7 @@ time, or a controlled A/B/C video comparison.
   126 MP4 videos, 697,049,508 bytes, and 5,860.677 seconds of media.
 - All videos decode at 1280x720; 125 report 25 FPS and one reports 24 FPS.
 - The local manifest and exact discrepancies are documented in
-  [nitymed-dataset-card.md](nitymed-dataset-card.md).
+  [NITYMED dataset card](../research/nitymed-dataset-card.md).
 - The corpus is not temporally annotated and has no verified clip-to-participant map, so
   it is not yet an approved held-out evaluation corpus.
 - No volunteer recording is authorized. The deferred webcam test is demonstration

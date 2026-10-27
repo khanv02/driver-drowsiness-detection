@@ -27,7 +27,7 @@ The feature owner/supervisor must record approval of the Draft SRS, the constitu
 - **Dependencies:** None.
 - **Requirements:** NFR-005–NFR-007; DR-001, DR-004–DR-007; RA-005; SRS OQ-001, OQ-002, OQ-005–OQ-009.
 - **Objective:** Record environment facts and obtain the human approvals needed before code or participant-data work begins.
-- **Implementation Steps:** Review `specs/001-drowsyalert/spec.md`, `.specify/memory/constitution.md`, `specs/001-drowsyalert/plan.md`, `docs/PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx`, and the current app. Confirm SRS approval, constitution ratification date, intended official DOCX revision, completed plan approval, dataset candidate/license, temporal ground-truth protocol, and participant/ethics guidance. Record unresolved items; do not choose them silently.
+- **Implementation Steps:** Review `specs/001-drowsyalert/spec.md`, `.specify/memory/constitution.md`, `specs/001-drowsyalert/plan.md`, `docs/reference/PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx`, and the current app. Confirm SRS approval, constitution ratification date, intended official DOCX revision, completed plan approval, dataset candidate/license, temporal ground-truth protocol, and participant/ethics guidance. Record unresolved items; do not choose them silently.
 - **Expected Artifacts:** Approval/decision record in `specs/001-drowsyalert/decisions.md` or approved project review record; constitution ratification date; owner-approved `specs/001-drowsyalert/plan.md`.
 - **Verification:** Reviewer confirms each G0 item is either approved with evidence or explicitly deferred with an owner and blocking effect; the existing detailed `plan.md` has owner approval and blocking protocol decisions are recorded.
 - **Definition of Done:** All G0 items are recorded and accepted by the project owner/supervisor. Until then, implementation tasks remain blocked; read-only environment inspection may proceed.
@@ -52,7 +52,7 @@ T-001 is complete only when all leaf tasks below are checked. Approval tasks mus
 - **Requirements:** NFR-002–NFR-003, NFR-005; RA-006.
 - **Objective:** Establish a reproducible baseline of the existing runtime and development environment.
 - **Implementation Steps:** From the repository root, record Python and `uv` versions, OS/platform, dependency-lock status, installed optional CNN support, available webcam/video test resources, and whether required model/data assets exist. Clearly distinguish observed facts from planned capabilities.
-- **Expected Artifacts:** `docs/environment-audit.md` (or the approved plan's designated documentation path).
+- **Expected Artifacts:** `docs/project/environment-audit.md` (or the approved plan's designated documentation path).
 - **Verification:** A reviewer can reproduce the listed version and asset checks; no credentials, personal footage, or unnecessary machine identifiers are recorded.
 - **Definition of Done:** Audit records present/missing prerequisites and limitations without modifying application behavior.
 
@@ -60,10 +60,10 @@ T-001 is complete only when all leaf tasks below are checked. Approval tasks mus
 
 Complete these small tasks in order. T-002 is complete only when all four leaf tasks are checked.
 
-- [X] T-032 [Parent: T-002] Record Python, `uv`, operating system, and platform versions in `docs/environment-audit.md`.
-- [X] T-033 [Parent: T-002] Record lockfile/dependency status and whether the optional PyTorch environment is available in `docs/environment-audit.md` (depends on T-032).
-- [X] T-034 [Parent: T-002] Inventory model/data assets and available non-personal video fixtures; record missing items without downloading data or capturing webcam footage in `docs/environment-audit.md` (depends on T-033).
-- [X] T-035 [Parent: T-002] Review the audit for reproducibility and remove unnecessary machine-identifying details; verify each recorded fact has a reproducible command or source in `docs/environment-audit.md` (depends on T-034).
+- [X] T-032 [Parent: T-002] Record Python, `uv`, operating system, and platform versions in `docs/project/environment-audit.md`.
+- [X] T-033 [Parent: T-002] Record lockfile/dependency status and whether the optional PyTorch environment is available in `docs/project/environment-audit.md` (depends on T-032).
+- [X] T-034 [Parent: T-002] Inventory model/data assets and available non-personal video fixtures; record missing items without downloading data or capturing webcam footage in `docs/project/environment-audit.md` (depends on T-033).
+- [X] T-035 [Parent: T-002] Review the audit for reproducibility and remove unnecessary machine-identifying details; verify each recorded fact has a reproducible command or source in `docs/project/environment-audit.md` (depends on T-034).
 
 - [X] T-003 — Review dependencies and project layout against the approved design (Coding/Environment)
 
@@ -73,15 +73,15 @@ Complete these small tasks in order. T-002 is complete only when all four leaf t
 - **Requirements:** NFR-005, NFR-006; RA-006.
 - **Objective:** Identify only dependency or layout gaps needed for approved requirements; avoid duplicating existing modules.
 - **Implementation Steps:** Compare approved `plan.md` with `pyproject.toml`, `src/drowsyalert/`, `tests/`, and `README.md`. Inventory what exists versus what is verified. Propose dependency changes only with a specific requirement and plan rationale.
-- **Expected Artifacts:** Reviewed dependency/layout note in `docs/environment-audit.md` or approved plan location; narrowly scoped dependency changes only if the owner-approved plan requires them.
+- **Expected Artifacts:** Reviewed dependency/layout note in `docs/project/environment-audit.md` or approved plan location; narrowly scoped dependency changes only if the owner-approved plan requires them.
 - **Verification:** Each proposed change maps to a SPEC ID and has a platform/installation rationale; existing modules and tests are not recreated unnecessarily.
 - **Definition of Done:** Reviewer accepts the gap list and any required dependency decision before implementation.
 
 ### T-003 leaf tasks — Dependency and layout review
 
-- [X] T-042 [Parent: T-003] Compare the approved root layout with `pyproject.toml`, `src/drowsyalert/`, `scripts/`, `tests/`, and `README.md`; record the result in `docs/environment-audit.md`.
-- [X] T-043 [Parent: T-003] Map runtime, CNN, training, and development dependencies to observed imports and plan responsibilities in `docs/environment-audit.md` (depends on T-042).
-- [X] T-044 [Parent: T-003] Record missing assets, experiment/test modules, documentation-language drift, and provisional-config limitations without changing dependencies in `docs/environment-audit.md` (depends on T-043).
+- [X] T-042 [Parent: T-003] Compare the approved root layout with `pyproject.toml`, `src/drowsyalert/`, `scripts/`, `tests/`, and `README.md`; record the result in `docs/project/environment-audit.md`.
+- [X] T-043 [Parent: T-003] Map runtime, CNN, training, and development dependencies to observed imports and plan responsibilities in `docs/project/environment-audit.md` (depends on T-042).
+- [X] T-044 [Parent: T-003] Record missing assets, experiment/test modules, documentation-language drift, and provisional-config limitations without changing dependencies in `docs/project/environment-audit.md` (depends on T-043).
 - [X] T-045 [Parent: T-003] Review the Phase 1 gap list and record that no dependency or layout change is currently justified (depends on T-044).
 
 - [X] T-004 — Establish configuration, test, and data-handling conventions
@@ -92,17 +92,17 @@ Complete these small tasks in order. T-002 is complete only when all four leaf t
 - **Requirements:** FR-018–FR-020; NFR-005–NFR-007; DR-004–DR-007.
 - **Objective:** Make configuration, test organization, run provenance, and private-data boundaries explicit.
 - **Implementation Steps:** Reconcile current config and test paths with the approved plan; define where tests for each behavior live, how thresholds/settings are recorded per run, which data/model/output paths are private or ignored, and how consent/provenance records are stored without committing participant footage.
-- **Expected Artifacts:** Updated `docs/architecture.md` or approved plan-designated convention document; updates to `.gitignore` only if required by the approved data policy; documented test map.
+- **Expected Artifacts:** Updated `docs/project/architecture.md` or approved plan-designated convention document; updates to `.gitignore` only if required by the approved data policy; documented test map.
 - **Verification:** Paths/policies are clear, and a repository-status check with a dummy private-data path confirms it is excluded from version control.
 - **Definition of Done:** Reviewer approves conventions; no real participant data is created or added during this task.
 
 ### T-004 leaf tasks — Project conventions
 
-- [X] T-046 [Parent: T-004] Document tracked configuration, validation, path, and resolved-run requirements in `docs/development-conventions.md`.
-- [X] T-047 [Parent: T-004] Map core behaviors to current and planned focused test modules in `docs/development-conventions.md` (depends on T-046).
-- [X] T-048 [Parent: T-004] Document data, model, output, consent, and provenance boundaries in `docs/development-conventions.md` (depends on T-046).
-- [X] T-049 [Parent: T-004] Document the task-branch and non-destructive recovery workflow in `docs/development-conventions.md` (depends on T-046).
-- [X] T-050 [Parent: T-004] Verify with `git check-ignore` that representative private data, checkpoint, and generated-result paths are excluded; record the outcome in `docs/development-conventions.md` (depends on T-048).
+- [X] T-046 [Parent: T-004] Document tracked configuration, validation, path, and resolved-run requirements in `docs/project/development-conventions.md`.
+- [X] T-047 [Parent: T-004] Map core behaviors to current and planned focused test modules in `docs/project/development-conventions.md` (depends on T-046).
+- [X] T-048 [Parent: T-004] Document data, model, output, consent, and provenance boundaries in `docs/project/development-conventions.md` (depends on T-046).
+- [X] T-049 [Parent: T-004] Document the task-branch and non-destructive recovery workflow in `docs/project/development-conventions.md` (depends on T-046).
+- [X] T-050 [Parent: T-004] Verify with `git check-ignore` that representative private data, checkpoint, and generated-result paths are excluded; record the outcome in `docs/project/development-conventions.md` (depends on T-048).
 
 ### Phase 1 acceptance gate
 
@@ -197,7 +197,7 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 - **Requirements:** FR-001–FR-004, FR-006–FR-007, FR-015–FR-017; NFR-004; RA-002.
 - **Objective:** Verify the landmark baseline end to end on repeatable input before CNN or extra features.
 - **Implementation Steps:** Connect source, face observation, landmark eye-state, temporal PERCLOS, and status path in `src/drowsyalert/pipeline/realtime.py` only as necessary. Add an integration test using deterministic frames/observations; document manual webcam check separately.
-- **Expected Artifacts:** `src/drowsyalert/pipeline/realtime.py`; `tests/test_pipeline.py`; `docs/verification.md`.
+- **Expected Artifacts:** `src/drowsyalert/pipeline/realtime.py`; `tests/test_pipeline.py`; `docs/project/verification.md`.
 - **Verification:** Automated replay confirms state/PERCLOS/unknown transitions and timestamp source; a manual local webcam check records environment and outcome without claiming general performance.
 - **Definition of Done:** G2 review demonstrates valid and invalid observation paths; tests pass before CNN work proceeds.
 
@@ -205,7 +205,7 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 
 - [X] T-066 [Parent: T-009] Add a deterministic fake-source/fake-detector integration test covering valid, unknown, and timestamped replay records in `tests/test_pipeline.py`.
 - [X] T-067 [Parent: T-009] Complete landmark-source/timebase/window/coverage metadata in `src/drowsyalert/pipeline/realtime.py` and keep offline replay silent (depends on T-066).
-- [X] T-068 [Parent: T-009] Record automated replay evidence and any unavailable webcam/model/manual checks in `docs/verification.md` without claiming skipped hardware checks passed (depends on T-067).
+- [X] T-068 [Parent: T-009] Record automated replay evidence and any unavailable webcam/model/manual checks in `docs/project/verification.md` without claiming skipped hardware checks passed (depends on T-067).
 - [X] T-069 [Parent: T-009] Run the Phase 2 test/lint suite, update requirement evidence and G2 status, and mark T-009 complete in `specs/001-drowsyalert/tasks.md` (depends on T-068).
 - [X] T-070 [Parent: Phase 2] Run the final Phase 2 suite and Ruff checks, confirm every T-005–T-009 leaf task is complete, and clear staged/diff formatting errors before merging the phase branch.
 
@@ -213,7 +213,7 @@ G1 passes when T-001 through T-004 are complete, the approved architecture and p
 
 G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmark-derived eye state and PERCLOS are separately traceable; gaps and invalid input remain unknown; unit and integration tests pass. No CNN accuracy claim is made at this gate.
 
-**G2 status (2026-10-26): Passed for automated code progression.** The full suite reports 41 passed and 1 optional-CNN skip; Ruff passes. Physical webcam, real Face Landmarker asset, real video codec, and audio checks remain explicitly unverified in `docs/verification.md` and are not claimed as passed.
+**G2 status (2026-10-26): Passed for automated code progression.** The full suite reports 41 passed and 1 optional-CNN skip; Ruff passes. Physical webcam, real Face Landmarker asset, real video codec, and audio checks remain explicitly unverified in `docs/project/verification.md` and are not claimed as passed.
 
 ## Phase 3 — CNN Eye Classification
 
@@ -229,15 +229,15 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - **Requirements:** DR-001–DR-003, DR-005–DR-007; NFR-006–NFR-007; RA-004–RA-005.
 - **Objective:** Establish a permitted dataset and reproducible open/closed labels without assuming a particular dataset is accessible.
 - **Implementation Steps:** Research candidate public eye-state data including the instructor-named Kaggle source; verify access, license/terms, version, provenance, label definition, subject/session identifiers, and suitability. Select only after review. Design train/validation/test separation by subject/session where possible and record leakage limits. Do not download or commit restricted/personal data.
-- **Expected Artifacts:** `data/README.md`; `docs/dataset-card.md`; split manifest or documented generation procedure in an approved private/derived-data location.
+- **Expected Artifacts:** `data/README.md`; `docs/research/dataset-card.md`; split manifest or documented generation procedure in an approved private/derived-data location.
 - **Verification:** Reviewer checks source/version/retrieval date/license/labels/splits and confirms held-out examples do not share subjects/sessions/near-duplicate frames where metadata permits.
 - **Definition of Done:** Dataset is approved for intended use and reproducibility; if no suitable lawful dataset is available, task is blocked with documented alternatives rather than fabricated availability.
 
 ### T-010 leaf tasks — Dataset authority and split protocol
 
-- [X] T-072 [Parent: T-010] Audit candidate datasets, access terms, provenance, labels, identity metadata, and leakage risks in `docs/dataset-card.md`; reject sources without usable rights evidence.
+- [X] T-072 [Parent: T-010] Audit candidate datasets, access terms, provenance, labels, identity metadata, and leakage risks in `docs/research/dataset-card.md`; reject sources without usable rights evidence.
 - [X] T-073 [Parent: T-010] Replace the automatic unknown-license Kaggle downloader with a safe acquisition verifier that never downloads or redistributes data implicitly (depends on T-072).
-- [X] T-074 [Parent: T-010] Document the selected CEW acquisition, local layout, labels, split, provenance, and no-redistribution procedure in `data/README.md` and `docs/dataset-card.md` (depends on T-072).
+- [X] T-074 [Parent: T-010] Document the selected CEW acquisition, local layout, labels, split, provenance, and no-redistribution procedure in `data/README.md` and `docs/research/dataset-card.md` (depends on T-072).
 - [X] T-075 [Parent: T-010] Inspect the owner-provided CEW extraction, record source/version/file hashes and actual counts, and approve the real-data manifest before training (depends on T-074; owner must provide dataset).
 
 - [X] T-011 — Prepare eye-image labels and dataset loading
@@ -267,7 +267,7 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - **Requirements:** FR-005; NFR-001, NFR-005–NFR-006; RA-004–RA-005.
 - **Objective:** Train a CNN classifier and select model settings using training/validation data only.
 - **Implementation Steps:** Review `src/drowsyalert/models/eye_cnn.py`, `src/drowsyalert/models/train.py`, and `scripts/train_model.py`. Implement or reconcile training, validation, checkpoint metadata, deterministic seed recording, and class mapping according to the approved plan. Do not use held-out test results for model/threshold selection.
-- **Expected Artifacts:** Training code/scripts; checkpoint stored in ignored model artifact location; `docs/training.md`; run metadata.
+- **Expected Artifacts:** Training code/scripts; checkpoint stored in ignored model artifact location; `docs/guides/training.md`; run metadata.
 - **Verification:** A small synthetic or authorized sample run validates the training/checkpoint path; training and validation identities, seed, settings, and metrics are recorded. The full performance claim awaits T-013.
 - **Definition of Done:** A compatible checkpoint is reproducibly generated from authorized data and validation selection is documented.
 
@@ -276,7 +276,7 @@ G2 passes when T-005–T-009 are complete; recorded input is repeatable; landmar
 - [X] T-080 [Parent: T-012] Add tests for deterministic training configuration, validation-only checkpoint selection, class mapping, and checkpoint metadata in `tests/test_cnn_training.py` (depends on T-079).
 - [X] T-081 [Parent: T-012] Implement deterministic loaders/training, validation-only selection, and complete checkpoint/run metadata in `src/drowsyalert/models/train.py` and `src/drowsyalert/models/eye_cnn.py` (depends on T-080).
 - [X] T-082 [Parent: T-012] Run a tiny synthetic training/checkpoint smoke test without making a performance claim (depends on T-081).
-- [X] T-083 [Parent: T-012] Document the reproducible training command, configuration, artifacts, selection rule, and real-data prerequisites in `docs/training.md` (depends on T-082).
+- [X] T-083 [Parent: T-012] Document the reproducible training command, configuration, artifacts, selection rule, and real-data prerequisites in `docs/guides/training.md` (depends on T-082).
 
 - [X] T-013 — Evaluate eye classification on the held-out test split
 
@@ -392,7 +392,7 @@ G3 passes when a licensed dataset/split is documented, data-loading and training
 - **Requirements:** FR-001, FR-003–FR-008, FR-012–FR-017, FR-020; NFR-004, NFR-008–NFR-009; RA-006–RA-007.
 - **Objective:** Demonstrate end-to-end local operation and failure handling on the declared environment.
 - **Implementation Steps:** Add/complete integration checks in `tests/test_pipeline.py`; run automated replay path; conduct manual webcam demonstration on available hardware; record model/assets/configuration, unknown-state behavior, warning reason, stop/mute, and camera loss.
-- **Expected Artifacts:** Integration tests; `docs/verification.md`; non-personal demo evidence.
+- **Expected Artifacts:** Integration tests; `docs/project/verification.md`; non-personal demo evidence.
 - **Verification:** Automated tests pass; manual checklist records actual hardware and outcome; no staged or simulated outcome is described as a real webcam result.
 - **Definition of Done:** G4 reviewer observes normal, warning, unavailable, audible, and stop behavior or explicitly records unavailable hardware as a blocker.
 
@@ -400,7 +400,7 @@ G3 passes when a licensed dataset/split is documented, data-loading and training
 
 - [X] T-104 [Parent: T-018] Extend fake live/replay integration tests across normal, alert, unknown, mute, cleanup, logging, and camera-read failure in `tests/test_pipeline.py` (depends on T-095, T-099, T-103).
 - [X] T-105 [Parent: T-018] Verify CLI exit behavior, resolved configuration, backend/source identity, checkpoint identity, and audio metadata in automated runs (depends on T-104).
-- [X] T-106 [Parent: T-018] Add a concise real-webcam/audio acceptance checklist and evidence template to `docs/verification.md` (depends on T-105).
+- [X] T-106 [Parent: T-018] Add a concise real-webcam/audio acceptance checklist and evidence template to `docs/project/verification.md` (depends on T-105).
 - [X] T-107 [Parent: T-018] Acquire or verify the configured MediaPipe face model asset and record its provenance/hash without committing it (depends on T-106).
 - [X] T-108 [Parent: Phase 4] Run the full automated suite and Ruff, preserve generated/private boundaries, and record G4 status plus any physical webcam/speaker blocker (depends on T-104–T-107).
 
@@ -517,14 +517,14 @@ test result is claimed.
 - **Requirements:** DR-003, DR-005–DR-008; NFR-006–NFR-007; RA-001–RA-005.
 - **Objective:** Fix event labels, event matching, onset, false-alarm denominator, and split protocol before test scoring.
 - **Implementation Steps:** Document the reference-label unit, onset/offset rules, any independent annotation/adjudication procedure, event matching tolerance, per-video/time denominator, treatment of unknown coverage/overlap, and subject/session split. Obtain supervisor approval and participant/ethics guidance for volunteer work.
-- **Expected Artifacts:** `docs/evaluation-protocol.md`; versioned protocol approval record.
+- **Expected Artifacts:** `docs/research/evaluation-protocol.md`; versioned protocol approval record.
 - **Verification:** Reviewer confirms all three methods use same eligible test videos/labels/timestamps and threshold selection is restricted to training/validation.
 - **Definition of Done:** Protocol frozen and dated before final test evaluation; unresolved annotation or ethics decisions block affected study claims.
 
 ### T-023 leaf tasks — Frozen evaluation protocol
 
 - [X] T-124 [Parent: T-023] Audit candidate public temporal-video sources and the current local data inventory for license, access, subject/session identity, event timing, and condition-label suitability without downloading or claiming a dataset.
-- [X] T-125 [Parent: T-023] Draft `docs/evaluation-protocol.md` with annotation units, onset/offset rules, validation/test separation, one-to-one alert matching, latency, false-alarm denominator, unknown coverage, condition analysis, A/B/C controls, and approval fields (depends on T-124).
+- [X] T-125 [Parent: T-023] Draft `docs/research/evaluation-protocol.md` with annotation units, onset/offset rules, validation/test separation, one-to-one alert matching, latency, false-alarm denominator, unknown coverage, condition analysis, A/B/C controls, and approval fields (depends on T-124).
 - [X] T-126 [Parent: T-023] Obtain and record project-owner/supervisor approval of the selected data path, protocol version, event/matching definitions, threshold-freeze rule, and any volunteer ethics requirements; only then mark T-023 complete (depends on T-129; human approval required).
 - [X] T-127 [Parent: T-023] Add synthetic tests for the draft annotation schema, media bounds, stable identities, final-adjudication state, circular-label rejection, and subject/session split leakage in `tests/test_annotations.py` (depends on T-125).
 - [X] T-128 [Parent: T-023] Implement a data-independent temporal annotation loader/validator and stable manifest identity in `src/drowsyalert/experiments/annotations.py` (depends on T-127; does not approve a dataset or protocol).
@@ -644,7 +644,7 @@ G6 passes when evaluation protocol and corpus are approved, metrics are tested, 
 - **Requirements:** FR-001–FR-020; NFR-004–NFR-009; RA-006–RA-007.
 - **Objective:** Verify the approved implementation as a whole and catch regressions across input, inference, temporal rules, alerts, and experiments.
 - **Implementation Steps:** Run the documented lint/test commands from the repository root; execute deterministic recorded-video integration scenarios; conduct available manual webcam/audio checks; record OS/Python/dependency/model/input details and any hardware-dependent skips.
-- **Expected Artifacts:** Updated `docs/verification.md`; CI/test output or reviewed run log.
+- **Expected Artifacts:** Updated `docs/project/verification.md`; CI/test output or reviewed run log.
 - **Verification:** Automated suite passes; manual checks are labelled with real environment and no skipped check is claimed as passed.
 - **Definition of Done:** All critical failures fixed or documented with owner/blocking impact; no unrelated source changes.
 
@@ -663,7 +663,7 @@ available manual hardware evidence.
   branch: `task/T-163-package-build-check`).
 - [X] T-164 [Parent: T-028] Run the complete local Ruff, pytest, and package-build checks;
   record the Phase 7 preparation result and unresolved G4/G6 blockers in
-  `docs/verification.md` (depends on T-163; recovery branch:
+  `docs/project/verification.md` (depends on T-163; recovery branch:
   `task/T-164-preliminary-regression`).
 - [ ] T-165 [Parent: T-028] After G6, rerun the final automated and deterministic
   recorded-video regression suite, incorporate the real webcam/audio outcome when
@@ -677,14 +677,14 @@ available manual hardware evidence.
 - **Dependencies:** T-028; T-027.
 - **Requirements:** All FR/DR/NFR and RA items; Constitution Principle VII.
 - **Objective:** Show which requirements are implemented, verified, measured, blocked, or deferred.
-- **Implementation Steps:** Create/update `docs/requirement-coverage.md` mapping every FR, DR, NFR, RA, and G0 decision to implementation path, test/evidence, and status. Distinguish code existence from verified behavior and goals from measured results.
-- **Expected Artifacts:** `docs/requirement-coverage.md`.
+- **Implementation Steps:** Create/update `docs/project/requirement-coverage.md` mapping every FR, DR, NFR, RA, and G0 decision to implementation path, test/evidence, and status. Distinguish code existence from verified behavior and goals from measured results.
+- **Expected Artifacts:** `docs/project/requirement-coverage.md`.
 - **Verification:** Every mandatory requirement has a status and evidence reference or explicit blocker; A/B/C and ≥0.90 target status are not implied by scaffold code.
 - **Definition of Done:** Reviewer can trace requirements to tests, records, or documented open limitations.
 
 ### T-029 leaf tasks — Requirement evidence audit
 
-- [ ] T-166 [Parent: T-029] Build `docs/requirement-coverage.md` from the approved SPEC,
+- [ ] T-166 [Parent: T-029] Build `docs/project/requirement-coverage.md` from the approved SPEC,
   mapping every FR/DR/NFR/RA and G0 decision to implementation and candidate evidence,
   while marking unresolved evidence explicitly (depends on T-165 and T-027; recovery
   branch: `task/T-166-requirement-coverage`).

@@ -20,7 +20,7 @@ downloaded, redistributed, or committed by this repository.
 
 T-075 verified the owner-provided extraction, source/file identity, local counts, readable
 images, and label mapping before training. The selected split manifest and held-out
-classification result are recorded in `docs/verification.md`; the checkpoint and raw
+classification result are recorded in `docs/project/verification.md`; the checkpoint and raw
 dataset remain local/ignored and are not redistributed by this repository.
 
 ### Label and split protocol

@@ -2,7 +2,7 @@
 
 Ảnh chụp trạng thái: 2026-10-27 - 147 hoàn thành, 13 còn mở, 160 mã task.
 
-Định nghĩa và tiêu chí nghiệm thu chuẩn nằm trong [specs/001-drowsyalert/tasks.md](../../specs/001-drowsyalert/tasks.md). File này là chỉ mục trạng thái, không thay thế task chuẩn. Cập nhật file này từ checklist chuẩn khi trạng thái task thay đổi.
+Định nghĩa và tiêu chí nghiệm thu chuẩn nằm trong [specs/001-drowsyalert/tasks.md](../../../specs/001-drowsyalert/tasks.md). File này là chỉ mục trạng thái, không thay thế task chuẩn. Cập nhật file này từ checklist chuẩn khi trạng thái task thay đổi.
 
 ## Checklist task
 

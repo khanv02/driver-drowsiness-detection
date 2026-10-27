@@ -2,7 +2,7 @@
 
 Status snapshot: 2026-10-27 - 147 complete, 13 open, 160 task IDs.
 
-The canonical task definitions and acceptance criteria remain in [specs/001-drowsyalert/tasks.md](../../specs/001-drowsyalert/tasks.md). This file is a status index, not a second source of task requirements. Refresh it from the canonical checklist when task status changes.
+The canonical task definitions and acceptance criteria remain in [specs/001-drowsyalert/tasks.md](../../../specs/001-drowsyalert/tasks.md). This file is a status index, not a second source of task requirements. Refresh it from the canonical checklist when task status changes.
 
 ## Task checklist
 

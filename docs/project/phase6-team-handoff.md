@@ -2,7 +2,7 @@
 
 This page is the short onboarding guide for a teammate helping with the remaining
 experimental evaluation work. It does not replace the frozen protocol in
-[`evaluation-protocol.md`](evaluation-protocol.md).
+[`evaluation-protocol.md`](../research/evaluation-protocol.md).
 
 ## Current status
 
@@ -39,7 +39,7 @@ private channel:
 Do not upload any of those artifacts to GitHub. Confirm that the split identity is
 `2e4e0ea7eb2e529ea2db2f692444768a4de91023d9ce29829bcbdab911cbd047`
 and use the `phase/6-experimental-evaluation` branch. If the identities or membership do
-not match [`evaluation-split-v1.1.md`](evaluation-split-v1.1.md), stop and contact the
+not match [`evaluation-split-v1.1.md`](../research/evaluation-split-v1.1.md), stop and contact the
 maintainer instead of generating a replacement split.
 
 ## Independent review procedure

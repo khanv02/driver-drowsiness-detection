@@ -9,8 +9,8 @@ not a personal browsing history or a record of activity outside this repository.
 
 - `.specify/memory/constitution.md`
 - `specs/001-drowsyalert/spec.md`, `plan.md`, `tasks.md`, and `decisions.md`
-- `docs/evaluation-protocol.md` and `docs/validation-evaluation-v1.1.md`
-- `docs/verification.md`, `docs/phase6-team-handoff.md`, both dataset cards, and `README.md`
+- `docs/research/evaluation-protocol.md` and `docs/research/validation-evaluation-v1.1.md`
+- `docs/project/verification.md`, `docs/project/phase6-team-handoff.md`, both dataset cards, and `README.md`
 - Current Git branch and working-tree status
 
 **Changes recorded**
