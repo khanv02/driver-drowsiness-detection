@@ -32,13 +32,13 @@ jobs:
         run: uv python install
 
       - name: Install dependencies and verify lockfile
-        run: uv sync --locked
+        run: uv sync --locked --extra train
 
       - name: Run Ruff
         run: uv run ruff check src scripts demo tests
 
       - name: Run tests
-        run: uv run pytest
+        run: uv run python -m pytest -p no:cacheprovider
 
   package:
     name: Build distribution

@@ -661,7 +661,7 @@ available manual hardware evidence.
 - [X] T-163 [Parent: T-028] Add a CI package-build smoke check with `uv build`, without
   publishing artifacts or introducing deployment credentials (depends on T-162; recovery
   branch: `task/T-163-package-build-check`).
-- [ ] T-164 [Parent: T-028] Run the complete local Ruff, pytest, and package-build checks;
+- [X] T-164 [Parent: T-028] Run the complete local Ruff, pytest, and package-build checks;
   record the Phase 7 preparation result and unresolved G4/G6 blockers in
   `docs/verification.md` (depends on T-163; recovery branch:
   `task/T-164-preliminary-regression`).
@@ -806,7 +806,7 @@ evidence.
 
 ## Format and traceability summary
 
-- Task list currently contains **31 parent work packages plus 140 leaf tasks** (171 unique task IDs): **148 complete and 23 open**. Open tasks are T-018, T-024, T-027–T-031, T-139, T-148–T-149, T-157–T-159, and T-162–T-171.
+- Task list currently contains **31 parent work packages plus 140 leaf tasks** (171 unique task IDs): **151 complete and 20 open**. Open tasks are T-018, T-024, T-027–T-031, T-139, T-148–T-149, T-157–T-159, and T-165–T-171.
 - Research/data tasks: T-001, T-010, T-023, T-024, T-027; implementation/environment tasks are otherwise separated as labelled.
 - T-001–T-031 are parent work packages, not the intended smallest execution units. Add focused leaf tasks with stable IDs before starting each parent; avoid speculative leaf tasks where dataset/protocol approvals may change the work.
 - Every leaf task must identify its parent, phase, dependencies, affected paths, verification, and recovery branch. Keep a leaf to one behavior or artifact whenever practical.
