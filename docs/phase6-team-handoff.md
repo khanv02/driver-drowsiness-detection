@@ -13,11 +13,12 @@ annotation tooling, metrics, batch runner, all 12 validation annotations, and th
 
 The remaining dependency order is:
 
-1. T-157: replay stored validation observations over a bounded configuration search;
-2. T-158: select and freeze one validation configuration;
-3. T-159: independently review the 26 held-out test clips;
-4. T-139/T-024: audit and freeze the final annotation manifest;
-5. T-149/T-027: run held-out A/B/C once and publish the comparison.
+1. T-139/T-024: validate the annotation manifest, split, condition tags, and hashes;
+2. T-157: replay stored validation observations over a bounded configuration search;
+3. T-158: select and freeze one validation configuration;
+4. T-159: independently review the 26 held-out test clips without viewing model output;
+5. T-148: run the non-claim validation pilot after annotation/evaluator readiness;
+6. T-149/T-027: run held-out A/B/C once and publish the audited comparison.
 
 Only the selected 26 test clips require further review, not all 126 NITYMED videos.
 Every selected clip must be reviewed even when it contains no qualifying event. Keeping

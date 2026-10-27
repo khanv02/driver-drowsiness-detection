@@ -19,11 +19,11 @@ This record separates decisions that require the project owner or supervisor fro
 
 | ID | Decision required | Proposed handling already documented | Owner | Status | Blocking effect |
 |---|---|---|---|---|---|
-| G0-05 | Select lawful eye-image dataset/version and approve its license and label mapping | Evaluate candidates under T-010; record source, version/retrieval date, terms, labels, groups, hashes, and split limitations. | Research lead/supervisor | Accepted owned blocker: T-010 | Blocks CNN data preparation and training |
-| G0-06 | Select or create temporally annotated drowsiness videos | Require event onset/end or another declared time-localized ground truth; image-only labels are insufficient. | Research lead/supervisor | Accepted owned blocker: T-023/T-024 | Blocks latency and A/B/C event evaluation |
-| G0-07 | Define the system-level Accuracy unit and event matching rule | Define event, interval, or labelled-window unit plus tolerance/overlap and one-to-one matching before held-out evaluation. | Research lead/supervisor | Accepted owned blocker: T-023 | Blocks final system scoring and comparison |
-| G0-08 | Approve PERCLOS, coverage, gap, closure, cooldown, yawn, and pose threshold-selection protocol | Select with training/validation data or a documented protocol; freeze before test and serialize resolved values. | Research lead/supervisor | Accepted owned blocker: T-023; implementation tasks consume approved values | Blocks final threshold behavior and test evaluation |
-| G0-09 | Approve volunteer consent and data governance before any collection | Record purpose, consent, withdrawal, access, retention/deletion, publication, and institutional/supervisor guidance. | Supervisor/data steward | Accepted owned blocker: T-024 | Blocks volunteer recording; public-data review may continue |
+| G0-05 | Select lawful eye-image dataset/version and approve its license and label mapping | CEW selected; T-075 verified the owner-provided extraction, local identity/counts, readable images, and label mapping. | Research lead/supervisor | Resolved under T-010/T-075 | CNN training and held-out eye-image evaluation completed under T-012/T-013 |
+| G0-06 | Select or create temporally annotated drowsiness videos | NITYMED HDTV720 selected; Protocol v1.1 approved a clip-disjoint 38-clip study with disclosed participant-mapping limitation. T-139 final annotation/manifest validation remains open. | Research lead/supervisor | Source/protocol approved; evidence pending | Blocks final video-level scoring until annotations are validated |
+| G0-07 | Define the system-level Accuracy unit and event matching rule | Protocol v1.1 defines non-overlapping one-second bins at one-second stride; the separate 0.50 within-bin event-occupancy threshold labels a reference bin positive. UNKNOWN is incorrect in primary Accuracy; one-to-one event matching is separately frozen. | Research lead/supervisor | Approved 2026-10-26 under T-126 | Scoring still waits for validated annotations and held-out review |
+| G0-08 | Approve PERCLOS, coverage, gap, closure, cooldown, yawn, and pose threshold-selection protocol | Protocol v1.1 requires validation-only selection and freezing before test; numeric temporal thresholds remain to be selected under T-157/T-158. | Research lead/supervisor | Selection protocol approved; numeric values pending | Blocks held-out scoring until values and hashes are frozen |
+| G0-09 | Approve volunteer consent and data governance before any collection | No volunteer collection is authorized or present in the current public-data study. Any later collection requires supervisor/institution guidance and informed consent. | Supervisor/data steward | Deferred; no collection authorized | Blocks volunteer recording only; public-data review may continue |
 
 ## Development baseline and recovery
 
@@ -49,7 +49,8 @@ On 2026-10-26, the project owner approved temporal evaluation protocol
 reviewed microsleep intervals are the primary endpoint and yawns are secondary; matching
 uses the earliest unmatched alert in the inclusive -1.0/+2.0-second window; false alarms
 use valid observed hours; signed latency excludes misses while misses remain FN; system
-Accuracy uses 1-second/50-percent bins with UNKNOWN retained as incorrect; thresholds
+Accuracy uses non-overlapping 1-second bins at 1-second stride, with a separate 0.50
+within-bin event-occupancy threshold and UNKNOWN retained as incorrect; thresholds
 are validation-selected and frozen before test; subject-disjoint grouping is required
 for final claims; and volunteer collection is not authorized. Missing participant
 mapping or temporal annotations blocks final scoring but may support an explicitly

@@ -54,7 +54,9 @@ TP/TN/FP/FN cover observed predictions, while `unknown_bins` preserves withheld
 evidence. The same calculation can be grouped by a declared condition value; absent tags
 form an explicit `unknown` group.
 
-Protocol v1 freezes 1-second bins and a 50-percent overlap rule. The metric code still
+Protocol v1 freezes 1-second bins with a 1-second stride, so adjacent bins do not
+overlap. Its positive-fraction value is 0.50 of a bin's eligible duration for reference
+event occupancy and predicted-state duration; it is not the stride. The metric code still
 requires the bin size from the caller and keeps the positive fraction explicit so each
 run record proves which protocol values it used.
 

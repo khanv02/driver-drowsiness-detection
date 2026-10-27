@@ -1,0 +1,176 @@
+# DrowsyAlert Task Status (English)
+
+Status snapshot: 2026-10-27 - 147 complete, 13 open, 160 task IDs.
+
+The canonical task definitions and acceptance criteria remain in [specs/001-drowsyalert/tasks.md](../../specs/001-drowsyalert/tasks.md). This file is a status index, not a second source of task requirements. Refresh it from the canonical checklist when task status changes.
+
+## Task checklist
+
+- [x] **T-001**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-036**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-037**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-038**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-039**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-040**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-041**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-051**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-002**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-032**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-033**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-034**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-035**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-003**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-042**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-043**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-044**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-045**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-004**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-046**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-047**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-048**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-049**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-050**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-052**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-005**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-053**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-054**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-055**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-006**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-056**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-057**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-058**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-059**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-007**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-060**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-061**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-062**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-008**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-063**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-064**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-065**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-009**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-066**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-067**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-068**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-069**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-070**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-071**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-010**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-072**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-073**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-074**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-075**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-011**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-076**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-077**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-078**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-079**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-012**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-080**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-081**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-082**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-083**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-013**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-084**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-085**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-086**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-014**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-087**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-088**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-089**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-090**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-091**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-015**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-092**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-093**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-094**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-095**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-016**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-096**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-097**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-098**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-099**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-017**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-100**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-101**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-102**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-103**: complete; details and acceptance criteria are in the canonical task list.
+- [ ] **T-018**: open; details and acceptance criteria are in the canonical task list.
+- [x] **T-104**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-105**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-106**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-107**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-108**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-109**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-019**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-110**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-111**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-112**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-020**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-113**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-114**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-115**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-021**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-116**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-117**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-118**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-022**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-119**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-120**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-121**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-122**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-123**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-133**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-134**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-023**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-124**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-125**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-126**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-127**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-128**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-129**: complete; details and acceptance criteria are in the canonical task list.
+- [ ] **T-024**: open; details and acceptance criteria are in the canonical task list.
+- [x] **T-135**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-136**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-137**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-138**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-150**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-151**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-152**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-153**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-154**: complete; details and acceptance criteria are in the canonical task list.
+- [ ] **T-139**: open; details and acceptance criteria are in the canonical task list.
+- [x] **T-025**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-130**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-131**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-132**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-140**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-141**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-142**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-026**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-143**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-144**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-145**: complete; details and acceptance criteria are in the canonical task list.
+- [ ] **T-027**: open; details and acceptance criteria are in the canonical task list.
+- [x] **T-146**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-147**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-155**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-156**: complete; details and acceptance criteria are in the canonical task list.
+- [ ] **T-157**: open; details and acceptance criteria are in the canonical task list.
+- [ ] **T-158**: open; details and acceptance criteria are in the canonical task list.
+- [ ] **T-159**: open; details and acceptance criteria are in the canonical task list.
+- [x] **T-160**: complete; details and acceptance criteria are in the canonical task list.
+- [ ] **T-148**: open; details and acceptance criteria are in the canonical task list.
+- [ ] **T-149**: open; details and acceptance criteria are in the canonical task list.
+- [ ] **T-028**: open; details and acceptance criteria are in the canonical task list.
+- [ ] **T-029**: open; details and acceptance criteria are in the canonical task list.
+- [ ] **T-030**: open; details and acceptance criteria are in the canonical task list.
+- [ ] **T-031**: open; details and acceptance criteria are in the canonical task list.
+
+## Remaining work (short descriptions)
+
+- **T-018** - Verify the live webcam and audio alert manually.
+- **T-024 / T-139** - Complete and validate temporal annotations and the manifest.
+- **T-027 / T-157-T-159 / T-148 / T-149** - Tune using validation only, independently review held-out clips, run the validation pilot, then execute the frozen A/B/C test comparison.
+- **T-028-T-031** - Final regression, requirement evidence, reproducible instructions, and research delivery artifacts.
+- **Note:** T-022 is complete; its experiment record/export contract does not depend on physical webcam/audio acceptance.

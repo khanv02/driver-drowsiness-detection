@@ -42,16 +42,16 @@ Model Face Landmarker và checkpoint CNN không được lưu trong Git. EAR kh�
 
 **Phase 4 — Real-time drowsiness alert: triển khai hoàn thành; nghiệm thu G4 đang chờ.** Đã tích hợp quyết định cảnh báo Method A, overlay trạng thái/lý do, điều khiển âm thanh có cooldown và mute, xử lý UNKNOWN, cùng luồng live và CLI. Bộ kiểm thử tự động có **112 passed** và Ruff đạt. Smoke test webcam đã đọc 5 khung hình CNN ở chế độ headless/mute; bước này chỉ xác nhận capture và metadata, chưa xác nhận hiển thị giao diện hoặc âm thanh. G4 cần người kiểm tra trực tiếp các chuyển trạng thái, phục hồi, thao tác dừng và cảnh báo âm thanh.
 
-**Phase 5 — Additional research features: kiểm chứng phần mềm đạt; đóng G5 chính thức đang chờ.** Đã bổ sung sự kiện ngáp theo thời gian có kiểm tra tính hợp lệ, tín hiệu head pose tương đối, và tách riêng quyết định A/B/C để B chỉ dùng bằng chứng ngáp còn C chỉ dùng bằng chứng pose. Khi dấu hiệu phụ bắt buộc không có hoặc không chắc chắn, hệ thống giữ `UNKNOWN`. Hồ sơ thí nghiệm có định danh, cấu hình, nguồn, model/dataset và provenance cho từng frame, xuất JSON/CSV và không lưu frame thô theo mặc định. Toàn bộ **143 kiểm thử tự động** và Ruff đạt.
+**Phase 5 — Additional research features: nghiệm thu phần mềm G5 đạt.** Đã bổ sung sự kiện ngáp theo thời gian có kiểm tra tính hợp lệ, tín hiệu head pose tương đối, và tách riêng quyết định A/B/C để B chỉ dùng bằng chứng ngáp còn C chỉ dùng bằng chứng pose. Hồ sơ thí nghiệm có định danh, cấu hình, nguồn, model/dataset và provenance cho từng frame, xuất JSON/CSV và không lưu frame thô theo mặc định. **143 kiểm thử tự động** và Ruff đạt. Nghiệm thu webcam/loa trực tiếp vẫn là kiểm tra phần cứng riêng của G4 (T-018), không còn chặn hợp đồng ghi nhận thí nghiệm.
 
-G5 còn chờ nghiệm thu G4 bằng quan sát trực tiếp giao diện/âm thanh. Phase 6 đã hoàn tất
-12 nhãn validation và baseline 36 lượt A/B/C, nhưng coverage thấp nên cấu hình chưa được
-đóng băng và chưa có kết quả held-out cuối. Còn 26 clip test cần review độc lập sau bước
-tuning validation; kết quả CEW vẫn chỉ đo phân loại ảnh mắt. Xem
+**Phase 6 — Experimental evaluation: đang thực hiện.** Protocol v1.1 và nguồn NITYMED đã được phê duyệt; 12 clip validation đã được gán nhãn và baseline 36 lượt A/B/C đã chạy. Baseline có coverage thấp, nên chưa có cấu hình đóng băng hoặc kết quả held-out. Còn kiểm tra manifest/chú thích (T-139), replay và chọn cấu hình trên validation (T-157/T-158), review độc lập 26 clip test (T-159), pilot validation (T-148), rồi mới chạy A/B/C held-out (T-149). Kết quả CEW chỉ đo phân loại ảnh mắt. Xem
 [hướng dẫn bàn giao Phase 6](docs/phase6-team-handoff.md),
 [baseline validation](docs/validation-evaluation-v1.1.md),
 [bằng chứng kiểm thử và trạng thái gate](docs/verification.md), và
-[danh sách công việc](specs/001-drowsyalert/tasks.md).
+[danh sách công việc chuẩn](specs/001-drowsyalert/tasks.md),
+[bảng task tiếng Anh](docs/task-tracker/tasks.en.md),
+[bảng task tiếng Việt](docs/task-tracker/tasks.vi.md), và
+[nhật ký hoạt động tài liệu](docs/task-tracker/activity-log.md).
 
 ## Công nghệ
 
@@ -136,6 +136,7 @@ Test tự động bao phủ một số trường hợp hình học, thời gian,
 ├── data/                    # Dataset cục bộ, không commit dữ liệu
 ├── demo/                    # Entry point demo
 ├── docs/                    # Kiến trúc và tài liệu đề tài
+│   └── task-tracker/        # Bảng trạng thái EN/VI và nhật ký cập nhật
 ├── .specify/                # Constitution và cấu hình Spec Kit
 ├── models/                  # Model tải về và checkpoint cục bộ
 ├── outputs/                 # Kết quả, biểu đồ và log sinh tự động

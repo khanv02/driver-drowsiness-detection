@@ -7,8 +7,10 @@
 **Inventory manifest SHA-256:**
 `bb654b8c5f7104d23268503f02935d3c30974a0199fa4c64d3b8fe4985816307`
 
-**Evaluation readiness:** Acquired and decode-verified; temporal ground truth, participant
-grouping, split assignment, and protocol approval remain incomplete.
+**Evaluation readiness:** Acquired and decode-verified; Protocol v1.1 and a deterministic
+clip-disjoint split are approved. Final annotation/manifest validation remains open under
+T-139. Participant-to-clip mapping is unavailable, so possible participant overlap must
+be disclosed and subject-independent generalization must not be claimed.
 
 ## Source and permitted use
 
@@ -25,7 +27,10 @@ grouping, split assignment, and protocol approval remain incomplete.
   redistributed by this repository.
 
 The category folders describe the provider's clip grouping. They do not contain event
-onset/offset annotations and are not treated as temporal reference truth.
+onset/offset annotations and are not treated as temporal reference truth. Protocol v1.1
+locks a balanced 38-clip split (12 validation and 26 held-out test); the four clips
+viewed during the pilot remain in validation. Independent review and final manifest
+validation are evidence gates and are not implied by the split artifact alone.
 
 ## Observed inventory
 

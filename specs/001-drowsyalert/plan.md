@@ -174,7 +174,7 @@ This additive rule exposes the added cue while keeping A's baseline fixed. Selec
 
 ### Dataset verification and preparation
 
-The instructor names a Kaggle Drowsiness Detection Dataset but gives no canonical URL/version. The current downloader URL for `dheerajperumandla/drowsiness-dataset` is a candidate only. Verify dataset page/release, license, layout, labels, subject/session metadata, temporal annotations, download integrity and redistribution terms before use. Record retrieval date and hashes. Image download alone does not establish video-evaluation suitability.
+**Selected data sources:** CEW supplies eye images for CNN classification; NITYMED HDTV720 supplies the approved temporal evaluation videos under Protocol v1.1. Their provenance, terms, retrieval evidence, and local inventory are recorded in `docs/dataset-card.md` and `docs/nitymed-dataset-card.md`. The instructor-mentioned Kaggle name has no canonical URL/version; the current downloader URL remains an unselected candidate and is not the active data path. Final annotation/manifest validation remains open under T-139.
 
 Keep raw data outside Git. Create a manifest with relative path/clip ID, class or interval label, group, hash, source/license and split. Validate decoding, labels, class counts and duplicates. Assign groups before crops; use identical resize/color/normalization for training and inference. Store original annotations separately from generated manifests. Do not commit private frames or publish them without consent/permission.
 
@@ -221,17 +221,35 @@ Each milestone verifies its own outcome before dependent work begins. Do not def
 | Consent/data terms incomplete | Participant harm or data exposure | Local processing, consent/retention/access notes, Git exclusions, license verification and identifier scrubbing. |
 | False negatives invite over-trust | Unsafe reliance | Prominent research-only text, unknown state, no safety guarantees, report misses and limitations. |
 
-## Unresolved Decisions and Plan Gates
+## Decisions, Open Evidence, and Plan Gates
 
-These items are not assumed facts and do not alter SPEC requirements:
+The following records distinguish approved protocol decisions from evidence and
+implementation work that is still incomplete. They do not change the approved SPEC:
 
-1. Select/verify exact public datasets, version, license, retrieval date and which supplies images versus temporally labelled clips; current URL is not authoritative.
-2. Confirm video labels, subject/session counts and event quality; otherwise report gaps and follow SPEC for consented annotations/data.
-3. Lock annotation onset/offset, event match tolerance/overlap and meaning/calculation of system-level Accuracy before test evaluation.
-4. Confirm single-eye-invalid policy, CNN confidence cutoff method and landmark quality filtering before model evaluation.
-5. Define head-pose neutral reference acquisition without test leakage and validate camera viewpoint/sign convention.
-6. Decide whether to rename `EARBackend` to clarify landmark provenance or keep the path for compatibility; this is a naming choice.
-7. Resolved 2026-10-26: the SPEC is the approved requirements baseline. Open dataset, annotation, threshold, consent, and evaluation decisions remain owned prerequisites for their dependent tasks.
+1. **Dataset path selected:** CEW is the eye-image classification source and NITYMED
+   HDTV720 is the approved temporal-video evaluation source. Provenance, access terms,
+   retrieval details, and limitations are recorded in `docs/dataset-card.md` and
+   `docs/nitymed-dataset-card.md`. No volunteer recordings are currently included.
+2. **Temporal protocol approved:** `docs/evaluation-protocol.md` v1.1 fixes the
+   clip-disjoint 38-clip split, event matching, latency, system Accuracy, and
+   validation-only threshold-selection rules. NITYMED participant mapping is unavailable;
+   all reporting must disclose possible participant overlap and must not claim
+   subject-independent generalization.
+3. **Evidence still pending:** final annotation and manifest validation (T-139),
+   independent review of 26 held-out clips (T-159), validation replay/sweep (T-157),
+   and threshold/configuration freeze (T-158). Held-out A/B/C scoring must wait for
+   these gates. The existing 12-clip A/B/C run is validation-only and low-coverage.
+4. **Thresholds and geometry policy:** temporal decision and yawn/pose thresholds remain
+   provisional until selected using validation data under T-157/T-158. The CNN eye
+   classification threshold is covered by the frozen Phase 3 evaluation (T-013).
+   Invalid or uncertain eye/face evidence remains unknown under the SPEC; no missing
+   observation is treated as open.
+5. **Volunteer/ethics scope:** no volunteer recording is authorized or required for the
+   selected public-data path at this stage. Any later collection remains blocked on
+   documented supervisor/institution guidance and informed consent.
+6. **Non-blocking naming choice:** retain `EARBackend` for compatibility unless a
+   concrete requirement justifies renaming it; landmark provenance is already recorded
+   separately in the run contract.
 
 ## Traceability to SPEC
 
@@ -259,7 +277,10 @@ These items are not assumed facts and do not alter SPEC requirements:
 - Privacy: pass; local processing, consent and data controls specified.
 - Traceability: pass; SPEC requirements map to modules, checks and milestones.
 
-No constitution violation is identified. The project owner approved this plan and the TASKS phase has produced `tasks.md`. Unresolved dataset/annotation decisions remain explicit prerequisites for their dependent training and evaluation tasks.
+The approved plan and TASKS artifact remain the design baseline. Dataset and protocol
+selection are resolved; annotation, validation-only threshold selection, independent
+test review, and held-out scoring remain explicit Phase 6 gates. The plan's architecture
+and traceability remain unchanged by these status updates.
 
 ## Complexity Tracking
 
