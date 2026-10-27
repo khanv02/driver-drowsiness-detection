@@ -1,5 +1,7 @@
 # Local data
 
+<p><strong>English</strong> | <a href="README.vi.md">Tiếng Việt</a></p>
+
 All files below `data/` are private/local and ignored by Git except `.gitkeep` files and
 this README.
 

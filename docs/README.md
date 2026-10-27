@@ -1,5 +1,7 @@
 # DrowsyAlert documentation
 
+<p><strong>English</strong> | <a href="README.vi.md">Tiếng Việt</a></p>
+
 This directory groups project documentation by purpose. The authoritative feature
 specification, implementation plan, and task list remain in
 [`specs/001-drowsyalert/`](../specs/001-drowsyalert/).

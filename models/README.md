@@ -1,7 +1,9 @@
-# Tài nguyên mô hình
+# Model assets
 
-- `pretrained/`: model tải sẵn, ví dụ Face Landmarker.
-- `checkpoints/`: trọng số CNN cùng metadata huấn luyện.
-- `exported/`: model xuất để suy luận.
+<p><a href="README.vi.md">Tiếng Việt</a> | <strong>English</strong></p>
 
-File tài nguyên trong thư mục này được bỏ qua bởi Git; `.gitkeep` và `README.md` vẫn được giữ. Mã định nghĩa CNN nằm trong `src/drowsyalert/models/`. Hiện chưa có model tải về hoặc checkpoint đã huấn luyện.
+- `pretrained/`: downloaded models, such as Face Landmarker.
+- `checkpoints/`: CNN weights and training metadata.
+- `exported/`: exported models for inference.
+
+Git ignores asset files in this directory; `.gitkeep`, `README.md`, and `README.vi.md` are retained. CNN code is in `src/drowsyalert/models/`. No downloaded model or trained checkpoint is currently included.
