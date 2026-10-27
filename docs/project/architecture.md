@@ -26,7 +26,13 @@ repository-root/
 ├── models/                       # local pretrained assets and trained checkpoints
 ├── outputs/                      # generated results, figures and logs
 ├── notebooks/                    # optional exploratory notebooks
-└── docs/                         # application architecture and usage documentation
+├── docs/                         # project documentation index
+│   ├── reference/                # original project brief and source material
+│   ├── project/                  # architecture, conventions and verification
+│   ├── guides/                   # operational and training guides
+│   ├── research/                 # datasets, protocols, metrics and results
+│   └── archive/                  # superseded material kept for traceability
+└── specs/                        # authoritative specification, plan and tasks
 ```
 
 `src/drowsyalert/models/` contains Python code. The top-level `models/` contains downloaded model files and checkpoints only. Keeping those names distinct by their paths avoids mixing executable source with generated or third-party weights. Likewise, `src/drowsyalert/experiments/` is for tracked experiment code; `outputs/` is for generated artifacts.

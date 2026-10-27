@@ -320,7 +320,7 @@ nine intervals across four validation-only clips. Twelve headless/muted A/B/C re
 completed without runner failures, and the evaluator recalculated a comparison from all
 raw records. The exact artifact hashes, counts, pilot measurements, annotation cleanup,
 unknown/failure durations, and limitations are recorded in
-[pilot-evaluation.md](pilot-evaluation.md).
+[pilot-evaluation.md](../research/pilot-evaluation.md).
 
 This closes the synthetic-plus-pilot evaluator task T-145 and latency/failure work package
 T-026. It does not close T-024/T-139 or T-027: the full independently reviewed annotation
@@ -339,7 +339,7 @@ The canonical split identity is
 `2e4e0ea7eb2e529ea2db2f692444768a4de91023d9ce29829bcbdab911cbd047`.
 No duplicate clip ID or content hash crosses the partitions. Exact membership, local
 artifact hashes, durations, counts, and leakage limitation are recorded in
-[evaluation-split-v1.1.md](evaluation-split-v1.1.md). Four reviewed rows were initially
+[evaluation-split-v1.1.md](../research/evaluation-split-v1.1.md). Four reviewed rows were initially
 preserved from the pilot. All 12 validation rows have now been reviewed; 26 held-out
 test rows remain in seven batches.
 
@@ -355,7 +355,7 @@ about 335.24 seconds of UNKNOWN time.
 
 The run is retained as validation-only evidence and is not frozen for held-out testing.
 Exact metrics, identities, hashes, limitations, and the bounded retuning decision are in
-[validation-evaluation-v1.1.md](validation-evaluation-v1.1.md). T-157/T-158 must replay
+[validation-evaluation-v1.1.md](../research/validation-evaluation-v1.1.md). T-157/T-158 must replay
 stored validation observations and freeze one configuration before the 26 test clips are
 reviewed or scored.
 

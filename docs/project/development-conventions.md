@@ -21,7 +21,7 @@ This document defines the Phase 1 conventions for configuration, tests, local da
 | Source and pipeline integration | `tests/test_source.py`, `tests/test_pipeline.py` when added | Camera/video abstraction, EOF/failure, timestamps, repeatable replay |
 | Experiment measures | `tests/test_metrics.py` when added | Event matching, false alarms, misses, coverage, latency |
 
-Core behavior tests must include normal, boundary, and invalid inputs. Hardware-dependent webcam/audio checks are recorded separately in `docs/verification.md`; a skipped manual check is never reported as passed. Training runs and held-out research evaluation are not part of the fast unit-test path.
+Core behavior tests must include normal, boundary, and invalid inputs. Hardware-dependent webcam/audio checks are recorded separately in `docs/project/verification.md`; a skipped manual check is never reported as passed. Training runs and held-out research evaluation are not part of the fast unit-test path.
 
 ## Data, models, and outputs
 

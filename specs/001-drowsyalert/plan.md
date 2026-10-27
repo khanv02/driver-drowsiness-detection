@@ -174,7 +174,7 @@ This additive rule exposes the added cue while keeping A's baseline fixed. Selec
 
 ### Dataset verification and preparation
 
-**Selected data sources:** CEW supplies eye images for CNN classification; NITYMED HDTV720 supplies the approved temporal evaluation videos under Protocol v1.1. Their provenance, terms, retrieval evidence, and local inventory are recorded in `docs/dataset-card.md` and `docs/nitymed-dataset-card.md`. The instructor-mentioned Kaggle name has no canonical URL/version; the current downloader URL remains an unselected candidate and is not the active data path. Final annotation/manifest validation remains open under T-139.
+**Selected data sources:** CEW supplies eye images for CNN classification; NITYMED HDTV720 supplies the approved temporal evaluation videos under Protocol v1.1. Their provenance, terms, retrieval evidence, and local inventory are recorded in `docs/research/dataset-card.md` and `docs/research/nitymed-dataset-card.md`. The instructor-mentioned Kaggle name has no canonical URL/version; the current downloader URL remains an unselected candidate and is not the active data path. Final annotation/manifest validation remains open under T-139.
 
 Keep raw data outside Git. Create a manifest with relative path/clip ID, class or interval label, group, hash, source/license and split. Validate decoding, labels, class counts and duplicates. Assign groups before crops; use identical resize/color/normalization for training and inference. Store original annotations separately from generated manifests. Do not commit private frames or publish them without consent/permission.
 
@@ -228,9 +228,9 @@ implementation work that is still incomplete. They do not change the approved SP
 
 1. **Dataset path selected:** CEW is the eye-image classification source and NITYMED
    HDTV720 is the approved temporal-video evaluation source. Provenance, access terms,
-   retrieval details, and limitations are recorded in `docs/dataset-card.md` and
-   `docs/nitymed-dataset-card.md`. No volunteer recordings are currently included.
-2. **Temporal protocol approved:** `docs/evaluation-protocol.md` v1.1 fixes the
+   retrieval details, and limitations are recorded in `docs/research/dataset-card.md` and
+   `docs/research/nitymed-dataset-card.md`. No volunteer recordings are currently included.
+2. **Temporal protocol approved:** `docs/research/evaluation-protocol.md` v1.1 fixes the
    clip-disjoint 38-clip split, event matching, latency, system Accuracy, and
    validation-only threshold-selection rules. NITYMED participant mapping is unavailable;
    all reporting must disclose possible participant overlap and must not claim

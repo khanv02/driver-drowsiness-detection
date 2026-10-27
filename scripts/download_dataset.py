@@ -31,7 +31,10 @@ def archive_identity(path: Path) -> dict[str, str | int]:
         "bytes": size,
         "sha256": digest.hexdigest(),
         "source_page": CEW_PAGE,
-        "action": "Record this identity in docs/dataset-card.md; extract under data/raw/cew/.",
+        "action": (
+            "Record this identity in docs/research/dataset-card.md; "
+            "extract under data/raw/cew/."
+        ),
     }
 
 

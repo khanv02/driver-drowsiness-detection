@@ -10,7 +10,10 @@ Cập nhật: 13/10/2026.
 
 Bản đầu tiên hoàn thành khi người dùng chạy được bằng một lệnh, nhìn thấy trạng thái mắt trên màn hình và nghe cảnh báo khi nhắm mắt kéo dài. CNN là thành phần bắt buộc của bản này; demo EAR chỉ là bước kiểm tra luồng sớm.
 
-Nguồn: [Phiếu mô tả chủ đề 12](../docs/PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx).
+> **Archived:** This plan is retained for historical context. The authoritative plan is
+> [`specs/001-drowsyalert/plan.md`](../../../specs/001-drowsyalert/plan.md).
+
+Nguồn: [Phiếu mô tả chủ đề 12](../../reference/PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx).
 
 Chốt phạm vi:
 

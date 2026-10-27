@@ -44,14 +44,17 @@ Model Face Landmarker và checkpoint CNN không được lưu trong Git. EAR kh�
 
 **Phase 5 — Additional research features: nghiệm thu phần mềm G5 đạt.** Đã bổ sung sự kiện ngáp theo thời gian có kiểm tra tính hợp lệ, tín hiệu head pose tương đối, và tách riêng quyết định A/B/C để B chỉ dùng bằng chứng ngáp còn C chỉ dùng bằng chứng pose. Hồ sơ thí nghiệm có định danh, cấu hình, nguồn, model/dataset và provenance cho từng frame, xuất JSON/CSV và không lưu frame thô theo mặc định. **143 kiểm thử tự động** và Ruff đạt. Nghiệm thu webcam/loa trực tiếp vẫn là kiểm tra phần cứng riêng của G4 (T-018), không còn chặn hợp đồng ghi nhận thí nghiệm.
 
-**Phase 6 — Experimental evaluation: đang thực hiện.** Protocol v1.1 và nguồn NITYMED đã được phê duyệt; 12 clip validation đã được gán nhãn và baseline 36 lượt A/B/C đã chạy. Baseline có coverage thấp, nên chưa có cấu hình đóng băng hoặc kết quả held-out. Còn kiểm tra manifest/chú thích (T-139), replay và chọn cấu hình trên validation (T-157/T-158), review độc lập 26 clip test (T-159), pilot validation (T-148), rồi mới chạy A/B/C held-out (T-149). Kết quả CEW chỉ đo phân loại ảnh mắt. Xem
-[hướng dẫn bàn giao Phase 6](docs/phase6-team-handoff.md),
-[baseline validation](docs/validation-evaluation-v1.1.md),
-[bằng chứng kiểm thử và trạng thái gate](docs/verification.md), và
-[danh sách công việc chuẩn](specs/001-drowsyalert/tasks.md),
-[bảng task tiếng Anh](docs/task-tracker/tasks.en.md),
-[bảng task tiếng Việt](docs/task-tracker/tasks.vi.md), và
-[nhật ký hoạt động tài liệu](docs/task-tracker/activity-log.md).
+**Phase 6 — Experimental evaluation: đang thực hiện.** Protocol v1.1, nguồn NITYMED và tập validation 12 clip đã được chuẩn bị; baseline A/B/C đã chạy nhưng coverage còn thấp. Giai đoạn này chưa đóng băng cấu hình và chưa công bố kết quả held-out. Công việc còn lại gồm kiểm tra manifest/chú thích, chọn cấu hình trên validation, review độc lập tập test, chạy pilot và cuối cùng mới đánh giá A/B/C trên held-out. Kết quả CEW chỉ phản ánh bài toán phân loại ảnh mắt, không phải độ chính xác phát hiện buồn ngủ trên video.
+
+## Tài liệu nhanh
+
+| Nhu cầu | Tài liệu |
+|---|---|
+| Tìm tài liệu theo chủ đề | [Mục lục tài liệu](docs/README.md) |
+| Chạy và kiểm tra thí nghiệm A/B/C | [Hướng dẫn evaluation](docs/guides/evaluation-execution.md) |
+| Xem baseline validation hiện tại | [Kết quả validation v1.1](docs/research/validation-evaluation-v1.1.md) |
+| Kiểm tra bằng chứng test và trạng thái gate | [Verification record](docs/project/verification.md) |
+| Theo dõi đầu việc chính thức | [Danh sách task chuẩn](specs/001-drowsyalert/tasks.md) |
 
 ## Công nghệ
 
@@ -117,7 +120,7 @@ uv run python scripts/prepare_dataset.py --input data/raw/cew/dataset_B_Eye_Imag
 uv run python scripts/train_model.py --manifest data/processed/manifest.csv --checkpoint models/checkpoints/eye_cnn.pt --output outputs/results/eye_cnn-training
 ```
 
-Nếu có metadata người/phiên, truyền thêm `--groups` với CSV gồm cột `source,group_id`. Nếu không có metadata này, cách nhóm nguồn và phát hiện ảnh trùng không đảm bảo tách độc lập theo người. Lệnh huấn luyện chỉ dùng train/validation và không đọc tập test. Xem [`docs/training.md`](docs/training.md) trước khi đánh giá cuối.
+Nếu có metadata người/phiên, truyền thêm `--groups` với CSV gồm cột `source,group_id`. Nếu không có metadata này, cách nhóm nguồn và phát hiện ảnh trùng không đảm bảo tách độc lập theo người. Lệnh huấn luyện chỉ dùng train/validation và không đọc tập test. Xem [hướng dẫn huấn luyện](docs/guides/training.md) trước khi đánh giá cuối.
 
 ## Kiểm thử
 
@@ -135,8 +138,12 @@ Test tự động bao phủ một số trường hợp hình học, thời gian,
 ├── configs/                 # Cấu hình chạy
 ├── data/                    # Dataset cục bộ, không commit dữ liệu
 ├── demo/                    # Entry point demo
-├── docs/                    # Kiến trúc và tài liệu đề tài
-│   └── task-tracker/        # Bảng trạng thái EN/VI và nhật ký cập nhật
+├── docs/                    # Mục lục tài liệu dự án
+│   ├── reference/           # Tài liệu nguồn của đề tài
+│   ├── project/             # Kiến trúc, quy ước và kiểm chứng
+│   ├── guides/              # Hướng dẫn vận hành và huấn luyện
+│   ├── research/            # Dataset, protocol, metric và kết quả
+│   └── archive/             # Tài liệu cũ chỉ để tra cứu
 ├── .specify/                # Constitution và cấu hình Spec Kit
 ├── models/                  # Model tải về và checkpoint cục bộ
 ├── outputs/                 # Kết quả, biểu đồ và log sinh tự động
@@ -148,15 +155,15 @@ Test tự động bao phủ một số trường hợp hình học, thời gian,
 │   ├── pipeline/            # Nguồn video, quyết định, cảnh báo
 │   └── utils/               # Cấu hình và overlay
 ├── tests/                   # Kiểm thử tự động
-├── specs/                   # Đặc tả và task breakdown
-└── plan/                    # Kế hoạch và backlog nghiên cứu
+└── specs/                   # Đặc tả, plan chính thức và task breakdown
 ```
 
 ## Tài liệu và quyền riêng tư
 
-- [Mô tả đề tài 12](docs/de-tai-12-drowsyalert.md)
-- [Phiếu mô tả đề tài gốc](docs/PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx)
-- [Kiến trúc ứng dụng](docs/architecture.md)
+- [Mục lục tài liệu](docs/README.md)
+- [Mô tả đề tài 12](docs/reference/de-tai-12-drowsyalert.md)
+- [Phiếu mô tả đề tài gốc](docs/reference/PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx)
+- [Kiến trúc ứng dụng](docs/project/architecture.md)
 - [Project Constitution](.specify/memory/constitution.md)
 - [Implementation plan](specs/001-drowsyalert/plan.md)
 - [Research decisions](specs/001-drowsyalert/research.md)

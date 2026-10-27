@@ -82,7 +82,7 @@ No new dependency or project-layout change is justified in Phase 1. The followin
 - Several current user-facing README files use Vietnamese while Constitution Principle VII requires consistent English documentation. This is a documentation-convergence item and must be corrected before final delivery; it does not justify architecture or dependency changes.
 - Values in `configs/config.yaml` are provisional defaults and lack experiment provenance until the run-record work is implemented.
 
-Phase 1 conventions are recorded in `docs/development-conventions.md`. The Git baseline still requires a reviewed checkpoint before feature/task branches or commits are created.
+Phase 1 conventions are recorded in `docs/project/development-conventions.md`. The Git baseline still requires a reviewed checkpoint before feature/task branches or commits are created.
 
 ## Phase 4 asset update
 

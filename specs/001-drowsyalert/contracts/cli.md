@@ -17,7 +17,7 @@ Invalid camera/video/model/config/backend returns a non-zero exit and readable e
 - Windowed mode shows selected input, observation availability, status/reason and visible warning.
 - Successful CLI runs print JSON with frame count, wall time, measured throughput and resolved configuration (no sensitive identity values).
 - Optional CSV logs use video-media timestamps for replay and monotonic elapsed timestamps for webcam, and identify source, method, eye-state source, evidence, unknown status, decision/reason and processing time. Event summaries identify annotation/matching policy.
-- Optional JSON records use the versioned local schema in `docs/experiment-records.md`, record completion or failure, and exclude raw frame pixels and local video paths by default.
+- Optional JSON records use the versioned local schema in `docs/research/experiment-records.md`, record completion or failure, and exclude raw frame pixels and local video paths by default.
 - Audio is an alert side effect with cooldown. Mute changes audio only, not detection.
 
 Treat the current CSV schema as provisional until documented and tested. Current options are defined by `drowsyalert.main.build_parser()`.

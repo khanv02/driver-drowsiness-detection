@@ -3,7 +3,7 @@
 **Feature directory**: `specs/001-drowsyalert`
 **Created**: 2026-10-26
 **Status**: Approved requirements baseline
-**Source**: User brief; Project 12 in `docs/PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx`; `docs/de-tai-12-drowsyalert.md`; repository state reviewed 2026-10-26.
+**Source**: User brief; Project 12 in `docs/reference/PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx`; `docs/reference/de-tai-12-drowsyalert.md`; repository state reviewed 2026-10-26.
 
 ## 1. Problem Statement
 
@@ -191,7 +191,7 @@ Each item below is an observable acceptance check for the corresponding FR.
 |---|---|---|
 | OQ-001 | Resolved 2026-10-26: Constitution v1.0.0 was adopted with seven binding principles and governance. | Apply the constitution to subsequent PLAN, TASKS, and IMPLEMENT work. |
 | OQ-002 | Resolved 2026-10-26: the requested filename ending in `(2).docx` is absent; the available unsuffixed `PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx` is the approved Project 12 source for this feature. | Preserve its recorded SHA-256 identity in `decisions.md`; review again if a different official revision is supplied. |
-| OQ-003 | Resolved by approved Protocol v1.1: landmark-derived PERCLOS is the primary source for A/B/C; CNN eye-image classification is evaluated separately, and any CNN-derived temporal comparison is labelled as a separate ablation. System Accuracy uses the frozen video-level protocol definition. | Preserve separate evidence sources and cite `docs/evaluation-protocol.md`. |
+| OQ-003 | Resolved by approved Protocol v1.1: landmark-derived PERCLOS is the primary source for A/B/C; CNN eye-image classification is evaluated separately, and any CNN-derived temporal comparison is labelled as a separate ablation. System Accuracy uses the frozen video-level protocol definition. | Preserve separate evidence sources and cite `docs/research/evaluation-protocol.md`. |
 | OQ-004 | Resolved by approved Protocol v1.1: primary system Accuracy uses non-overlapping one-second bins at a one-second stride. A reference bin is positive when a primary event occupies at least 50% of its eligible labelled duration; this is a within-bin threshold, not bin overlap. UNKNOWN counts incorrect in the primary denominator. | Apply the frozen width, stride, event-occupancy threshold, and denominator; report observed-only Accuracy separately with coverage. |
 | OQ-005 | Resolved for the approved study path: CEW supplies eye images and NITYMED HDTV720 supplies temporal videos. Final annotation/manifest validation remains pending under T-139. | Cite the dataset cards and Protocol v1.1; do not treat unreviewed data as ground truth. |
 | OQ-006 | Partially open: temporal PERCLOS, prolonged-closure, yawn, and pose thresholds remain provisional and must be selected on validation data under T-157/T-158. The CNN eye-classification threshold was frozen under T-013. | Record temporal values and hashes; never tune on test data. |
