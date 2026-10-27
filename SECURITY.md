@@ -44,4 +44,3 @@ a fix before public discussion.
 - Raw frames are not stored by the standard runtime flow.
 - Dataset, model, output, and credential paths are excluded from Git.
 - Experimental accuracy is not a safety guarantee.
-

@@ -60,4 +60,3 @@ body:
           required: true
         - label: I removed personal identifiers, credentials, and private local paths.
           required: true
-

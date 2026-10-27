@@ -65,4 +65,3 @@ body:
           required: true
         - label: This is not a confidential security vulnerability.
           required: true
-

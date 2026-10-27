@@ -59,4 +59,3 @@ body:
           required: true
         - label: I identified any dataset, model, privacy, protocol, or hardware implications above.
           required: true
-

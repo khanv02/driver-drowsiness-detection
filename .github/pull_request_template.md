@@ -36,4 +36,3 @@ uv build
 - [ ] No credentials, private media, participant data, restricted datasets, checkpoints, or generated outputs are included.
 - [ ] Reported results are traceable and are not presented as certified safety or medical claims.
 - [ ] Skipped webcam/audio checks are not reported as passed.
-

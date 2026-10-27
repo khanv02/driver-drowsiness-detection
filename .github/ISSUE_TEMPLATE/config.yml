@@ -3,4 +3,3 @@ contact_links:
   - name: Report a security vulnerability
     url: https://github.com/khanv02/driver-drowsiness-detection/security/advisories/new
     about: Submit sensitive security reports privately instead of opening a public issue.
-

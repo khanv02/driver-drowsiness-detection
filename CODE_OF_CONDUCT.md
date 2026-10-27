@@ -36,4 +36,3 @@ do not include personal or sensitive details.
 Maintainers may edit or remove content and may warn, temporarily restrict, or permanently
 ban participants when necessary. Reports will be reviewed as confidentially and promptly
 as practical. Retaliation against a reporter is not permitted.
-
