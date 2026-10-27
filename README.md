@@ -44,7 +44,14 @@ Model Face Landmarker và checkpoint CNN không được lưu trong Git. EAR kh�
 
 **Phase 5 — Additional research features: kiểm chứng phần mềm đạt; đóng G5 chính thức đang chờ.** Đã bổ sung sự kiện ngáp theo thời gian có kiểm tra tính hợp lệ, tín hiệu head pose tương đối, và tách riêng quyết định A/B/C để B chỉ dùng bằng chứng ngáp còn C chỉ dùng bằng chứng pose. Khi dấu hiệu phụ bắt buộc không có hoặc không chắc chắn, hệ thống giữ `UNKNOWN`. Hồ sơ thí nghiệm có định danh, cấu hình, nguồn, model/dataset và provenance cho từng frame, xuất JSON/CSV và không lưu frame thô theo mặc định. Toàn bộ **143 kiểm thử tự động** và Ruff đạt.
 
-G5 còn chờ nghiệm thu G4 bằng quan sát trực tiếp giao diện/âm thanh; các ngưỡng ngáp và pose vẫn là giá trị tạm thời cần được chọn trên validation và đóng băng theo protocol Phase 6. Chưa có kết quả so sánh thực nghiệm giữa PERCLOS, PERCLOS + yawning và PERCLOS + head pose. Kết quả CEW chỉ đo phân loại ảnh mắt; các kiểm chứng hiện tại chưa chứng minh độ chính xác phát hiện buồn ngủ theo video, hiệu quả cảnh báo ngoài thực tế, an toàn lái xe hay khả năng tổng quát hóa sang tài xế. Xem [bằng chứng kiểm thử và trạng thái gate](docs/verification.md), [quy trình huấn luyện](docs/training.md), [quy cách hồ sơ thí nghiệm](docs/experiment-records.md) và [danh sách công việc](specs/001-drowsyalert/tasks.md).
+G5 còn chờ nghiệm thu G4 bằng quan sát trực tiếp giao diện/âm thanh. Phase 6 đã hoàn tất
+12 nhãn validation và baseline 36 lượt A/B/C, nhưng coverage thấp nên cấu hình chưa được
+đóng băng và chưa có kết quả held-out cuối. Còn 26 clip test cần review độc lập sau bước
+tuning validation; kết quả CEW vẫn chỉ đo phân loại ảnh mắt. Xem
+[hướng dẫn bàn giao Phase 6](docs/phase6-team-handoff.md),
+[baseline validation](docs/validation-evaluation-v1.1.md),
+[bằng chứng kiểm thử và trạng thái gate](docs/verification.md), và
+[danh sách công việc](specs/001-drowsyalert/tasks.md).
 
 ## Công nghệ
 

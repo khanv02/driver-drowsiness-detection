@@ -621,6 +621,7 @@ protocol, complete T-025, or authorize held-out scoring.
 - [ ] T-157 [Parent: T-027] Add deterministic offline validation replay and a bounded warm-up/configuration sweep over stored observations so tuning does not rerun landmark inference or inspect test data (depends on T-156).
 - [ ] T-158 [Parent: T-027] Select and freeze one validation configuration using coverage, false alarms, misses, F1, and latency together; publish the selection rule and hashes before any test scoring (depends on T-157).
 - [ ] T-159 [Parent: T-027] Complete independent review of the 26 held-out test clips in small batches and finalize the test annotation manifest without viewing model output (depends on T-158; human review required).
+- [X] T-160 [Parent: T-159] Publish a teammate handoff with the current Phase 6 status, private-data prerequisites, exact review controls, seven recoverable test batches, and acceptance checklist.
 - [ ] T-148 [Parent: T-027] Execute and inspect a non-claim pilot on approved validation clips to confirm replay/export/evaluator integration; do not tune or score held-out test data (depends on T-139, T-145, T-147).
 - [ ] T-149 [Parent: T-027] Freeze validation-selected configuration, run A/B/C once on the common held-out test set, recalculate summaries from raw records, audit comparability, and publish limitations (depends on T-013, T-022, T-026, T-148; research approval required).
 

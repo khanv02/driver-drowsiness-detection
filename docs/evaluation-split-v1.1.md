@@ -34,7 +34,8 @@ annotation or held-out scoring.
 - Validation duration: 939.72 seconds across 12 clips.
 - Test duration: 2,011.64 seconds across 26 clips.
 - Total selected duration: 2,951.36 seconds (about 49 minutes 11 seconds).
-- Four validation clips are already reviewed; 34 clips remain in nine review batches.
+- All 12 validation clips are reviewed. The 26 held-out test clips remain in seven
+  review batches.
 
 ## Validation membership
 
