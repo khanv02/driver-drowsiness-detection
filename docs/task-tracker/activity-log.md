@@ -31,6 +31,8 @@ not a personal browsing history or a record of activity outside this repository.
   definitions and acceptance criteria remain in `specs/001-drowsyalert/tasks.md`.
 - Updated the root README to report G5 software acceptance, Phase 6 open work, and links
   to the task indices and activity log.
+- Clarified the system-Accuracy bin rule after review: one-second width and stride with
+  no neighboring-bin overlap; 0.50 is the separate within-bin occupancy threshold.
 
 **Verification status**
 
@@ -40,3 +42,5 @@ not a personal browsing history or a record of activity outside this repository.
 - No application tests were run; this change updates project documentation and task
   status only. Physical webcam/audio acceptance and held-out A/B/C evaluation remain
   unverified/open.
+- Review clarification was checked across Protocol §7, metric documentation, SPEC OQ-004,
+  and decision G0-07; no evaluation code or scoring results changed.

@@ -162,11 +162,14 @@ not mixed with video-event measures.
 
 ## 7. Frozen system-level Accuracy definition
 
-Use fixed, non-overlapping 1-second media-time bins over eligible labelled time. A bin is
-reference-positive when at least half its labelled duration is inside a primary drowsy
-event; otherwise it is reference-negative. A predicted bin is positive when at least
-half its duration is `ALERT`, negative when at least half is `NORMAL`, and `UNKNOWN`
-otherwise.
+Use consecutive, half-open media-time bins with a **1.0-second width and a 1.0-second
+stride**. Bins do not overlap. A final partial bin may be shorter at the end of a clip.
+The **0.50 within-bin event-occupancy threshold** labels a bin reference-positive when a
+primary drowsy event covers at least half of the bin's eligible labelled duration;
+otherwise it is reference-negative. This 0.50 threshold is not a bin stride or overlap
+between neighboring bins. A predicted bin is positive when `ALERT` covers at least 0.50
+of its duration and negative when `NORMAL` covers at least 0.50. If both meet the
+threshold in a tie, or neither does, the prediction is `UNKNOWN`.
 
 Primary system Accuracy is `(correct positive + correct negative) / all eligible labelled
 bins`; `UNKNOWN` bins remain in the denominator and are never counted as correct normal.
@@ -206,7 +209,7 @@ DrowsyAlert remains a research prototype, not a safety or medical system.
 | Matching rule | Earliest unmatched alert in inclusive -1.0/+2.0-second window | Project owner, 2026-10-26 |
 | False-alarm denominator | Valid observed hours; also report eligible and unknown time | Project owner, 2026-10-26 |
 | Latency and miss handling | Signed media-time latency; misses excluded from latency and counted as FN | Project owner, 2026-10-26 |
-| System Accuracy | Fixed 1-second bins at 50% overlap; UNKNOWN incorrect in primary denominator | Project owner, 2026-10-26 |
+| System Accuracy | Non-overlapping 1-second bins with 1-second stride; event occupancy and predicted-state threshold are each 0.50 of the bin's eligible duration; UNKNOWN is incorrect in the primary denominator | Project owner, 2026-10-26 |
 | Threshold selection/freeze | Validation only; one-way held-out test | Project owner, 2026-10-26 |
 | Volunteer ethics path | No volunteer collection authorized; public-data path only | Project owner, 2026-10-26 |
 
