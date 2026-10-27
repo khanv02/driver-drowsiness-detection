@@ -358,3 +358,41 @@ Exact metrics, identities, hashes, limitations, and the bounded retuning decisio
 [validation-evaluation-v1.1.md](validation-evaluation-v1.1.md). T-157/T-158 must replay
 stored validation observations and freeze one configuration before the 26 test clips are
 reviewed or scored.
+
+## Phase 7 - Preliminary cross-platform regression preparation
+
+**Date:** 2026-10-27
+
+**Branch:** `phase/7-final-validation-delivery`
+
+This checkpoint prepares final validation without claiming that T-028 or G7 is complete.
+CI now schedules the locked project with the `train` extra on both Ubuntu and Windows so
+CNN/training tests are not silently skipped. It invokes pytest through
+`python -m pytest -p no:cacheprovider` to avoid the previously observed stale Windows
+`pytest.exe` trampoline and inaccessible local cache issues. A dependent Ubuntu job
+builds the source and wheel distributions but does not upload, publish, or deploy them.
+
+Local Windows verification commands:
+
+```powershell
+uv sync --locked --extra train
+uv run ruff check src scripts demo tests
+uv run python -m pytest -p no:cacheprovider -q
+uv build
+```
+
+Observed results:
+
+- Ruff: `All checks passed!`.
+- Pytest: `219 passed in 130.30s` with the optional CNN/training dependencies installed.
+- Build: `dist/drowsyalert-0.2.0.tar.gz` and
+  `dist/drowsyalert-0.2.0-py3-none-any.whl` were created successfully.
+- The workflow YAML was parsed locally and its Ubuntu/Windows matrix and dependent build
+  job were verified. GitHub Actions run
+  [`40530008620`](https://github.com/khanv02/driver-drowsiness-detection/actions/runs/40530008620)
+  completed successfully: `Quality (windows-latest)`, `Quality (ubuntu-latest)`, and
+  `Build distribution` all passed for commit `2ea55df`.
+
+T-028 remains open. Final regression evidence still depends on G6, and the separate
+T-018/G4 visible webcam and audible-speaker acceptance remains a declared manual hardware
+check. No held-out video result, deployment, or hardware success is claimed here.

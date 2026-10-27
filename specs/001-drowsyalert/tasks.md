@@ -631,6 +631,11 @@ G6 passes when evaluation protocol and corpus are approved, metrics are tested, 
 
 **Milestone outcome**: regression confidence, traceable requirements evidence, reproducible instructions, and ready demonstration/report artifacts.
 
+- [X] T-161 [Parent: Phase 7] Audit Phase 7 readiness, create the recoverable
+  `phase/7-final-validation-delivery` branch from the merged Phase 6 baseline, and
+  decompose T-028–T-031 without bypassing the open G4/G6 gates (recovery branch:
+  `task/T-161-phase7-readiness`).
+
 - [ ] T-028 — Run integration and regression suite
 
 - **Phase:** 7 — Final Validation and Delivery.
@@ -642,6 +647,28 @@ G6 passes when evaluation protocol and corpus are approved, metrics are tested, 
 - **Expected Artifacts:** Updated `docs/verification.md`; CI/test output or reviewed run log.
 - **Verification:** Automated suite passes; manual checks are labelled with real environment and no skipped check is claimed as passed.
 - **Definition of Done:** All critical failures fixed or documented with owner/blocking impact; no unrelated source changes.
+
+### T-028 leaf tasks — Cross-platform and final regression evidence
+
+T-162–T-164 are preparatory checks that may run before G6 because they do not use or
+claim held-out results. T-028 remains open until T-165 runs after G6 and records all
+available manual hardware evidence.
+
+- [X] T-162 [Parent: T-028] Add Ubuntu/Windows CI coverage for locked dependency
+  installation, Ruff, and the complete automated test suite in `.github/workflows/ci.yml`;
+  preserve camera/audio as explicit non-CI checks (depends on T-161; recovery branch:
+  `task/T-162-ci-platform-matrix`).
+- [X] T-163 [Parent: T-028] Add a CI package-build smoke check with `uv build`, without
+  publishing artifacts or introducing deployment credentials (depends on T-162; recovery
+  branch: `task/T-163-package-build-check`).
+- [X] T-164 [Parent: T-028] Run the complete local Ruff, pytest, and package-build checks;
+  record the Phase 7 preparation result and unresolved G4/G6 blockers in
+  `docs/verification.md` (depends on T-163; recovery branch:
+  `task/T-164-preliminary-regression`).
+- [ ] T-165 [Parent: T-028] After G6, rerun the final automated and deterministic
+  recorded-video regression suite, incorporate the real webcam/audio outcome when
+  available, audit failures/skips, and complete T-028 only when evidence is reviewable
+  (depends on G6 and T-164; recovery branch: `task/T-165-final-regression`).
 
 - [ ] T-029 — Complete requirement-to-evidence traceability
 
@@ -655,6 +682,17 @@ G6 passes when evaluation protocol and corpus are approved, metrics are tested, 
 - **Verification:** Every mandatory requirement has a status and evidence reference or explicit blocker; A/B/C and ≥0.90 target status are not implied by scaffold code.
 - **Definition of Done:** Reviewer can trace requirements to tests, records, or documented open limitations.
 
+### T-029 leaf tasks — Requirement evidence audit
+
+- [ ] T-166 [Parent: T-029] Build `docs/requirement-coverage.md` from the approved SPEC,
+  mapping every FR/DR/NFR/RA and G0 decision to implementation and candidate evidence,
+  while marking unresolved evidence explicitly (depends on T-165 and T-027; recovery
+  branch: `task/T-166-requirement-coverage`).
+- [ ] T-167 [Parent: T-029] Review every mapping against saved tests/results, distinguish
+  implemented, verified, measured, blocked, and deferred states, and complete T-029 only
+  with no unsupported target or A/B/C claim (depends on T-166; recovery branch:
+  `task/T-167-traceability-review`).
+
 - [ ] T-030 — Finalize reproducible setup and run instructions
 
 - **Phase:** 7 — Final Validation and Delivery.
@@ -667,6 +705,17 @@ G6 passes when evaluation protocol and corpus are approved, metrics are tested, 
 - **Verification:** Follow the documented workflow in a clean environment or record exact environmental blocker; commands/paths match actual entry points and outputs.
 - **Definition of Done:** Fresh researcher can follow instructions without hidden data paths or unrecorded thresholds.
 
+### T-030 leaf tasks — Reproducible researcher handoff
+
+- [ ] T-168 [Parent: T-030] Reconcile `README.md`, `data/README.md`,
+  `models/README.md`, and focused docs with the final commands, asset/data placement,
+  frozen configuration, outputs, privacy boundaries, and limitations (depends on T-167;
+  recovery branch: `task/T-168-reproducibility-docs`).
+- [ ] T-169 [Parent: T-030] Execute the documented setup and representative commands in
+  a clean environment, correct path/command drift, record any external asset blocker,
+  and complete T-030 (depends on T-168; recovery branch:
+  `task/T-169-clean-environment-check`).
+
 - [ ] T-031 — Prepare figures, result exports, and delivery evidence
 
 - **Phase:** 7 — Final Validation and Delivery.
@@ -678,6 +727,17 @@ G6 passes when evaluation protocol and corpus are approved, metrics are tested, 
 - **Expected Artifacts:** Reproducible export scripts, `outputs/results/` exports (ignored where appropriate), figure files, and delivery checklist.
 - **Verification:** Re-generated tables match run records; private media and unauthorized artifacts are absent from Git/public delivery.
 - **Definition of Done:** Evidence package supports final report/presentation or clearly identifies missing prerequisites/results.
+
+### T-031 leaf tasks — Reproducible delivery evidence
+
+- [ ] T-170 [Parent: T-031] Implement or finalize deterministic exporters that generate
+  report tables and figures from saved run records, with method labels, units, counts,
+  and provenance covered by focused tests (depends on T-027–T-030; recovery branch:
+  `task/T-170-result-exporters`).
+- [ ] T-171 [Parent: T-031] Regenerate and audit the delivery evidence, verify private or
+  restricted media is absent, document distributable artifacts and license constraints,
+  and complete T-031/G7 only after owner review (depends on T-170; recovery branch:
+  `task/T-171-delivery-audit`).
 
 ### Phase 7 acceptance gate
 
@@ -727,11 +787,14 @@ Parallel work is allowed only after listed dependencies are complete and when se
 
 ## First executable task and recommended MVP milestone
 
-**Current implementation milestone**: **Phase 6 — Experimental Evaluation**. The next
+**Current implementation milestone**: **Phase 6 — Experimental Evaluation**, with
+non-claim Phase 7 preparation isolated on `phase/7-final-validation-delivery`. The next
 research actions are T-139 annotation/manifest validation and T-157 validation replay;
 T-158 must freeze the configuration before T-159 test review and T-149 held-out scoring.
-T-018 remains the separate manual webcam/audio acceptance task. The current validation
-baseline is not held-out evidence.
+Phase 7 tasks T-162–T-164 may prepare cross-platform CI/build/regression evidence, but
+T-165 and all final-delivery claims remain blocked on G6. T-018 remains the separate
+manual webcam/audio acceptance task. The current validation baseline is not held-out
+evidence.
 
 ## Task-readiness review
 
@@ -743,7 +806,7 @@ baseline is not held-out evidence.
 
 ## Format and traceability summary
 
-- Task list currently contains **31 parent work packages plus 129 leaf tasks** (160 unique task IDs): **147 complete and 13 open**. Open tasks are T-018, T-024, T-027–T-031, T-139, T-148–T-149, and T-157–T-159.
+- Task list currently contains **31 parent work packages plus 140 leaf tasks** (171 unique task IDs): **151 complete and 20 open**. Open tasks are T-018, T-024, T-027–T-031, T-139, T-148–T-149, T-157–T-159, and T-165–T-171.
 - Research/data tasks: T-001, T-010, T-023, T-024, T-027; implementation/environment tasks are otherwise separated as labelled.
 - T-001–T-031 are parent work packages, not the intended smallest execution units. Add focused leaf tasks with stable IDs before starting each parent; avoid speculative leaf tasks where dataset/protocol approvals may change the work.
 - Every leaf task must identify its parent, phase, dependencies, affected paths, verification, and recovery branch. Keep a leaf to one behavior or artifact whenever practical.
