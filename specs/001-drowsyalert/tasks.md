@@ -654,7 +654,7 @@ T-162–T-164 are preparatory checks that may run before G6 because they do not 
 claim held-out results. T-028 remains open until T-165 runs after G6 and records all
 available manual hardware evidence.
 
-- [ ] T-162 [Parent: T-028] Add Ubuntu/Windows CI coverage for locked dependency
+- [X] T-162 [Parent: T-028] Add Ubuntu/Windows CI coverage for locked dependency
   installation, Ruff, and the complete automated test suite in `.github/workflows/ci.yml`;
   preserve camera/audio as explicit non-CI checks (depends on T-161; recovery branch:
   `task/T-162-ci-platform-matrix`).

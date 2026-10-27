@@ -10,8 +10,14 @@ permissions:
 
 jobs:
   quality:
-    name: Lint and test
-    runs-on: ubuntu-latest
+    name: Quality (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
 
     steps:
       - name: Check out repository
