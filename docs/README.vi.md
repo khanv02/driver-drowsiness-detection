@@ -4,7 +4,7 @@
 
 Thư mục này sắp xếp tài liệu dự án theo mục đích. Đặc tả tính năng, kế hoạch triển khai và danh sách công việc chính thức nằm trong [`specs/001-drowsyalert/`](../specs/001-drowsyalert/).
 
-## Tham khảo
+## Tham khảo (Reference)
 
 - [`reference/de-tai-12-drowsyalert.md`](reference/de-tai-12-drowsyalert.md): mô tả ngắn đề tài 12.
 - [`reference/PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx`](reference/PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx): phiếu mô tả đề tài gốc.
@@ -18,23 +18,29 @@ Thư mục này sắp xếp tài liệu dự án theo mục đích. Đặc tả 
 - [`project/phase6-team-handoff.md`](project/phase6-team-handoff.md): quy trình nhóm cho Phase 6.
 - [`project/task-tracker/`](project/task-tracker/): trạng thái tiếng Anh/Việt và nhật ký hoạt động.
 
-## Hướng dẫn
+## Hướng dẫn (Guides)
 
-- [`guides/training.md`](guides/training.md): quy trình huấn luyện EyeCNN.
-- [`guides/evaluation-execution.md`](guides/evaluation-execution.md): quy trình đánh giá A/B/C có kiểm soát.
-- [`guides/annotation-review.md`](guides/annotation-review.md): rà soát chú thích độc lập.
-- [`guides/video-dataset-audit.md`](guides/video-dataset-audit.md): kiểm tra dataset video theo thời gian.
-- [`guides/audio-policy.md`](guides/audio-policy.md), [`guides/decision-policy.md`](guides/decision-policy.md) và [`guides/additional-features.md`](guides/additional-features.md): hành vi khi chạy và tính năng nghiên cứu.
+- [Huấn luyện EyeCNN](guides/training.md) (chưa có bản dịch riêng).
+- [Chạy đánh giá A/B/C](guides/evaluation-execution.vi.md) · [Review chú thích](guides/annotation-review.vi.md) · [Kiểm toán dataset video](guides/video-dataset-audit.vi.md).
+- [Chính sách âm thanh](guides/audio-policy.vi.md) · [Quy tắc quyết định](guides/decision-policy.vi.md) · [Tính năng nghiên cứu](guides/additional-features.vi.md) · [Hướng dẫn task](guides/task-list-vi.md).
 
-## Nghiên cứu
+## Nghiên cứu (Research)
 
-- [`research/dataset-card.md`](research/dataset-card.md) và [`research/nitymed-dataset-card.md`](research/nitymed-dataset-card.md): nguồn gốc và hạn chế dataset.
-- [`research/evaluation-protocol.md`](research/evaluation-protocol.md): protocol đánh giá video theo thời gian đã duyệt.
-- [`research/evaluation-metrics.md`](research/evaluation-metrics.md) và [`research/evaluation-split-v1.1.md`](research/evaluation-split-v1.1.md): metric và split đã khóa.
-- [`research/experiment-records.md`](research/experiment-records.md): hợp đồng ghi nhận thí nghiệm.
-- [`research/pilot-evaluation.md`](research/pilot-evaluation.md) và [`research/validation-evaluation-v1.1.md`](research/validation-evaluation-v1.1.md): bằng chứng đánh giá.
-- [`research/annotation-template.csv`](research/annotation-template.csv): mẫu schema chú thích được theo dõi.
+- [Thẻ dataset CEW](research/dataset-card.vi.md) · [Thẻ dataset NITYMED](research/nitymed-dataset-card.vi.md).
+- [Protocol đánh giá](research/evaluation-protocol.vi.md) · [Metric](research/evaluation-metrics.vi.md) · [Split v1.1](research/evaluation-split-v1.1.vi.md).
+- [Quy ước hồ sơ thí nghiệm](research/experiment-records.vi.md) · [Đánh giá pilot](research/pilot-evaluation.vi.md) · [Kết quả validation v1.1](research/validation-evaluation-v1.1.vi.md).
+- [Giải thích schema mẫu chú thích](research/annotation-template.vi.md); schema CSV gốc: [`research/annotation-template.csv`](research/annotation-template.csv).
 
-## Lưu trữ
+## Tài liệu chưa dịch riêng
+
+Một số tài liệu chuyên sâu vẫn chỉ có bản tiếng Anh: [huấn luyện](guides/training.md), [mô tả đề tài](reference/de-tai-12-drowsyalert.md) (vốn đã viết bằng tiếng Việt), và các tài liệu lưu trữ. Bản dịch của các tài liệu khác được đặt cạnh bản gốc với hậu tố `.vi.md`; thuật ngữ, mã và số liệu được giữ nguyên để đối chiếu.
+
+## Lưu trữ (Archive)
 
 `archive/` chứa tài liệu đã được thay thế, lưu để tra cứu lịch sử và truy vết. Không dùng chúng làm kế hoạch triển khai hiện hành.
+
+Các liên kết ở trên trỏ tới tài liệu tiếng Anh hiện hành; tên tệp và đường dẫn được giữ nguyên để tránh tạo hai nguồn nội dung dễ lệch nhau. Bản tiếng Việt của bảng theo dõi công việc nằm tại [`project/task-tracker/tasks.vi.md`](project/task-tracker/tasks.vi.md). Đặc tả, kế hoạch triển khai và danh sách task chính thức chỉ có một nguồn tại [`specs/001-drowsyalert/`](../specs/001-drowsyalert/).
+
+## Hướng dẫn task bằng tiếng Việt
+
+Đọc [hướng dẫn sử dụng danh sách công việc](guides/task-list-vi.md) trước khi thực hiện task. Tài liệu này giải thích cách đọc trạng thái, phase, gate và quy tắc cập nhật; danh sách chuẩn vẫn là [`specs/001-drowsyalert/tasks.md`](../specs/001-drowsyalert/tasks.md).
