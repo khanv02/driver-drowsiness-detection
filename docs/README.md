@@ -1,8 +1,8 @@
 # DrowsyAlert documentation
 
-Choose a language:
+Which language would you like to read?
 
-- [English documentation](en/README.md)
-- [Tài liệu tiếng Việt](vi/README.md)
+- [English](en/README.md)
+- [Vietnamese](vi/README.md)
 
 The authoritative feature specification, plan, and task checklist remain in [`specs/001-drowsyalert/`](../specs/001-drowsyalert/). The English checklist is the source of truth for task status and acceptance criteria.
