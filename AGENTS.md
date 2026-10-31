@@ -1,5 +1,11 @@
 # Repository instructions
 
+## Startup
+
+- Before acting on a task, read this root `AGENTS.md` and any more-specific `AGENTS.md` files that apply to the target paths. Treat these instructions as the repository workflow baseline.
+- For Vietnamese tasks or documentation, consult `docs/README.vi.md` first and prefer the matching `.vi.md` document. Fall back to the English source only when a Vietnamese version is unavailable or exact source wording is needed.
+- When creating or updating documentation, check both language versions and update the Vietnamese documentation index when adding translated files.
+
 ## Project overview
 
 - DrowsyAlert is a Python research prototype for driver-drowsiness signals, not a certified safety device or medical diagnostic tool.
