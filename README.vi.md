@@ -48,16 +48,6 @@ Model Face Landmarker và checkpoint CNN không được lưu trong Git. EAR kh�
 
 **Phase 6 — Experimental evaluation: đang thực hiện.** Protocol v1.1, nguồn NITYMED và tập validation 12 clip đã được chuẩn bị; baseline A/B/C đã chạy nhưng coverage còn thấp. Giai đoạn này chưa đóng băng cấu hình và chưa công bố kết quả held-out. Công việc còn lại gồm kiểm tra manifest/chú thích, chọn cấu hình trên validation, review độc lập tập test, chạy pilot và cuối cùng mới đánh giá A/B/C trên held-out. Kết quả CEW chỉ phản ánh bài toán phân loại ảnh mắt, không phải độ chính xác phát hiện buồn ngủ trên video.
 
-## Tài liệu nhanh
-
-| Nhu cầu | Tài liệu |
-|---|---|
-| Tìm tài liệu theo chủ đề | [Mục lục tài liệu](docs/README.md) |
-| Chạy và kiểm tra thí nghiệm A/B/C | [Hướng dẫn evaluation](docs/guides/evaluation-execution.md) |
-| Xem baseline validation hiện tại | [Kết quả validation v1.1](docs/research/validation-evaluation-v1.1.md) |
-| Kiểm tra bằng chứng test và trạng thái gate | [Verification record](docs/project/verification.md) |
-| Theo dõi đầu việc chính thức | [Danh sách task chuẩn](specs/001-drowsyalert/tasks.md) |
-
 ## Công nghệ
 
 | Nhóm | Công nghệ | Vai trò |
@@ -162,15 +152,7 @@ Test tự động bao phủ một số trường hợp hình học, thời gian,
 
 ## Tài liệu và quyền riêng tư
 
-- [Mục lục tài liệu](docs/README.md)
-- [Mô tả đề tài 12](docs/reference/de-tai-12-drowsyalert.md)
-- [Phiếu mô tả đề tài gốc](docs/reference/PhieuMoTaDeTai_30DeTai_ThiGiacMayTinh_NCKH.docx)
-- [Kiến trúc ứng dụng](docs/project/architecture.md)
-- [Project Constitution](.specify/memory/constitution.md)
-- [Implementation plan](specs/001-drowsyalert/plan.md)
-- [Research decisions](specs/001-drowsyalert/research.md)
-- [Đặc tả yêu cầu](specs/001-drowsyalert/spec.md)
-- [Danh sách công việc](specs/001-drowsyalert/tasks.md)
+Tra cứu hướng dẫn, kết quả nghiên cứu, hồ sơ dự án và đặc tả tại [mục lục tài liệu](docs/README.md).
 
 Dữ liệu ở `data/`, model ở `models/` và kết quả ở `outputs/` được loại khỏi Git; chỉ README và `.gitkeep` được giữ. Webcam được xử lý cục bộ mặc định. Việc thu thập video tình nguyện viên cần có đồng ý và tuân thủ hướng dẫn của đơn vị phụ trách.
 

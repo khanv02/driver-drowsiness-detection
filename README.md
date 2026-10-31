@@ -31,16 +31,6 @@ Face Landmarker assets and CNN checkpoints are not stored in Git. EAR does not r
 - **Phase 5 — Additional research features:** software acceptance passed (G5). Includes timed yawning events, relative head pose, isolated A/B/C decision evidence, and experiment records with configuration, source, model/dataset provenance, JSON/CSV export, and no raw-frame storage by default. Automated checks reported 143 passed and Ruff passed. Live webcam/speaker acceptance remains a separate hardware check for G4 (T-018).
 - **Phase 6 — Experimental evaluation:** in progress. Protocol v1.1, NITYMED source material, and a 12-clip validation set are prepared. Baseline A/B/C runs have low coverage. Configuration is not frozen and no held-out result has been published. Remaining work includes manifest/annotation review, validation-based selection, independent test-set review, a pilot, and final held-out A/B/C evaluation. CEW results measure eye-image classification only.
 
-## Quick links
-
-| Need | Document |
-|---|---|
-| Browse documentation | [Documentation index](docs/README.md) |
-| Run A/B/C experiments | [Evaluation guide](docs/guides/evaluation-execution.md) |
-| Current validation baseline | [Validation results v1.1](docs/research/validation-evaluation-v1.1.md) |
-| Review test evidence and gates | [Verification record](docs/project/verification.md) |
-| Track official work items | [Task list](specs/001-drowsyalert/tasks.md) |
-
 ## Technology
 
 | Area | Technology | Purpose |
@@ -133,14 +123,7 @@ specs/         Official specification, plan and task breakdown
 
 ## Documentation and privacy
 
-- [Documentation index](docs/README.md)
-- [Project 12 description](docs/reference/de-tai-12-drowsyalert.md)
-- [Application architecture](docs/project/architecture.md)
-- [Project Constitution](.specify/memory/constitution.md)
-- [Implementation plan](specs/001-drowsyalert/plan.md)
-- [Research decisions](specs/001-drowsyalert/research.md)
-- [Requirements specification](specs/001-drowsyalert/spec.md)
-- [Task list](specs/001-drowsyalert/tasks.md)
+Use the [documentation index](docs/README.md) to browse guides, research results, project records, and specifications.
 
 Data under `data/`, models under `models/`, and outputs under `outputs/` are excluded from Git; only README files and `.gitkeep` files are retained. Webcam frames are processed locally by default. Volunteer video collection requires consent and compliance with the responsible institution's guidance.
 
