@@ -110,3 +110,6 @@ Desktop.ini
 
 # Local project template
 /template.md
+
+# Repomix repository snapshots
+/repomix-output*
