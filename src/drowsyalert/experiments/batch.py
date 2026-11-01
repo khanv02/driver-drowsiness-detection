@@ -138,6 +138,41 @@ def validate_batch_plan(plan: BatchPlan) -> None:
             raise ValueError(f"Clip partition does not match plan: {clip.clip_id}")
 
 
+def load_batch_plan(path: Path) -> BatchPlan:
+    """Load one immutable plan file and reject any unknown or malformed fields."""
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError("Batch plan must be a JSON object")
+    expected = {
+        "dataset_id",
+        "split_id",
+        "manifest_sha256",
+        "code_revision",
+        "random_seed",
+        "partition",
+        "eye_source",
+        "shared_config",
+        "clips",
+        "methods",
+    }
+    if set(data) != expected:
+        raise ValueError(f"Batch plan fields must exactly match {sorted(expected)}")
+    plan = BatchPlan(
+        dataset_id=str(data["dataset_id"]),
+        split_id=str(data["split_id"]),
+        manifest_sha256=str(data["manifest_sha256"]),
+        code_revision=str(data["code_revision"]),
+        random_seed=int(data["random_seed"]),
+        partition=str(data["partition"]),
+        eye_source=str(data["eye_source"]),
+        shared_config=dict(data["shared_config"]),
+        clips=tuple(BatchClip(**item) for item in data["clips"]),
+        methods=tuple(BatchMethod(**item) for item in data["methods"]),
+    )
+    validate_batch_plan(plan)
+    return plan
+
+
 def batch_plan_sha256(plan: BatchPlan) -> str:
     validate_batch_plan(plan)
     return canonical_sha256(plan.as_dict())
