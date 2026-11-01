@@ -2,6 +2,29 @@
 
 Đây là nhật ký tài liệu dự án về artifact đã review và thay đổi repository; không phải lịch sử duyệt web cá nhân hay hoạt động ngoài repository.
 
+## 2026-11-01 — Phát lại validation và sweep có giới hạn
+
+### Đã rà soát
+
+- `src/drowsyalert/experiments/batch.py`, `evaluation.py`, `records.py` và `replay.py`.
+- Batch plan, run record, chú thích và comparison validation v1.1 đã lưu.
+- `docs/en/guides/evaluation-execution.md` và bản tiếng Việt tương ứng.
+
+### Thay đổi được ghi nhận
+
+- Thêm phát lại tất định chỉ trên validation, tính lại trạng thái mắt, cửa sổ thời gian, ngáp, tư thế đầu và quyết định từ quan sát khung hình đã lưu mà không chạy lại face landmarker hoặc đọc video.
+- Thêm lưới cấu hình có giới hạn, metric A/B/C theo từng ứng viên, hash cấu hình và chốt chặn chỉ cho validation, từ chối plan test và chú thích test.
+- Thêm `scripts/replay_validation_sweep.py`, `load_batch_plan` và test replay tập trung.
+- Đánh dấu T-157 hoàn thành và làm mới bảng trạng thái Anh/Việt: 171 mã task, 152 hoàn thành, 19 còn mở.
+
+### Trạng thái xác minh
+
+- Phát lại hồ sơ validation đã lưu với cấu hình v1.1 đóng băng cho kết quả A/B/C khớp chính xác comparison đã lưu: TP 5, FP 28, FN 14, F1 0.19230769230769232, coverage 0.629932320265611 và latency trung bình 2.904000000000001 giây cho A, B và C.
+- `python -m pytest tests/test_experiment_replay.py tests/test_experiments.py -q` đạt 16 test.
+- `python -m ruff check src scripts demo tests` đạt.
+- `uv run` lỗi trampoline trong môi trường này, nên các kiểm tra được chạy trực tiếp qua virtual environment của repository.
+- Công việc này chỉ dùng validation. Chưa tạo kết quả test held-out, cấu hình cuối đã khóa, hoặc tuyên bố báo cáo/slide.
+
 ## 2026-10-27 — Đối soát trạng thái
 
 ### Đã rà soát

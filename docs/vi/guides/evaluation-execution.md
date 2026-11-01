@@ -22,3 +22,19 @@ uv run python scripts/run_video_evaluation.py `
 Không dùng nguyên cấu hình demo hiện tại: tham chiếu head pose là `null`, nên C có kiểm soát bị chặn cho đến khi validation xác định giá trị số.
 
 Khi chú thích cuối và giá trị protocol được duyệt, bổ sung `--annotations data/processed/nitymed/annotations.csv`, `--early-tolerance 1.0 --late-tolerance 2.0`, `--bin-seconds 1.0 --positive-fraction 0.5` và `--reference-label microsleep`. Các giá trị này được cố định bởi Protocol `drowsyalert-video-eval-v1.1`. Bộ xuất so sánh nạp lại hồ sơ đã hoạch định, tính lại từng phương pháp trên cùng clip/chú thích và ghi JSON nghiêm ngặt. Có thể dùng validation chọn ngưỡng; tuyệt đối không dùng test held-out để tinh chỉnh.
+
+## Phát lại validation ngoại tuyến và sweep có giới hạn
+
+Khi đã có hồ sơ validation theo kế hoạch, bước phát lại tính lại trạng thái mắt, cửa sổ thời gian, ngáp, tư thế đầu và quyết định từ các quan sát khung hình đã lưu. Bước này không chạy lại face landmarker, không đọc video và từ chối partition test hoặc chú thích test. Mọi ứng viên dùng cùng bộ hồ sơ, chú thích, protocol và định danh kế hoạch.
+
+```powershell
+uv run python scripts/replay_validation_sweep.py `
+  --plan outputs/results/nitymed-validation-v1.1/batch-plan.json `
+  --annotations data/processed/nitymed/validation-annotations-v1.1.csv `
+  --output outputs/results/nitymed-validation-v1.1/sweep.json `
+  --early-tolerance 1.0 --late-tolerance 2.0 `
+  --bin-seconds 1.0 --positive-fraction 0.5 `
+  --reference-label microsleep
+```
+
+Lưới mặc định đã khai báo trước thay đổi cửa sổ thời gian, thời lượng warm-up, coverage tối thiểu, ngưỡng PERCLOS, ngưỡng nhắm mắt kéo dài và ngưỡng EAR. Lưới bị giới hạn ở 350 tổ hợp; các tổ hợp không hợp lệ như warm-up dài hơn cửa sổ bị bỏ qua. Mỗi ứng viên trong output chứa cấu hình đã phân giải đầy đủ, SHA-256 cấu hình, metric A/B/C theo từng phương pháp và một bản tổng hợp. T-158 chọn từ output validation này; tuyệt đối không trỏ sweep vào hồ sơ held-out.

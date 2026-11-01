@@ -3,6 +3,38 @@
 This is a project-documentation log of reviewed artifacts and repository changes. It is
 not a personal browsing history or a record of activity outside this repository.
 
+## 2026-11-01 - Validation replay and bounded sweep
+
+**Reviewed**
+
+- `src/drowsyalert/experiments/batch.py`, `evaluation.py`, `records.py`, and `replay.py`
+- Stored validation batch plan, run records, annotations, and the v1.1 comparison
+- `docs/en/guides/evaluation-execution.md` and its Vietnamese counterpart
+
+**Changes recorded**
+
+- Added deterministic validation-only replay that recomputes eye, temporal, yawn,
+  head-pose, and decision states from stored frame observations without rerunning the
+  face landmarker or reading video.
+- Added a bounded configuration grid, per-candidate A/B/C metrics, configuration hashes,
+  and a validation-only guard that rejects test plans and test annotations.
+- Added `scripts/replay_validation_sweep.py`, `load_batch_plan`, and focused replay tests.
+- Marked T-157 complete and refreshed the English/Vietnamese status indexes to 171 task
+  IDs, 152 complete, and 19 open.
+
+**Verification status**
+
+- Replaying the stored validation records with the frozen v1.1 configuration reproduced
+  the stored A/B/C comparison exactly: TP 5, FP 28, FN 14, F1 0.19230769230769232,
+  coverage 0.629932320265611, and mean latency 2.904000000000001 seconds for A, B, and C.
+- `python -m pytest tests/test_experiment_replay.py tests/test_experiments.py -q` passed
+  (16 tests).
+- `python -m ruff check src scripts demo tests` passed.
+- `uv run` failed in this environment with a trampoline path error, so the checks were run
+  through the repository virtual environment directly.
+- This work is validation-only. No held-out test result, frozen final configuration, or
+  report/slide claim was produced.
+
 ## 2026-10-27 - Status reconciliation
 
 **Reviewed**

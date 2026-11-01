@@ -1,6 +1,6 @@
 # DrowsyAlert Task Status (English)
 
-Status snapshot: 2026-10-27 - 147 complete, 13 open, 160 task IDs.
+Status snapshot: 2026-11-01 - 152 complete, 19 open, 171 task IDs.
 
 The canonical task definitions and acceptance criteria remain in [specs/001-drowsyalert/tasks.md](../../../specs/001-drowsyalert/tasks.md). This file is a status index, not a second source of task requirements. Refresh it from the canonical checklist when task status changes.
 
@@ -156,21 +156,33 @@ The canonical task definitions and acceptance criteria remain in [specs/001-drow
 - [x] **T-147**: complete; details and acceptance criteria are in the canonical task list.
 - [x] **T-155**: complete; details and acceptance criteria are in the canonical task list.
 - [x] **T-156**: complete; details and acceptance criteria are in the canonical task list.
-- [ ] **T-157**: open; details and acceptance criteria are in the canonical task list.
+- [x] **T-157**: complete; details and acceptance criteria are in the canonical task list.
 - [ ] **T-158**: open; details and acceptance criteria are in the canonical task list.
 - [ ] **T-159**: open; details and acceptance criteria are in the canonical task list.
 - [x] **T-160**: complete; details and acceptance criteria are in the canonical task list.
 - [ ] **T-148**: open; details and acceptance criteria are in the canonical task list.
 - [ ] **T-149**: open; details and acceptance criteria are in the canonical task list.
+- [x] **T-161**: complete; details and acceptance criteria are in the canonical task list.
 - [ ] **T-028**: open; details and acceptance criteria are in the canonical task list.
+- [x] **T-162**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-163**: complete; details and acceptance criteria are in the canonical task list.
+- [x] **T-164**: complete; details and acceptance criteria are in the canonical task list.
+- [ ] **T-165**: open; details and acceptance criteria are in the canonical task list.
 - [ ] **T-029**: open; details and acceptance criteria are in the canonical task list.
+- [ ] **T-166**: open; details and acceptance criteria are in the canonical task list.
+- [ ] **T-167**: open; details and acceptance criteria are in the canonical task list.
 - [ ] **T-030**: open; details and acceptance criteria are in the canonical task list.
+- [ ] **T-168**: open; details and acceptance criteria are in the canonical task list.
+- [ ] **T-169**: open; details and acceptance criteria are in the canonical task list.
 - [ ] **T-031**: open; details and acceptance criteria are in the canonical task list.
+- [ ] **T-170**: open; details and acceptance criteria are in the canonical task list.
+- [ ] **T-171**: open; details and acceptance criteria are in the canonical task list.
 
 ## Remaining work (short descriptions)
 
 - **T-018** - Verify the live webcam and audio alert manually.
 - **T-024 / T-139** - Complete and validate temporal annotations and the manifest.
-- **T-027 / T-157-T-159 / T-148 / T-149** - Tune using validation only, independently review held-out clips, run the validation pilot, then execute the frozen A/B/C test comparison.
+- **T-027 / T-158-T-159 / T-148 / T-149** - Select and freeze a validation configuration, independently review held-out clips, run the validation pilot, then execute the frozen A/B/C test comparison.
+- **T-165-T-171** - Final regression, requirement evidence, reproducible instructions, deterministic exports, and delivery evidence after G6.
 - **T-028-T-031** - Final regression, requirement evidence, reproducible instructions, and research delivery artifacts.
 - **Note:** T-022 is complete; its experiment record/export contract does not depend on physical webcam/audio acceptance.

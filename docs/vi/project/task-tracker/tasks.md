@@ -1,6 +1,6 @@
 # Trạng thái Task DrowsyAlert (Tiếng Việt)
 
-Ảnh chụp trạng thái: 2026-10-27 - 147 hoàn thành, 13 còn mở, 160 mã task.
+Ảnh chụp trạng thái: 2026-11-01 - 152 hoàn thành, 19 còn mở, 171 mã task.
 
 Định nghĩa và tiêu chí nghiệm thu chuẩn nằm trong [specs/001-drowsyalert/tasks.md](../../../specs/001-drowsyalert/tasks.md). File này là chỉ mục trạng thái, không thay thế task chuẩn. Cập nhật file này từ checklist chuẩn khi trạng thái task thay đổi.
 
@@ -156,21 +156,33 @@
 - [x] **T-147**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
 - [x] **T-155**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
 - [x] **T-156**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
-- [ ] **T-157**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-157**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
 - [ ] **T-158**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
 - [ ] **T-159**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
 - [x] **T-160**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
 - [ ] **T-148**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
 - [ ] **T-149**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-161**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
 - [ ] **T-028**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-162**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-163**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [x] **T-164**: hoàn thành; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-165**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
 - [ ] **T-029**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-166**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-167**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
 - [ ] **T-030**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-168**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-169**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
 - [ ] **T-031**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-170**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
+- [ ] **T-171**: còn mở; xem mô tả và tiêu chí trong task chuẩn.
 
 ## Công việc còn lại (tóm tắt)
 
 - **T-018** - Kiểm tra thủ công webcam trực tiếp và âm thanh cảnh báo.
 - **T-024 / T-139** - Hoàn tất và kiểm tra chú thích video cùng manifest thời gian.
-- **T-027 / T-157-T-159 / T-148 / T-149** - Tinh chỉnh trên validation, review độc lập clip held-out, chạy pilot validation, rồi chạy so sánh A/B/C trên test đã đóng băng.
+- **T-027 / T-158-T-159 / T-148 / T-149** - Chọn và đóng băng cấu hình validation, review độc lập clip held-out, chạy pilot validation, rồi chạy so sánh A/B/C trên test đã đóng băng.
+- **T-165-T-171** - Hồi quy cuối, bằng chứng truy vết yêu cầu, hướng dẫn tái lập, xuất kết quả tất định và bằng chứng bàn giao sau G6.
 - **T-028-T-031** - Hồi quy cuối, bằng chứng truy vết yêu cầu, hướng dẫn tái lập và tài liệu bàn giao nghiên cứu.
 - **Ghi chú:** T-022 đã hoàn thành; hợp đồng ghi nhận/xuất kết quả không còn phụ thuộc nghiệm thu webcam/loa.

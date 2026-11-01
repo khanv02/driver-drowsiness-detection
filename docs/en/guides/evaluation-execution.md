@@ -48,3 +48,27 @@ Those values are frozen by Protocol `drowsyalert-video-eval-v1.1`. The compariso
 reloads all planned records, recalculates each method from the same clips and annotations,
 and writes one strict JSON comparison. Validation results may guide threshold selection;
 held-out test results must not be used for tuning.
+
+## Offline validation replay and bounded sweep
+
+Once the planned validation records exist, replay recomputes eye, temporal, yawn, head-pose,
+and decision states from the stored frame observations. It does not run the face landmarker,
+does not read video, and refuses test partitions or test annotations. The same record set,
+annotations, protocol, and plan identity are reused for every candidate.
+
+```powershell
+uv run python scripts/replay_validation_sweep.py `
+  --plan outputs/results/nitymed-validation-v1.1/batch-plan.json `
+  --annotations data/processed/nitymed/validation-annotations-v1.1.csv `
+  --output outputs/results/nitymed-validation-v1.1/sweep.json `
+  --early-tolerance 1.0 --late-tolerance 2.0 `
+  --bin-seconds 1.0 --positive-fraction 0.5 `
+  --reference-label microsleep
+```
+
+The default pre-declared grid varies temporal window, warm-up duration, minimum coverage,
+PERCLOS threshold, prolonged-closure threshold, and EAR threshold. It is capped at 350
+combinations; invalid combinations such as a warm-up longer than the window are skipped.
+Every output candidate contains its full resolved configuration, config SHA-256, per-method
+A/B/C metrics, and one aggregate record. T-158 selects from this validation output; the
+sweep must never be pointed at held-out records.

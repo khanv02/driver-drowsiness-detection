@@ -616,7 +616,7 @@ protocol, complete T-025, or authorize held-out scoring.
 - [X] T-147 [Parent: T-027] Implement a resumable headless batch runner and comparison exporter with per-clip failures, collision-safe outputs, run/config/data hashes, and no audio/UI side effects (depends on T-121, T-146).
 - [X] T-155 [Parent: T-027] Add the tracked numeric-head-reference validation configuration required by the documented A/B/C runner, preserving validation-only tuning and the held-out-test boundary (depends on T-147).
 - [X] T-156 [Parent: T-027] Execute the complete 12-clip validation baseline for A/B/C, audit 36/36 records and artifact identities, and record the low-coverage result without treating it as a held-out claim (depends on T-155).
-- [ ] T-157 [Parent: T-027] Add deterministic offline validation replay and a bounded warm-up/configuration sweep over stored observations so tuning does not rerun landmark inference or inspect test data (depends on T-156).
+- [X] T-157 [Parent: T-027] Add deterministic offline validation replay and a bounded warm-up/configuration sweep over stored observations so tuning does not rerun landmark inference or inspect test data (depends on T-156).
 - [ ] T-158 [Parent: T-027] Select and freeze one validation configuration using coverage, false alarms, misses, F1, and latency together; publish the selection rule and hashes before any test scoring (depends on T-157).
 - [ ] T-159 [Parent: T-027] Complete independent review of the 26 held-out test clips in small batches and finalize the test annotation manifest without viewing model output (depends on T-158; human review required).
 - [X] T-160 [Parent: T-159] Publish a teammate handoff with the current Phase 6 status, private-data prerequisites, exact review controls, seven recoverable test batches, and acceptance checklist.
@@ -789,8 +789,9 @@ Parallel work is allowed only after listed dependencies are complete and when se
 
 **Current implementation milestone**: **Phase 6 — Experimental Evaluation**, with
 non-claim Phase 7 preparation isolated on `phase/7-final-validation-delivery`. The next
-research actions are T-139 annotation/manifest validation and T-157 validation replay;
-T-158 must freeze the configuration before T-159 test review and T-149 held-out scoring.
+research actions are T-139 annotation/manifest validation and T-158 validation
+configuration selection; T-158 must freeze the configuration before T-159 test review and
+T-149 held-out scoring.
 Phase 7 tasks T-162–T-164 may prepare cross-platform CI/build/regression evidence, but
 T-165 and all final-delivery claims remain blocked on G6. T-018 remains the separate
 manual webcam/audio acceptance task. The current validation baseline is not held-out
@@ -802,11 +803,11 @@ evidence.
 - **Verification**: Automated tests are scheduled alongside each behavior, beginning in Phase 2; regression is repeated in Phase 7.
 - **Data/research separation**: Dataset review, volunteer consent, labeling, protocol approval, and comparative evaluation are explicitly research/data tasks, separate from coding.
 - **No fabricated evidence**: Dataset availability, target attainment, and experimental outcomes remain unknown until measured; blocked paths are recorded as blocked.
-- **Current readiness**: G1–G3 passed; G5 software acceptance passed. G4's manual webcam/audio acceptance remains open under T-018. Phase 6 protocol and data source are approved, but T-139 and T-157–T-159/T-148/T-149 remain open; no held-out A/B/C results are claimed.
+- **Current readiness**: G1–G3 passed; G5 software acceptance passed. G4's manual webcam/audio acceptance remains open under T-018. Phase 6 protocol and data source are approved, but T-139, T-158–T-159, T-148, and T-149 remain open; no held-out A/B/C results are claimed.
 
 ## Format and traceability summary
 
-- Task list currently contains **31 parent work packages plus 140 leaf tasks** (171 unique task IDs): **151 complete and 20 open**. Open tasks are T-018, T-024, T-027–T-031, T-139, T-148–T-149, T-157–T-159, and T-165–T-171.
+- Task list currently contains **31 parent work packages plus 140 leaf tasks** (171 unique task IDs): **152 complete and 19 open**. Open tasks are T-018, T-024, T-027–T-031, T-139, T-148–T-149, T-158–T-159, and T-165–T-171.
 - Research/data tasks: T-001, T-010, T-023, T-024, T-027; implementation/environment tasks are otherwise separated as labelled.
 - T-001–T-031 are parent work packages, not the intended smallest execution units. Add focused leaf tasks with stable IDs before starting each parent; avoid speculative leaf tasks where dataset/protocol approvals may change the work.
 - Every leaf task must identify its parent, phase, dependencies, affected paths, verification, and recovery branch. Keep a leaf to one behavior or artifact whenever practical.
